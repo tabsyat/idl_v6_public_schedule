@@ -55,10 +55,11 @@ function build(input) {
   var outDebates = sorted.map(function (d) {
     ensure(d.propId, d.propName, d.category); ensure(d.oppId, d.oppName, d.category);
     var A = { id: d.propId, name: byId[d.propId].name }, B = { id: d.oppId, name: byId[d.oppId].name };
-    var m;
-    if (d.sidesVisible) m = [A.id, B.id];
+    var m, hm = null;
+    if (d.sidesVisible) { m = [A.id, B.id]; if (/^junior/i.test(d.category || '')) hm = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); }
     else { m = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); hidden++; }
     var o = { d: d.date, b: blockIdx[d.block.label], s: d.section, r: d.room, n: d.round, m: m, sv: d.sidesVisible ? 1 : 0 };
+    if (hm) { o.jr = 1; o.hm = hm; }          // internal only: exportDebates() removes these
     if (d.walkover) { o.w = 1; o.ab = d.absentId; walkovers++; }
 
     // data-quality warnings for the host (not sent to the public)
@@ -99,4 +100,18 @@ function build(input) {
   return { snapshot: snapshot, warnings: warnings, stats: stats };
 }
 
-module.exports = { build: build };
+/**
+ * Public view of the debates. Junior debates carry their real [Prop, Opp] order internally (jr, hm); they are only
+ * published as revealed while the host's "Reveal Junior sides" switch is on. Otherwise they go out exactly like
+ * hidden-side debates: alphabetical order, sv 0. jr/hm are never exported.
+ */
+function exportDebates(list, juniorSides) {
+  return list.map(function (d) {
+    var o = {};
+    Object.keys(d).forEach(function (k) { if (k !== 'jr' && k !== 'hm') o[k] = d[k]; });
+    if (d.jr && !juniorSides) { o.m = d.hm.slice(); o.sv = 0; }
+    return o;
+  });
+}
+
+module.exports = { build: build, exportDebates: exportDebates };
