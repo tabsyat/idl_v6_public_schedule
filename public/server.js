@@ -21,7 +21,7 @@ var isTrue = function (v) { return String(v || '').toLowerCase() === 'true'; };
 var source = createSource(env);
 var store = createStore(env.DATA_DIR || path.join(__dirname, '..', 'data'), {
   slots: isTrue(env.DEFAULT_SLOTS_VISIBLE), pairings: env.DEFAULT_PAIRINGS_VISIBLE == null ? true : isTrue(env.DEFAULT_PAIRINGS_VISIBLE),
-  roster: isTrue(env.DEFAULT_ROSTER_VISIBLE)
+  roster: isTrue(env.DEFAULT_ROSTER_VISIBLE), sides: isTrue(env.DEFAULT_SIDES_VISIBLE)
 });
 
 var ADMIN_KEY = env.ADMIN_KEY;
@@ -75,14 +75,14 @@ function payload() {
   var sw = store.get();
   if (!current) return null;
   var v = Math.max(current.v, switchRev);
-  var key = v + ':' + (sw.slots ? 1 : 0) + (sw.pairings ? 1 : 0) + (sw.roster ? 1 : 0);
+  var key = v + ':' + (sw.slots ? 1 : 0) + (sw.pairings ? 1 : 0) + (sw.roster ? 1 : 0) + (sw.sides ? 1 : 0);
   if (memo.key === key) return memo;
   var obj;
   if (!sw.slots) obj = { v: v, enabled: false, builtAt: current.builtAt };
   else {
     var withState = sw.roster || SHOW_STATE;
     obj = { v: v, enabled: true, pairings: sw.pairings, roster: sw.roster, builtAt: current.builtAt, showState: withState,
-      cfg: current.snapshot.cfg, students: withState ? current.snapshot.students : current.snapshot.studentsNoState, debates: sw.pairings ? current.snapshot.debates : [] };
+      cfg: current.snapshot.cfg, students: withState ? current.snapshot.students : current.snapshot.studentsNoState, debates: sw.pairings ? snapshotLib.exportDebates(current.snapshot.debates, sw.sides) : [] };
   }
   memo = { key: key, v: v, enabled: sw.slots, pairings: sw.pairings, roster: sw.roster, json: JSON.stringify(obj) };
   return memo;
@@ -132,7 +132,7 @@ function guard(req, res, next) {
 function status() {
   var sw = store.get();
   return {
-    slots: sw.slots, pairings: sw.pairings, roster: sw.roster, source: source.kind, slotTab: SLOT_TAB, showState: SHOW_STATE,
+    slots: sw.slots, pairings: sw.pairings, roster: sw.roster, sides: sw.sides, source: source.kind, slotTab: SLOT_TAB, showState: SHOW_STATE,
     refreshing: !!inflight, builtAt: current ? current.builtAt : null, v: current ? current.v : null,
     stats: current ? current.stats : null, warnings: current ? current.warnings.slice(0, 60) : [],
     lastError: lastError, now: Date.now()
@@ -149,6 +149,7 @@ app.post('/host/:key/switch', guard, express.json({ limit: '1kb' }), function (r
   if (typeof b.slots === 'boolean') patch.slots = b.slots;
   if (typeof b.pairings === 'boolean') patch.pairings = b.pairings;
   if (typeof b.roster === 'boolean') patch.roster = b.roster;
+  if (typeof b.sides === 'boolean') patch.sides = b.sides;
   store.set(patch);
   switchRev = bump();
   res.json(status());
