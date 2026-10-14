@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<title>IDL Online Round: find your room</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <h1>IDL Online Round</h1>
+    <p class="tz">All times are IST</p>
+  </div>
+  <nav id="tabs" class="tabs" role="tablist" aria-label="Views">
+    <button role="tab" data-tab="find" aria-selected="true">Find me</button>
+    <button role="tab" data-tab="room" aria-selected="false">Room finder</button>
+    <button role="tab" data-tab="browse" aria-selected="false">All rooms</button>
+    <button role="tab" data-tab="roster" aria-selected="false" id="tabRoster" hidden>Roster</button>
+  </nav>
+</header>
+
+<div id="warn" class="warn" role="status" hidden></div>
+
+<main id="main">
+  <p id="loading" class="msg">Loading the schedule…</p>
+
+  <section id="v-find" class="view" hidden>
+    <label class="field" for="q">Search by name or student ID</label>
+    <input id="q" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="For example: Aarav or J-AP-01">
+    <div id="results" aria-live="polite"></div>
+    <div id="card"></div>
+  </section>
+
+  <section id="v-room" class="view" hidden>
+    <div class="row-inline">
+      <label class="field" for="roomNo">Room number</label>
+      <input id="roomNo" type="number" inputmode="numeric" min="1" value="1">
+    </div>
+    <div class="slotnav">
+      <button id="roomPrev" class="ghost" aria-label="Earlier section">&lsaquo;</button>
+      <div id="roomSlot" class="slotlabel"></div>
+      <button id="roomNext" class="ghost" aria-label="Later section">&rsaquo;</button>
+    </div>
+    <button id="roomNow" class="link">Jump to the current section</button>
+    <div id="roomOut"></div>
+  </section>
+
+  <section id="v-browse" class="view" hidden>
+    <div class="pickers">
+      <label>Date<select id="bDate"></select></label>
+      <label>Block<select id="bBlock"></select></label>
+      <label>Section<select id="bSec"></select></label>
+    </div>
+    <button id="bNow" class="link">Jump to the current section</button>
+    <div id="bOut"></div>
+    <p><a id="projLink" class="link" href="?mode=projector">Open projector mode</a></p>
+  </section>
+
+  <section id="v-roster" class="view" hidden>
+    <div class="pickers">
+      <label>Category<select id="rCat"></select></label>
+      <label>State<select id="rState"></select></label>
+      <label>Sort<select id="rSort"><option value="name">Name</option><option value="id">Student ID</option></select></label>
+    </div>
+    <label class="field" for="rq">Filter by name or ID</label>
+    <input id="rq" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type to filter the list">
+    <p id="rCount" class="sum"></p>
+    <div id="rOut" class="rwrap"></div>
+    <button id="rMore" class="ghost more-btn" hidden>Show more</button>
+  </section>
+</main>
+
+<section id="proj" class="proj-wrap" hidden>
+  <div class="proj-head">
+    <div>
+      <div id="pTitle" class="p-title"></div>
+      <div id="pSub" class="p-sub"></div>
+    </div>
+    <div class="p-ctl">
+      <button id="pPrev" class="ghost" aria-label="Earlier section">&lsaquo;</button>
+      <button id="pLive" class="ghost">Follow live</button>
+      <button id="pNext" class="ghost" aria-label="Later section">&rsaquo;</button>
+    </div>
+  </div>
+  <div id="pGrid" class="p-grid"></div>
+  <div id="pFoot" class="p-foot"></div>
+</section>
+
+<footer id="foot" class="foot">
+  <span id="footTime"></span>
+  <span class="note">Pairings can change until check-in. Sides for Middle and Senior are announced on the call.</span>
+</footer>
+
+<script src="shared/time.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

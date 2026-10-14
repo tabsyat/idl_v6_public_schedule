@@ -1,0 +1,41 @@
+# Render Blueprint: two separate services from one repo.
+# One click: the "Deploy to Render" button in README.md, or Dashboard > New > Blueprint > pick this repo.
+# Both services build from ./Dockerfile; each runs a different command. Fill the "sync: false" values when asked.
+services:
+  - type: web
+    name: idl-public
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    dockerCommand: node public/server.js
+    healthCheckPath: /healthz
+    disk:                         # keeps the host switches across restarts
+      name: idl-public-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - { key: SOURCE, value: google }
+      - { key: SHEET_ID, sync: false }
+      - { key: GOOGLE_CREDENTIALS, sync: false }
+      - { key: ADMIN_KEY, generateValue: true }
+      - { key: DATA_DIR, value: /var/data }
+      - { key: SLOT_TAB, value: Roster }
+      - { key: SHOW_STATE, value: "false" }
+      - { key: DEFAULT_SLOTS_VISIBLE, value: "false" }
+
+  - type: web
+    name: idl-adj
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    dockerCommand: node adj/server.js
+    healthCheckPath: /healthz
+    envVars:
+      - { key: SOURCE, value: google }
+      - { key: SHEET_ID, sync: false }
+      - { key: GOOGLE_CREDENTIALS, sync: false }
+      - { key: ADMIN_KEY, generateValue: true }
+      - { key: ADJ_SECRET, generateValue: true }
+      - { key: BALLOT_APP_URL, sync: false }     # fill in later; buttons say "not set up yet" until then

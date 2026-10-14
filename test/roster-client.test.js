@@ -1,0 +1,30 @@
+const test = require('node:test'), assert = require('node:assert'), fs = require('fs'), path = require('path'), os = require('os');
+const H = require('./helpers');
+Object.assign(process.env, { SOURCE: 'csv', SAMPLE_DIR: H.tmpSample(), ADMIN_KEY: 'rk', DATA_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'rs-')), DEFAULT_SLOTS_VISIBLE: 'true', DEFAULT_PAIRINGS_VISIBLE: 'true' });
+const { app, refresh } = require('../public/server');
+let base, server; const errors = [];
+test.before(async () => { await refresh(); ({ server, base } = await H.listen(app)); });
+test.after(() => server.close());
+const sw = b => fetch(base + '/host/rk/switch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) });
+
+test('Roster tab is hidden until the host switches it on, then lists students with 3 rounds', async () => {
+  await sw({ roster: false });
+  let dom = await H.page(base + '/?now=2026-10-21T15:55', errors), d = dom.window.document;
+  assert.ok(await H.until(() => !d.getElementById('v-find').hidden));
+  assert.ok(d.getElementById('tabRoster').hidden);
+  dom.window.close();
+  await sw({ roster: true });
+  dom = await H.page(base + '/?now=2026-10-21T15:55', errors); d = dom.window.document;
+  assert.ok(await H.until(() => !d.getElementById('tabRoster').hidden));
+  d.getElementById('tabRoster').click();
+  assert.ok(await H.until(() => d.querySelectorAll('#rOut tbody tr').length > 0));
+  const rows = d.querySelectorAll('#rOut tbody tr');
+  assert.ok(rows.length <= 50);
+  assert.strictEqual(rows[0].children.length, 6);
+  assert.ok([...rows].some(r => r.children[2].textContent.trim()), 'state shown');
+  assert.ok([...d.querySelectorAll('#rOut tbody td.rc')].some(c => /Room \d+/.test(c.textContent)), 'paired rounds show room');
+  const q = d.getElementById('rq'); q.value = 'J-AP-01'; q.dispatchEvent(new dom.window.Event('input'));
+  assert.strictEqual(d.querySelectorAll('#rOut tbody tr').length, 1);
+  dom.window.close();
+});
+test('no script errors', () => assert.deepStrictEqual(errors, []));

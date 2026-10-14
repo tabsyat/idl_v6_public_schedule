@@ -1,0 +1,14 @@
+Rooms (Zoom breakouts),30,,,,,
+"Block (text, as in the form)",Sections,,Dates (text),,Category,Sides shown in Draw_View by default
+10:30 AM - 11:30 AM,3,,21 Oct 2026,,Junior,True
+11:30 AM - 12:30 PM,3,,22 Oct 2026,,Middle,False
+12:30 PM - 1:30 PM,3,,23 Oct 2026,,Senior,False
+3:30 PM - 4:30 PM,3,,24 Oct 2026,,,
+4:30 PM - 5:30 PM,3,,25 Oct 2026,,,
+5:30 PM - 6:00 PM,1,,26 Oct 2026,,,
+6:00 PM - 7:00 PM,3,,27 Oct 2026,,,
+6:30 PM - 7:30 PM,3,,28 Oct 2026,,,
+7:00 PM - 8:00 PM,3,,29 Oct 2026,,,
+7:30 PM - 8:30 PM,3,,30 Oct 2026,,,
+8:00 PM - 9:00 PM,3,,,,,
+A block with 1 section holds 30 debates (the 30-minute 5:30-6:00 block). All others hold 3 sections x 30 rooms.,,,,,,

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<title>IDL host controls</title>
+<link rel="stylesheet" href="/app.css">
+<link rel="stylesheet" href="/host.css">
+</head>
+<body class="hostpage">
+<header class="bar"><div class="bar-in"><h1>IDL host controls</h1><p class="tz">Keep this link private</p></div></header>
+<main>
+  <section class="panel">
+    <h2>Update the public page</h2>
+    <p class="help">Reads the sheet once and publishes it. Students see the change within a minute.</p>
+    <button id="refresh" class="big">Refresh from sheet</button>
+    <p id="rmsg" class="status" role="status"></p>
+    <dl id="facts" class="facts"></dl>
+  </section>
+
+  <section class="panel">
+    <h2>What students can see</h2>
+    <label class="sw"><input type="checkbox" id="swSlots"><span><b>Schedule</b><small>Off: students only see "The schedule will be released soon".</small></span></label>
+    <label class="sw"><input type="checkbox" id="swPairings"><span><b>Pairings (rooms and opponents)</b><small>Off: students see their planned slots only.</small></span></label>
+    <label class="sw"><input type="checkbox" id="swRoster"><span><b>Roster tab (all students)</b><small>On: a "Roster" tab lists every student with name, ID, state and all 3 rounds. State is only sent to the public while this is on.</small></span></label>
+    <p id="smsg" class="status" role="status"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Check before you publish</h2>
+    <ul id="warnings" class="warnlist"></ul>
+  </section>
+  <p class="help">Public page: <a id="pub" href="/">/</a>. Projector mode: <a id="proj" href="/?mode=projector">/?mode=projector</a>.</p>
+</main>
+<script src="/host.js"></script>
+</body>
+</html>

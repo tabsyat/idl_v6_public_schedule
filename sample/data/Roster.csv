@@ -1,0 +1,892 @@
+student_id,name,category,state,R1 date,R1 slot,R2 date,R2 slot,R3 date,R3 slot
+J-AP-01,Mutala Naga Varchasvi,Junior,Andhra Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-AP-02,Kancharla Joshitha,Junior,Andhra Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-AP-03,G Aadyasree Sai Skanda,Junior,Andhra Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,6:00 PM - 7:00 PM,29 Oct,4:30 PM - 5:30 PM
+J-CD-01,Zubayr Pratap Singh Khara,Junior,Chandigarh,21 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-CD-02,Manan Hastir,Junior,Chandigarh,21 Oct,3:30 PM - 4:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-CD-03,Khrisha Mittal,Junior,Chandigarh,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-CD-04,Nanaki Bhatia,Junior,Chandigarh,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-CD-05,Rea Saini,Junior,Chandigarh,21 Oct,3:30 PM - 4:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-DL-01,Levik Sharma,Junior,Delhi,21 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-DL-02,Aadhya Khurana,Junior,Delhi,21 Oct,7:30 PM - 8:30 PM,23 Oct,6:30 PM - 7:30 PM,28 Oct,7:30 PM - 8:30 PM
+J-DL-03,Meera Gambhir,Junior,Delhi,21 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-DL-04,Sugandh Jain,Junior,Delhi,21 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-DL-05,Naomika Agarwal,Junior,Delhi,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-GJ-01,Kiana Desai,Junior,Gujarat,21 Oct,5:30 PM - 6:00 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,6:30 PM - 7:30 PM
+J-GJ-02,Arsh Jain,Junior,Gujarat,21 Oct,7:30 PM - 8:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-GJ-03,Neel Devendrasinh Rajput,Junior,Gujarat,21 Oct,4:30 PM - 5:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-GJ-04,Gurprem Randhawa,Junior,Gujarat,21 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-GJ-05,Ahaan Amir Panjwani,Junior,Gujarat,21 Oct,5:30 PM - 6:00 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-GJ-06,Ayesha Abhijit Zaveri,Junior,Gujarat,21 Oct,4:30 PM - 5:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,7:30 PM - 8:30 PM
+J-HR-01,Charnavi Marwah,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,5:30 PM - 6:00 PM
+J-HR-02,Ayaansh Jain,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-03,Aryaveer Mohata,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-HR-04,Amit Babbar,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-05,Zainah Bhardwaj,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-06,Aidan Zane Crasta,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-07,Kiara Jain,Junior,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,11:30 AM - 12:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-08,Kiaan Gupta,Junior,Haryana,21 Oct,5:30 PM - 6:00 PM,24 Oct,12:30 PM - 1:30 PM,UNPLACED,
+J-HR-09,Tara Bairwal,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-10,Diksha,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-11,Tvisha Jain,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-12,Jaspreen Kaur,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,6:30 PM - 7:30 PM
+J-HR-13,Arjun Mohan,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-14,Tashi Kaur Sandhu,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-15,Vir Sarawogi,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-16,Nivaan Gupta,Junior,Haryana,26 Oct,5:30 PM - 6:00 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-17,Reyan Gupta,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-HR-18,Kaius Singh Sethi,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-19,Aavya Singh,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-20,Ayaan Bhatnagar,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-21,Anaaya Sharma,Junior,Haryana,21 Oct,5:30 PM - 6:00 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-22,Nivam Mittal,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-23,Anaisha Garg,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-24,Kiyan Gomber,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-25,Kridha Kumar,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-26,Kiaan Bhatia,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-27,Vihaan Gupta,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-28,Iraya Srivastava,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-29,Anvisha Nagpal,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-30,Mihhira Agrawal,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-31,Saanvi Senapati,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-32,Samaira Wattas,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-33,Divit Risha Choudhary,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,26 Oct,3:30 PM - 4:30 PM
+J-HR-34,Shambhavi Singh,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-35,Shlok Tandon,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-36,Innaya Babbar,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,12:30 PM - 1:30 PM,25 Oct,11:30 AM - 12:30 PM
+J-HR-37,Mahima Ahluwalia,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-38,Aadvik Rawat,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-HR-39,Kabeer Aneja,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-40,Divyanka Gyani,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-41,Vihaan Arora,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-42,Saatvik Shri Arya,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,7:30 PM - 8:30 PM
+J-HR-43,Raisha Tandon,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-44,Anaysha Singh,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-45,Anaisha Tyagi,Junior,Haryana,21 Oct,5:30 PM - 6:00 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-HR-46,Dhitik Agarwal,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,23 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+J-HR-47,Ashvik Khandelwal,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,UNPLACED,,UNPLACED,
+J-HR-48,Mishka,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-49,Reyansh Gupta,Junior,Haryana,25 Oct,6:00 PM - 7:00 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-50,Akira Aggarwal,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-51,Tulika Singh,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-52,Aarish Sen,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-53,Ruhaani,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-54,Adiva Gupta,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-HR-55,Viyona Gupta,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-HR-56,Sarah Bishnoi,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,23 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-57,Aurik Joshi,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-HR-58,Kavyaansh Rawat,Junior,Haryana,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-HR-59,Shashwat Singh,Junior,Haryana,25 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,UNPLACED,
+J-HR-60,Jenika Gandhi,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-61,Keerat Goyal,Junior,Haryana,21 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,7:30 PM - 8:30 PM
+J-HR-62,Vyaan Agarwal,Junior,Haryana,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-HR-63,Tanvik Khanna,Junior,Haryana,21 Oct,5:30 PM - 6:00 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-HR-64,Ridansh Changrani,Junior,Haryana,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-KA-01,Tara Singh,Junior,Karnataka,21 Oct,7:30 PM - 8:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,6:30 PM - 7:30 PM
+J-KA-02,Advik Nayak,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-KA-03,Mohammad Ameer Mohd Akbar Shaikh,Junior,Karnataka,21 Oct,7:30 PM - 8:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-KA-04,C Agnay N Reddy,Junior,Karnataka,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-KA-05,Aahika Singh Nadhani,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,26 Oct,4:30 PM - 5:30 PM
+J-KA-06,Kiara Jena,Junior,Karnataka,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-KA-07,Divit Patyal,Junior,Karnataka,21 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-KA-08,Nitya Rastogi,Junior,Karnataka,21 Oct,5:30 PM - 6:00 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-KA-09,Tanush Kuralla,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,6:30 PM - 7:30 PM
+J-KA-10,Aavya Raj,Junior,Karnataka,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-KA-11,Aadvik Vishwesh Pai,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-KA-12,Roohi Shekhawat,Junior,Karnataka,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-KA-13,Sarah Viswanath,Junior,Karnataka,21 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-KA-14,Palash Maskara,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,25 Oct,10:30 AM - 11:30 AM
+J-KA-15,Aryan Choudhary,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,6:30 PM - 7:30 PM
+J-KA-16,Ekagra Singh,Junior,Karnataka,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-KA-17,Saisha Bartaria,Junior,Karnataka,21 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-KA-18,Trishika,Junior,Karnataka,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-KA-19,Ameerah Mohd Akbar Shaikh,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-KA-20,Rushna Pranave,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-KA-21,Lakshana Sanjay,Junior,Karnataka,25 Oct,10:30 AM - 11:30 AM,26 Oct,6:30 PM - 7:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-KA-22,Aditi Rayanagowdar,Junior,Karnataka,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-KA-23,Udaysurya,Junior,Karnataka,21 Oct,5:30 PM - 6:00 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-MP-01,Burhanuddin Chakera,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+J-MP-02,Sarvam Yadav,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MP-03,Abir Agarwal,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,26 Oct,6:30 PM - 7:30 PM
+J-MP-04,Nivaan Shah,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MP-05,Rudransh Singh Gautam,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+J-MP-06,Ishaanvi Agrawal,Junior,Madhya Pradesh,21 Oct,5:30 PM - 6:00 PM,23 Oct,5:30 PM - 6:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-MP-07,Nupur Shree Raman,Junior,Madhya Pradesh,25 Oct,6:00 PM - 7:00 PM,24 Oct,3:30 PM - 4:30 PM,UNPLACED,
+J-MP-08,Jay Alex,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-09,Navya Dhanotia,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-10,Vibha Saboo,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-MP-11,Swara Kaushik Soni,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-12,Maanya Sanghai,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,26 Oct,4:30 PM - 5:30 PM
+J-MP-13,Aarya Pagaria,Junior,Madhya Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-14,Rihaan Choudhary,Junior,Madhya Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MP-15,Aaradhya Joshi,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-16,Anirudh Gupta,Junior,Madhya Pradesh,25 Oct,6:00 PM - 7:00 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MP-17,Harshita Chouhan,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-18,Maahir Tolani,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-19,Advika Chhajlani,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-20,Kiara Sharma,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-21,Lavya Agrawal,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,23 Oct,7:30 PM - 8:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-MP-22,Advita Singh Girnar,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MP-23,Advit Moolchandani,Junior,Madhya Pradesh,26 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MP-24,Avanya Garg,Junior,Madhya Pradesh,25 Oct,12:30 PM - 1:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-25,Avyaan Agrawal,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-26,Divija Sadawana,Junior,Madhya Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-27,Tisha Dubey,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,6:30 PM - 7:30 PM
+J-MP-28,Myrah Goyal,Junior,Madhya Pradesh,25 Oct,12:30 PM - 1:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-29,Anaya Kundliya,Junior,Madhya Pradesh,21 Oct,5:30 PM - 6:00 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-MP-30,Kavya Jain,Junior,Madhya Pradesh,21 Oct,3:30 PM - 4:30 PM,23 Oct,6:30 PM - 7:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-MP-31,Shaurya Shaujanya Raman,Junior,Madhya Pradesh,25 Oct,8:00 PM - 9:00 PM,24 Oct,3:30 PM - 4:30 PM,UNPLACED,
+J-MP-32,Avyay Jain,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-33,Aksh Joshi,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MP-34,Abhyuday Singh Chouhan,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,6:30 PM - 7:30 PM
+J-MP-35,Naksh Jain,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-MP-36,Parth Mirchandani,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,28 Oct,5:30 PM - 6:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-MP-37,Devam Jain,Junior,Madhya Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-38,Adiv Patel,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-MP-39,Kiyaan Arora,Junior,Madhya Pradesh,21 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-MP-40,Garvit Talreja,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-41,Phalgunya Choudhary,Junior,Madhya Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-42,Nitara Mirchandani,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-43,Garvish Sharma,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-44,Pranshi Shukla,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-MP-45,Nishchal Sitlani,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-46,Pransh Chetwani,Junior,Madhya Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-MP-47,Shravya Saluja,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MP-48,Akshara Arya Thakur,Junior,Madhya Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-01,Anaisha Mathur,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-02,Nivaan Dhingra,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-03,Aveer Lakhani,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-04,Aryaveer Singh,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM
+J-MH-05,Nnyra Sureka,Junior,Maharashtra,26 Oct,7:30 PM - 8:30 PM,28 Oct,6:30 PM - 7:30 PM,30 Oct,5:30 PM - 6:00 PM
+J-MH-06,Saarth Gupta,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-07,Miraya Kejriwal Rathi,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,26 Oct,6:30 PM - 7:30 PM
+J-MH-08,Rahul Lodha,Junior,Maharashtra,21 Oct,5:30 PM - 6:00 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-MH-09,Krina Parmar,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-10,Ovi Patil,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-11,Aahana Pai,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-12,Evan Veigas,Junior,Maharashtra,25 Oct,7:00 PM - 8:00 PM,24 Oct,8:00 PM - 9:00 PM,UNPLACED,
+J-MH-13,Youvan Prabhu,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-MH-14,Demira Mehta,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-MH-15,Samar Udani,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-MH-16,Ishani Bhojnagarwala,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MH-17,Aadhya Pathak,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,28 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+J-MH-18,Aria,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-MH-19,Sniti Karnawat,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,UNPLACED,
+J-MH-20,Swara Murarka,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-MH-21,Reyansh Rajeev Radhakrishnan,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,25 Oct,3:30 PM - 4:30 PM
+J-MH-22,Shamanyu Jha,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MH-23,Kashvi Gupta,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,12:30 PM - 1:30 PM,25 Oct,4:30 PM - 5:30 PM
+J-MH-24,Divija Gupta,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,11:30 AM - 12:30 PM,25 Oct,11:30 AM - 12:30 PM
+J-MH-25,Kaira Desai,Junior,Maharashtra,25 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-26,Hrishaan Vazirani,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-27,Myra Khindria,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-MH-28,Navika Dayal,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+J-MH-29,Divyansh Bipinkumar Dubey,Junior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MH-30,Nirvaan Dubey,Junior,Maharashtra,21 Oct,5:30 PM - 6:00 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-31,Shourya Hegde,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MH-32,Atharva Kumar Kosare,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-33,Rishaan Shah,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MH-34,Anaisha Agarwal,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-35,Aavya Gopalkrishnan,Junior,Maharashtra,21 Oct,5:30 PM - 6:00 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-36,Aahana Kharkar,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-37,Mayur Jain,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-38,Ibrahim Kazi,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,29 Oct,5:30 PM - 6:00 PM
+J-MH-39,Isa Kazi,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+J-MH-40,Yashwin Kumbhat,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,7:30 PM - 8:30 PM
+J-MH-41,Avyaan Jain,Junior,Maharashtra,21 Oct,5:30 PM - 6:00 PM,25 Oct,8:00 PM - 9:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-42,Advik Sahu,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-43,Arham Jain,Junior,Maharashtra,21 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-MH-44,Neel Bhavin Bhimani,Junior,Maharashtra,UNPLACED,,UNPLACED,,27 Oct,6:30 PM - 7:30 PM
+J-MH-45,Trivikram Santosh,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-MH-46,Sujay Rachh,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-47,Krishna Menon Thota,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-MH-48,Anahita Kashyap,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-49,Preesha Khandelwal,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-MH-50,Nivaan Kamani,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-51,Omi Mehta,Junior,Maharashtra,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-MH-52,Amyrah Gaikwad,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM
+J-MH-53,Mrunmayee Santosh Kar,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,4:30 PM - 5:30 PM
+J-MH-54,Jish Kapil Gada,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-55,Vighnesh Rahul Chavan,Junior,Maharashtra,21 Oct,4:30 PM - 5:30 PM,24 Oct,8:00 PM - 9:00 PM,28 Oct,4:30 PM - 5:30 PM
+J-MH-56,Stotra Dey,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-MH-57,Saara Rucha Sagar Chavan,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-MH-58,Saanidhya Viresh Bagdiya,Junior,Maharashtra,21 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,7:30 PM - 8:30 PM
+J-OR-01,Mr Manas Mohanty,Junior,Orissa,21 Oct,7:30 PM - 8:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-OR-02,Divija Poddar,Junior,Orissa,21 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,30 Oct,7:30 PM - 8:30 PM
+J-PB-01,Shivansh Bhardwaj,Junior,Punjab,21 Oct,6:30 PM - 7:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-PB-02,Anika,Junior,Punjab,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-PB-03,Navyan Singh,Junior,Punjab,21 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-RJ-01,Aadhya Mathur,Junior,Rajasthan,26 Oct,6:30 PM - 7:30 PM,28 Oct,6:30 PM - 7:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-RJ-02,Vamika Kaviya,Junior,Rajasthan,21 Oct,5:30 PM - 6:00 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-RJ-03,Anaisha Rathi,Junior,Rajasthan,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-RJ-04,Ritam Dev Singh Rawal,Junior,Rajasthan,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-RJ-05,Mayra Gupta,Junior,Rajasthan,21 Oct,6:30 PM - 7:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-RJ-06,Rachit Mathur,Junior,Rajasthan,21 Oct,5:30 PM - 6:00 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-RJ-07,Maulik,Junior,Rajasthan,21 Oct,6:30 PM - 7:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-RJ-08,Mridul,Junior,Rajasthan,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-RJ-09,Arham Surana,Junior,Rajasthan,21 Oct,7:30 PM - 8:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-RJ-10,Cherisha Shyamsukha,Junior,Rajasthan,22 Oct,6:30 PM - 7:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-RJ-11,Viraj Goyal,Junior,Rajasthan,22 Oct,5:30 PM - 6:00 PM,25 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-RJ-12,Prashi Sharma,Junior,Rajasthan,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-RJ-13,Atharv Aggarwal,Junior,Rajasthan,21 Oct,5:30 PM - 6:00 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-RJ-14,Atharv Agrawal,Junior,Rajasthan,21 Oct,3:30 PM - 4:30 PM,28 Oct,7:30 PM - 8:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-RJ-15,Navyaa Harodia,Junior,Rajasthan,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-TN-01,Kayra,Junior,Tamil Nadu,21 Oct,6:30 PM - 7:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-TN-02,Rajasree J.K,Junior,Tamil Nadu,21 Oct,5:30 PM - 6:00 PM,24 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM
+J-TN-03,Rajeshwari Damodaran,Junior,Tamil Nadu,21 Oct,6:30 PM - 7:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-TG-01,Mir Moinuddin Ali,Junior,Telangana,21 Oct,4:30 PM - 5:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-TG-02,Jai Barik,Junior,Telangana,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-TG-03,Ridhi Raina,Junior,Telangana,21 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-TG-04,Kotra Slok Arvin Reddy,Junior,Telangana,25 Oct,7:00 PM - 8:00 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-TG-05,Advit Santosh Modani,Junior,Telangana,23 Oct,5:30 PM - 6:00 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,6:30 PM - 7:30 PM
+J-TG-06,Myrah Mir,Junior,Telangana,21 Oct,5:30 PM - 6:00 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-TG-07,Atharv Agarwal,Junior,Telangana,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-TG-08,Maanvi Aravapally,Junior,Telangana,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-TG-09,Shriyan Aditya Sambaraju,Junior,Telangana,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-TG-10,Azka Amatullah,Junior,Telangana,21 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-UP-01,Ravya Sahai,Junior,Uttar Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-UP-02,Aanya Singh,Junior,Uttar Pradesh,26 Oct,7:30 PM - 8:30 PM,28 Oct,7:30 PM - 8:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-UP-03,Kiara Mehrotra,Junior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-04,Deepali,Junior,Uttar Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-05,Ahana Singh,Junior,Uttar Pradesh,21 Oct,7:30 PM - 8:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-UP-06,Kanishk Kaushik,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-UP-07,Kiara Arora,Junior,Uttar Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-UP-08,Nian Dev Sharma,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-UP-09,Udit Kumar,Junior,Uttar Pradesh,21 Oct,5:30 PM - 6:00 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-UP-10,Dia Dwivedi,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-11,Vihaan Bihani,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-UP-12,Aaryahi Kool,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-13,Vian Babbar,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-14,Aaradhya Bumtariya,Junior,Uttar Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,5:30 PM - 6:00 PM
+J-UP-15,Kiaan Sabharwal,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,3:30 PM - 4:30 PM
+J-UP-16,Pragun Nagrath,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-17,Ayaansh Arora,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-18,Aayat,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-19,Ziana Gupta,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,UNPLACED,
+J-UP-20,Samya Garg,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,3:30 PM - 4:30 PM
+J-UP-21,Aanchal Talwar,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-UP-22,Atharv Kaul,Junior,Uttar Pradesh,21 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM
+J-UP-23,Aveer Parasher,Junior,Uttar Pradesh,UNPLACED,,24 Oct,4:30 PM - 5:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-UP-24,Imara Rosa Jha,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-UP-25,Sarthak,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+J-UP-26,Rushika Pahuja,Junior,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+J-UP-27,Ranvir,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,12:30 PM - 1:30 PM,27 Oct,7:30 PM - 8:30 PM
+J-UP-28,Shakti Sharma,Junior,Uttar Pradesh,21 Oct,3:30 PM - 4:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,4:30 PM - 5:30 PM
+J-UK-01,Nandini Goyal,Junior,Uttarkhand,21 Oct,7:30 PM - 8:30 PM,24 Oct,11:30 AM - 12:30 PM,27 Oct,5:30 PM - 6:00 PM
+J-WB-01,Shreyasree M,Junior,West Bengal,21 Oct,4:30 PM - 5:30 PM,24 Oct,7:00 PM - 8:00 PM,27 Oct,6:30 PM - 7:30 PM
+M-AP-01,Arlekatti Shusumendra,Middle,Andhra Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-AP-02,L Dhruvika Aaryana,Middle,Andhra Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-AP-03,N Mukul Sai,Middle,Andhra Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-AP-04,Shaik Umar Khalid Hussain,Middle,Andhra Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-AR-01,Devansh Ganeshprasad,Middle,Arunchal Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-BH-01,Adwit Jha,Middle,Bihar,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-BH-02,Shivans Bharagava,Middle,Bihar,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-CD-01,Aahaan Garg,Middle,Chandigarh,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-CD-02,Kirti Goyal,Middle,Chandigarh,22 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-CD-03,Mehtab Kaur Sandhu,Middle,Chandigarh,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-CD-04,Samayrra Bhardwaj,Middle,Chandigarh,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-CD-05,Shivansh Rai Singhal,Middle,Chandigarh,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-CD-06,Zaina Khara,Middle,Chandigarh,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-DL-01,Anaya Chawla,Middle,Delhi,22 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-DL-02,Ariana Nijhawan,Middle,Delhi,22 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-DL-03,Atashi Singhania,Middle,Delhi,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-DL-04,Gursahaj Dawar,Middle,Delhi,26 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-DL-05,Harshika Goel,Middle,Delhi,22 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-DL-06,Jona Bhutani,Middle,Delhi,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-DL-07,Kanika Gupta,Middle,Delhi,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-DL-08,Lila Kapur Gandhi,Middle,Delhi,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-DL-09,Nandana Pushpendra,Middle,Delhi,22 Oct,7:30 PM - 8:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-DL-10,Piyah Ishwari Malhotra,Middle,Delhi,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,30 Oct,7:30 PM - 8:30 PM
+M-DL-11,Reayaansh Gangwal,Middle,Delhi,22 Oct,7:30 PM - 8:30 PM,25 Oct,11:30 AM - 12:30 PM,30 Oct,5:30 PM - 6:00 PM
+M-DL-12,Riddhita Sharma,Middle,Delhi,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-DL-13,Rishaan Gupta,Middle,Delhi,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-DL-14,Rudra Verma,Middle,Delhi,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-DL-15,Shivika Gupta,Middle,Delhi,22 Oct,5:30 PM - 6:00 PM,25 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM
+M-DL-16,Simran Singh,Middle,Delhi,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-DL-17,Tamanna Pandey,Middle,Delhi,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-DL-18,Unnat Kumar Pawra,Middle,Delhi,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,26 Oct,3:30 PM - 4:30 PM
+M-DL-19,Vaishnavi Agarwal,Middle,Delhi,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,6:30 PM - 7:30 PM
+M-DL-20,Vihaan Nagpal,Middle,Delhi,22 Oct,4:30 PM - 5:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-DL-21,Vivaan Saxena,Middle,Delhi,22 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,27 Oct,4:30 PM - 5:30 PM
+M-GJ-01,Alyssa Bansal,Middle,Gujarat,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-GJ-02,Anika Vishal Poddar,Middle,Gujarat,22 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-GJ-03,Irena Bansal,Middle,Gujarat,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-GJ-04,Pihu Ritesh Kadmawala,Middle,Gujarat,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-GJ-05,Rian Nishant Patel,Middle,Gujarat,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-GJ-06,Shreya Mishra,Middle,Gujarat,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-HR-01,Aahana Singh,Middle,Haryana,22 Oct,5:30 PM - 6:00 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-02,Aaradhya Singla,Middle,Haryana,23 Oct,4:30 PM - 5:30 PM,21 Oct,7:30 PM - 8:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-03,Aarav Singla,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-04,Aarna Jaiswal,Middle,Haryana,21 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-HR-05,Aavya Mamgain,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-HR-06,Aduit Chaudhary,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-HR-07,Advay Agarwal,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-08,Ahaan Sharma,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,5:30 PM - 6:00 PM
+M-HR-09,Amaira Vir Saxena,Middle,Haryana,26 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-10,Amyra Tandon,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-11,Anay Goel,Middle,Haryana,22 Oct,5:30 PM - 6:00 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-12,Anya Sharma,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-13,Apaar Khanna,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-14,Arihant Sethi,Middle,Haryana,22 Oct,5:30 PM - 6:00 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-HR-15,Atharv Ahirkar,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-16,Atharv Malhotra,Middle,Haryana,22 Oct,5:30 PM - 6:00 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-HR-17,Ayaan Singh,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-18,Bhuvan Bhatia,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-19,Diva Jain,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM
+M-HR-20,Grisha Bhatia,Middle,Haryana,24 Oct,11:30 AM - 12:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-HR-21,Ilina Mehta,Middle,Haryana,22 Oct,5:30 PM - 6:00 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-22,Ira Sinha,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-HR-23,Ishra Bhatia,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-HR-24,Kabir Chauhan,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-HR-25,Kabir Shukla,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-26,Kaira Kadyan,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-27,Kanika,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-HR-28,Kayra Sharma,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-HR-29,Mahiraa Umesh Raheja,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,27 Oct,3:30 PM - 4:30 PM
+M-HR-30,Manit Bhalla,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-31,Mehr Malhotra,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-32,Myra Kochhar,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-HR-33,Naira Chuchra,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-34,Neha Gupta Gupta,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-35,Neha Talwar,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-36,Prananya,Middle,Haryana,22 Oct,5:30 PM - 6:00 PM,27 Oct,5:30 PM - 6:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-HR-37,Ridhaansh Jain,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-38,Riu Charnalia,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-39,Ryan Mittal,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-40,Sahiba Kaur,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-41,Saisha Gupta,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-42,Saisha Khare,Middle,Haryana,22 Oct,5:30 PM - 6:00 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-HR-43,Sanvi Verma,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,27 Oct,6:30 PM - 7:30 PM
+M-HR-44,Sarah Bhalla,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-45,Shailvi Dimri,Middle,Haryana,23 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-HR-46,Shaira Juneja,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-47,Shanaya Chahal,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-48,Shanaya Singh,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-49,Shanayra Sewra,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-HR-50,Sharanya Taneja,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-51,Simar Grover,Middle,Haryana,22 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-HR-52,Sourish Sakhuja,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-HR-53,Swati Gupta,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-HR-54,Taanish Malhotra,Middle,Haryana,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-HR-55,Trisha Bharadwaj,Middle,Haryana,22 Oct,7:30 PM - 8:30 PM,24 Oct,3:30 PM - 4:30 PM,UNPLACED,
+M-HR-56,Yaman Goyal,Middle,Haryana,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-HR-57,Yashi Jain,Middle,Haryana,24 Oct,11:30 AM - 12:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-IO-01,Gunisha,Middle,Indian Overseas,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-JK-01,Fanan Zahra,Middle,Jammu and Kashmir,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-KA-01,Aarav Aggarwal,Middle,Karnataka,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-KA-02,Aarohi Agrawal,Middle,Karnataka,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-KA-03,Aarya Thakar,Middle,Karnataka,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-KA-04,Adviti Sai Krishnan,Middle,Karnataka,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-KA-05,Adya Singh,Middle,Karnataka,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-KA-06,Akshat Vangala,Middle,Karnataka,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-KA-07,Anav Singh,Middle,Karnataka,22 Oct,5:30 PM - 6:00 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-KA-08,Ariah Prabhakar,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-KA-09,Baani Dipayan Chakraborty,Middle,Karnataka,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-KA-10,Chandhini Sudharsan,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-KA-11,Deekshanraj.B.K,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-KA-12,Devansh Chowdhury,Middle,Karnataka,22 Oct,5:30 PM - 6:00 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-KA-13,Haripriya Vij,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-KA-14,Kabir Setia,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-KA-15,Kanishk Tayal,Middle,Karnataka,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-KA-16,Liana Das,Middle,Karnataka,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,27 Oct,7:30 PM - 8:30 PM
+M-KA-17,Navyaansh Dhirawani,Middle,Karnataka,22 Oct,6:30 PM - 7:30 PM,24 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-KA-18,Nehemiah A Holt,Middle,Karnataka,22 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-KA-19,Prathyay M,Middle,Karnataka,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-KA-20,Preethi N,Middle,Karnataka,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,5:30 PM - 6:00 PM
+M-KA-21,Riddhi Munishwar,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-KA-22,Saiaa,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,6:30 PM - 7:30 PM
+M-KA-23,Sargam Rath,Middle,Karnataka,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-KA-24,Suhasini Vineet,Middle,Karnataka,23 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-KA-25,Umesh Narayana Menon,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-KA-26,Vihaan Nair,Middle,Karnataka,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,6:30 PM - 7:30 PM
+M-KA-27,Vismaya Umesh,Middle,Karnataka,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,24 Oct,11:30 AM - 12:30 PM
+M-KA-28,Vivaan Mishra,Middle,Karnataka,21 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM,23 Oct,4:30 PM - 5:30 PM
+M-KL-01,Naveed Navas,Middle,Kerala,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MP-01,Aashi Dubey,Middle,Madhya Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-MP-02,Atharv Agarwal,Middle,Madhya Pradesh,26 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MP-03,Atharva Swami,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-MP-04,Atharva Tak,Middle,Madhya Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-MP-05,Ayaansh Soni,Middle,Madhya Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-MP-06,Darsh Choubey,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MP-07,Dritiraj Singh Rathore,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MP-08,Hansy Jaswani,Middle,Madhya Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MP-09,Harshil Tiwari,Middle,Madhya Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM
+M-MP-10,Ilayna Khan,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MP-11,Insiya Motorwala,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,23 Oct,6:30 PM - 7:30 PM
+M-MP-12,Kabeer Gupta,Middle,Madhya Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-MP-13,Kajal Kapasiya,Middle,Madhya Pradesh,22 Oct,5:30 PM - 6:00 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-MP-14,Meher Talreja,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MP-15,Myra Singhal,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-MP-16,Navya Soni,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-MP-17,Nishika Bhardwaj,Middle,Madhya Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MP-18,Prisha Pande,Middle,Madhya Pradesh,21 Oct,5:30 PM - 6:00 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-MP-19,Rajveer Singh Parihar,Middle,Madhya Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,30 Oct,7:30 PM - 8:30 PM
+M-MP-20,Raksha Bharati,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,6:30 PM - 7:30 PM
+M-MP-21,Rudra Chandravanshi,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+M-MP-22,Sanskriti Rajwal,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-MP-23,Sapna Goyal,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-MP-24,Sarvopari Choudhary,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MP-25,Shabbir Batterywala,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,23 Oct,7:30 PM - 8:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-MP-26,Shivansh Soni,Middle,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MP-27,Veer Jain,Middle,Madhya Pradesh,22 Oct,5:30 PM - 6:00 PM,26 Oct,5:30 PM - 6:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-MP-28,Vir Khosla,Middle,Madhya Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MP-29,Viraaj Kothari,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MP-30,Yuvaan Narang,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MP-31,Yuvraj Pancholi,Middle,Madhya Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-01,Aaadhavan Gupta,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-02,Aadit Deepak,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-03,Aaditya Nair,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-04,Aarav Singh Chauhan,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-05,Aarit Gopalkrishnan,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-06,Aariv Chande,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-07,Aayantika Thakur,Middle,Maharashtra,23 Oct,6:30 PM - 7:30 PM,24 Oct,6:00 PM - 7:00 PM,27 Oct,5:30 PM - 6:00 PM
+M-MH-08,Abhiraj Mukherjee,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-09,Adit Sinha,Middle,Maharashtra,22 Oct,5:30 PM - 6:00 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-10,Advay Gandhi,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-11,Advit Deepak,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-MH-12,Advoay Karole,Middle,Maharashtra,24 Oct,8:00 PM - 9:00 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-13,Agastya,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-MH-14,Agastya Kapadia,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,24 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-MH-15,Ahaana Jain,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-16,Akshata Zaveri,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-17,Amaira Kumar,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-MH-18,Amyra Jain,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-19,Anaaya Purandare,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-20,Anaya Agrawal,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,24 Oct,12:30 PM - 1:30 PM
+M-MH-21,Anaya Sanghvi,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-22,Araina Asrani,Middle,Maharashtra,23 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-23,Archana Dhawan,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-MH-24,Arisha Amit Lath,Middle,Maharashtra,21 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-25,Arnav Khandelwal,Middle,Maharashtra,22 Oct,5:30 PM - 6:00 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-26,Arush Vij,Middle,Maharashtra,24 Oct,6:00 PM - 7:00 PM,25 Oct,7:00 PM - 8:00 PM,26 Oct,6:30 PM - 7:30 PM
+M-MH-27,Avyan Sharad Bhojnagarwala,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-28,Dhruv Srivastava,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-29,Dia,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-30,Divit Bhowmick,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,27 Oct,3:30 PM - 4:30 PM
+M-MH-31,Garv Jalan,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-32,Hiyashaa Mahesh,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,27 Oct,7:30 PM - 8:30 PM
+M-MH-33,Ira Khandelwal,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-34,Isha Nadkarni,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-35,Ishaan Jain,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-36,Jahan Bahri,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-37,Kaveer Jain,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,24 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-38,Lakshmi Samanvi Chinni,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-39,Mira Bansal,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,8:00 PM - 9:00 PM,29 Oct,4:30 PM - 5:30 PM
+M-MH-40,Miraaya Shah,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-41,Myrah Dwivedi,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,27 Oct,5:30 PM - 6:00 PM
+M-MH-42,Nargish Raman,Middle,Maharashtra,22 Oct,5:30 PM - 6:00 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-43,Neha Bansal,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-44,Nimit Garg,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-45,Nishita Jain,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-MH-46,Nitya Chilukuri,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+M-MH-47,Niva Vishal Gada,Middle,Maharashtra,22 Oct,5:30 PM - 6:00 PM,25 Oct,11:30 AM - 12:30 PM,27 Oct,6:30 PM - 7:30 PM
+M-MH-48,Paarth Jain,Middle,Maharashtra,23 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-49,Pehel Shah,Middle,Maharashtra,24 Oct,12:30 PM - 1:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+M-MH-50,Poonam,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-51,Pranvi Sapasetti,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-52,Prisha Pradeep Kumar,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-MH-53,Prisha Singh Chauhan,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-54,Rajveer Sanghavi,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-MH-55,Ria Saini,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-56,Sanaya Daboo,Middle,Maharashtra,22 Oct,5:30 PM - 6:00 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-57,Shagun Kakani,Middle,Maharashtra,21 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,27 Oct,7:30 PM - 8:30 PM
+M-MH-58,Sharanya Gupta,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,29 Oct,4:30 PM - 5:30 PM
+M-MH-59,Shaurya Gangahar,Middle,Maharashtra,23 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-MH-60,Shivam Sanap,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-MH-61,Shrey Dhariwal,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-62,Shrreeansh Ravikumar,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-MH-63,Soham Pattnaik,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,24 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-64,Swara Sancheti,Middle,Maharashtra,23 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM,30 Oct,6:30 PM - 7:30 PM
+M-MH-65,Tanish Ganju,Middle,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,5:30 PM - 6:00 PM,27 Oct,6:30 PM - 7:30 PM
+M-MH-66,Tanisha Adukia,Middle,Maharashtra,22 Oct,7:30 PM - 8:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-67,Vania Garg,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,23 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-68,Vedant Thakkar,Middle,Maharashtra,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-69,Vibodh Viswanath,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,4:30 PM - 5:30 PM
+M-MH-70,Vihaan Gogia,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-71,Yohan Khan,Middle,Maharashtra,22 Oct,5:30 PM - 6:00 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-MH-72,Zachary Pinto,Middle,Maharashtra,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-MH-73,Zoë Pinto,Middle,Maharashtra,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,3:30 PM - 4:30 PM
+M-MH-74,Zoya Mirza,Middle,Maharashtra,22 Oct,5:30 PM - 6:00 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-OR-01,Ishaan Agarwal,Middle,Orissa,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,7:30 PM - 8:30 PM
+M-PB-01,Aryan Mahajan,Middle,Punjab,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-PB-02,Hermione Gill,Middle,Punjab,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-PB-03,Kiaan Chopra,Middle,Punjab,22 Oct,7:30 PM - 8:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-PB-04,Naysa Singh,Middle,Punjab,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-PB-05,Rayna Bhalla,Middle,Punjab,22 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,27 Oct,7:30 PM - 8:30 PM
+M-RJ-01,Aadhya Khandelwal,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-RJ-02,Aadya Agarwal,Middle,Rajasthan,21 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-RJ-03,Adweka Agarwal,Middle,Rajasthan,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-RJ-04,Anandita Daruka,Middle,Rajasthan,22 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+M-RJ-05,Ananmay Banerji,Middle,Rajasthan,24 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-RJ-06,Aradhya Jain,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+M-RJ-07,Archi Jain,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-RJ-08,Chitrangda Rathore,Middle,Rajasthan,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-RJ-09,Devikaa Chauhan,Middle,Rajasthan,22 Oct,5:30 PM - 6:00 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-RJ-10,Devratt Kasliwal,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-RJ-11,Dhananjay Singh Shekhawat,Middle,Rajasthan,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-RJ-12,Divjot Kaur,Middle,Rajasthan,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-RJ-13,Gaurang Sharma,Middle,Rajasthan,23 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,29 Oct,5:30 PM - 6:00 PM
+M-RJ-14,Hardik,Middle,Rajasthan,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-RJ-15,Ishaan Gilara,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-RJ-16,Ishanvi Gupta,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,6:30 PM - 7:30 PM
+M-RJ-17,Kabir Gilara,Middle,Rajasthan,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-RJ-18,Mahi Agarwal,Middle,Rajasthan,22 Oct,5:30 PM - 6:00 PM,23 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+M-RJ-19,Maxima Poonia,Middle,Rajasthan,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-RJ-20,Naitik Sharda,Middle,Rajasthan,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,24 Oct,7:00 PM - 8:00 PM
+M-RJ-21,Navya Mehandiratta,Middle,Rajasthan,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,24 Oct,8:00 PM - 9:00 PM
+M-RJ-22,Nyrah Bhansali,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-RJ-23,Prayaan Mittal,Middle,Rajasthan,26 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-RJ-24,Radhika Singh Yadav,Middle,Rajasthan,24 Oct,6:00 PM - 7:00 PM,25 Oct,7:00 PM - 8:00 PM,UNPLACED,
+M-RJ-25,Rihansh Bhasin,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,UNPLACED,
+M-RJ-26,Rishi Sharma,Middle,Rajasthan,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-RJ-27,Rivaan Jain,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,5:30 PM - 6:00 PM
+M-RJ-28,Samaira Dhandhia,Middle,Rajasthan,22 Oct,7:30 PM - 8:30 PM,23 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+M-RJ-29,Vividha Garg,Middle,Rajasthan,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,6:30 PM - 7:30 PM
+M-RJ-30,Yaganya Pareek,Middle,Rajasthan,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-TN-01,A . Divyesh,Middle,Tamil Nadu,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-02,A. Kaushik,Middle,Tamil Nadu,22 Oct,5:30 PM - 6:00 PM,27 Oct,6:30 PM - 7:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-03,Adithi Ravi,Middle,Tamil Nadu,22 Oct,7:30 PM - 8:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-04,Anya Dinesh,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-05,Arjun Dinesh,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-06,Atharv Singh,Middle,Tamil Nadu,23 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-07,B. Vijay Krishnaa,Middle,Tamil Nadu,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,5:30 PM - 6:00 PM
+M-TN-08,Dheeran Rajiv,Middle,Tamil Nadu,22 Oct,7:30 PM - 8:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-TN-09,Dhriti Venkataram,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-10,Eashanth Kumar K,Middle,Tamil Nadu,22 Oct,5:30 PM - 6:00 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-TN-11,Hriday Lalwani,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-12,Indresh Kumar,Middle,Tamil Nadu,22 Oct,3:30 PM - 4:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-TN-13,Nihara,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-TN-14,Nihara Mammen Mappillai,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-TN-15,O Pratheek,Middle,Tamil Nadu,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-TN-16,R.Tarun Karthik,Middle,Tamil Nadu,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-TN-17,S S Sairakshith,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-TN-18,S.Hamsini,Middle,Tamil Nadu,23 Oct,5:30 PM - 6:00 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-TN-19,Sakethram,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-TN-20,Samar Ram,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-21,Saraswathi Suresh.S,Middle,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TN-22,Shravan Gi,Middle,Tamil Nadu,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM
+M-TN-23,Siddhanth Sabarinath,Middle,Tamil Nadu,22 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,29 Oct,7:30 PM - 8:30 PM
+M-TG-01,Aryan,Middle,Telangana,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-TG-02,Avaneesh Harkude,Middle,Telangana,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-TG-03,Krithi Harshini,Middle,Telangana,22 Oct,7:30 PM - 8:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-TG-04,Litvya Agarwal,Middle,Telangana,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-TG-05,Raeyansh Agarwal,Middle,Telangana,22 Oct,3:30 PM - 4:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-TG-06,Risha Kedia,Middle,Telangana,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,29 Oct,5:30 PM - 6:00 PM
+M-TG-07,Rushda Abdul Hameed,Middle,Telangana,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-TG-08,Sai Vihaan Mogilisetty,Middle,Telangana,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-TG-09,Sharanya Lenkalapelli,Middle,Telangana,22 Oct,3:30 PM - 4:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-TG-10,Vedaansh,Middle,Telangana,23 Oct,5:30 PM - 6:00 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-TG-11,Vidya R Andem,Middle,Telangana,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-TG-12,Yashika Reddy Sama,Middle,Telangana,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-01,Aadarsh Gupta,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-02,Aadya Chawla,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-03,Aahana Chouksey,Middle,Uttar Pradesh,21 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-04,Aahana Pilli,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,29 Oct,3:30 PM - 4:30 PM
+M-UP-05,Aarav Gupta,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-06,Aarohi Bumtariya,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-07,Aarya Tyagi,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-08,Adhya Shukla,Middle,Uttar Pradesh,22 Oct,5:30 PM - 6:00 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-09,Amaira Arora,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-10,Amaira Rao,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-11,Anika Agarwal,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-12,Anvi Jain,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-13,Arunachal Neil Dhingra,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-14,Aryama Shukla,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,UNPLACED,,28 Oct,3:30 PM - 4:30 PM
+M-UP-15,Ashvina Mishra,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-16,Avyaansh Anand,Middle,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-17,Chahak Agrawal,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-18,Diara Pandey,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-19,Farheen Fatima,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-20,Hreet Singh Oberoi,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-21,Ira Khanna,Middle,Uttar Pradesh,21 Oct,6:30 PM - 7:30 PM,27 Oct,6:30 PM - 7:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-22,Janya Mathur,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,27 Oct,6:30 PM - 7:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-23,Juhi Srivastava,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-24,Kabir,Middle,Uttar Pradesh,22 Oct,5:30 PM - 6:00 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-25,Kavir Singh,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-26,Kavya Porwal,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-27,Keshema Gupta,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-28,Manasvi Singh,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,24 Oct,4:30 PM - 5:30 PM
+M-UP-29,Manju Joshi,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-30,Mayra Shukla,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,5:30 PM - 6:00 PM
+M-UP-31,Myra Malani,Middle,Uttar Pradesh,21 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-32,Nirvaan Singh Arora,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,8:00 PM - 9:00 PM,26 Oct,3:30 PM - 4:30 PM
+M-UP-33,Nyla Bapna,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,26 Oct,4:30 PM - 5:30 PM
+M-UP-34,Pankhuri,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,10:30 AM - 11:30 AM,28 Oct,6:30 PM - 7:30 PM
+M-UP-35,Parth Praneel Tiwari,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-36,Priyal Goyal,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-37,Raeesah Ralen,Middle,Uttar Pradesh,23 Oct,4:30 PM - 5:30 PM,25 Oct,7:00 PM - 8:00 PM,27 Oct,4:30 PM - 5:30 PM
+M-UP-38,Reyansh Yadav,Middle,Uttar Pradesh,22 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-39,Rohnish Middha,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-40,Rudraneel Singh Verma,Middle,Uttar Pradesh,21 Oct,7:30 PM - 8:30 PM,25 Oct,12:30 PM - 1:30 PM,UNPLACED,
+M-UP-41,Saanvi Damele,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-UP-42,Sadaf Shamim,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-43,Shanaya Garg,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-44,Sharvi Jindal,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-45,Shreyansh Tiwari,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-46,Siddhi Khushwani,Middle,Uttar Pradesh,22 Oct,7:30 PM - 8:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-UP-47,Vasundhara Jain,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-48,Vedant Chopra,Middle,Uttar Pradesh,22 Oct,6:30 PM - 7:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,3:30 PM - 4:30 PM
+M-UP-49,Vivaan Saxena,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM,28 Oct,4:30 PM - 5:30 PM
+M-UP-50,Vyapti Sharma,Middle,Uttar Pradesh,22 Oct,4:30 PM - 5:30 PM,25 Oct,6:00 PM - 7:00 PM,28 Oct,3:30 PM - 4:30 PM
+M-WB-01,Daksh Agarwal,Middle,West Bengal,22 Oct,7:30 PM - 8:30 PM,25 Oct,8:00 PM - 9:00 PM,28 Oct,6:30 PM - 7:30 PM
+M-WB-02,Nitya Jhunjhunwala,Middle,West Bengal,22 Oct,3:30 PM - 4:30 PM,25 Oct,12:30 PM - 1:30 PM,28 Oct,7:30 PM - 8:30 PM
+M-WB-03,Pragya Biswas,Middle,West Bengal,22 Oct,4:30 PM - 5:30 PM,26 Oct,5:30 PM - 6:00 PM,28 Oct,3:30 PM - 4:30 PM
+S-AP-01,Moushiktaa Chandra,Senior,Andhra Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-AP-02,P L N Yaswanth Kumar Reddy,Senior,Andhra Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-AS-01,Jassvee Agarwala,Senior,Assam,23 Oct,3:30 PM - 4:30 PM,25 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-AS-02,Khushi Bakliwal,Senior,Assam,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-BH-01,Abdul Ahad,Senior,Bihar,21 Oct,5:30 PM - 6:00 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-BH-02,Shristi Kumari,Senior,Bihar,27 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-BH-03,Sonakshi Jha,Senior,Bihar,23 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-CD-01,Imaad Mohan Puri,Senior,Chandigarh,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-CD-02,Sahej Bhatia,Senior,Chandigarh,23 Oct,5:30 PM - 6:00 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,3:30 PM - 4:30 PM
+S-CD-03,Samaira Verma,Senior,Chandigarh,23 Oct,3:30 PM - 4:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-CH-01,Darsheel Jadwani,Senior,Chhatishgarh,23 Oct,3:30 PM - 4:30 PM,27 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-01,Aarav Goel,Senior,Delhi,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-DL-02,Aarav Mehta,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-DL-03,Aavya Virmani,Senior,Delhi,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-DL-04,Araghya,Senior,Delhi,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-DL-05,Aryan Chaudhary,Senior,Delhi,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-06,Aryavardhan Chauhan,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,25 Oct,11:30 AM - 12:30 PM
+S-DL-07,Ashvik Bhatia,Senior,Delhi,24 Oct,6:00 PM - 7:00 PM,27 Oct,6:30 PM - 7:30 PM,30 Oct,7:30 PM - 8:30 PM
+S-DL-08,Divyansh Gupta,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-DL-09,Jay Aswal,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-DL-10,Kyra Ragotra,Senior,Delhi,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-11,Naira Nath,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-DL-12,Naisha Gupta,Senior,Delhi,23 Oct,5:30 PM - 6:00 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-13,Paraa Baranwal,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-14,Preksha Paul,Senior,Delhi,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,27 Oct,7:30 PM - 8:30 PM
+S-DL-15,Rayirth Jaiswal,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,27 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-DL-16,Riaan Gupta,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-DL-17,Rianna Tickoo,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-DL-18,Saina Sarin,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-19,Samaira Jaggi,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-20,Shaurya Vaish,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-21,Shivanya Yadav,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,6:30 PM - 7:30 PM
+S-DL-22,Shrivali Sachan,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-23,Siona Malik,Senior,Delhi,23 Oct,3:30 PM - 4:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-DL-24,Swastika Sen,Senior,Delhi,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-DL-25,Vedika Loyalka,Senior,Delhi,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-DL-26,Vihaan Nigam,Senior,Delhi,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-DL-27,Yashi Chhikara,Senior,Delhi,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,27 Oct,4:30 PM - 5:30 PM
+S-GJ-01,Aarvi Pandey,Senior,Gujarat,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-GJ-02,Arvith Agrawaal,Senior,Gujarat,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-GJ-03,Daivik Agrawal,Senior,Gujarat,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-GJ-04,Druhi Dave,Senior,Gujarat,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-GJ-05,Evaan B Kourani,Senior,Gujarat,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-GJ-06,Nirvansingh Sucharia,Senior,Gujarat,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-GJ-07,Priyakankshi Shukla,Senior,Gujarat,23 Oct,5:30 PM - 6:00 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-GJ-08,Rianna Stelwagen,Senior,Gujarat,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-GJ-09,Shaurya,Senior,Gujarat,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-HR-01,Aadya Setia,Senior,Haryana,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-HR-02,Aisha Aggarwal,Senior,Haryana,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-HR-03,Amaira Kaur Badhwar,Senior,Haryana,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-HR-04,Anish Singh,Senior,Haryana,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-HR-05,Anisha Yadav,Senior,Haryana,23 Oct,4:30 PM - 5:30 PM,22 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-HR-06,Anjana Sharma,Senior,Haryana,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-HR-07,Anukriti Khajuria,Senior,Haryana,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-HR-08,Arnish Mondal,Senior,Haryana,23 Oct,3:30 PM - 4:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-HR-09,Ateeksh,Senior,Haryana,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-HR-10,Avni Garg,Senior,Haryana,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-HR-11,Ayanshi Bhatnagar,Senior,Haryana,23 Oct,3:30 PM - 4:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-HR-12,Ayushman Pandey,Senior,Haryana,23 Oct,6:30 PM - 7:30 PM,26 Oct,3:30 PM - 4:30 PM,27 Oct,4:30 PM - 5:30 PM
+S-HR-13,Diya Mittal,Senior,Haryana,24 Oct,6:00 PM - 7:00 PM,26 Oct,5:30 PM - 6:00 PM,28 Oct,7:30 PM - 8:30 PM
+S-HR-14,Eyan Borah,Senior,Haryana,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-HR-15,Jhanvi B Joshwal,Senior,Haryana,23 Oct,3:30 PM - 4:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-HR-16,Keira Bansal,Senior,Haryana,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-HR-17,Mihika Dhankhar,Senior,Haryana,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-HR-18,Miraya Gupta,Senior,Haryana,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,27 Oct,6:30 PM - 7:30 PM
+S-HR-19,Navya Vikram Singh,Senior,Haryana,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-HR-20,Prithish Sharma,Senior,Haryana,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-HR-21,Riyan,Senior,Haryana,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-HR-22,Saanvi Sharma,Senior,Haryana,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-HR-23,Saira Khalid,Senior,Haryana,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-HR-24,Sarah Chaudhry,Senior,Haryana,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-HR-25,Sia Bagaria,Senior,Haryana,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-HR-26,Sia Lamba,Senior,Haryana,22 Oct,7:30 PM - 8:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-HR-27,Tanush Khajuria,Senior,Haryana,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-HR-28,Vedant Bajaj,Senior,Haryana,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-JK-01,Sifat Sandhu,Senior,Jharkhand,23 Oct,3:30 PM - 4:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,3:30 PM - 4:30 PM
+S-KA-01,Aadya Kanchan,Senior,Karnataka,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-KA-02,Deeam Sharma,Senior,Karnataka,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-KA-03,Gowri Umesha,Senior,Karnataka,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-KA-04,Kabir Chaudhry,Senior,Karnataka,24 Oct,7:00 PM - 8:00 PM,25 Oct,3:30 PM - 4:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-KA-05,Meher Kukreja,Senior,Karnataka,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-KA-06,Mourya Dani,Senior,Karnataka,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-KA-07,Naman Pattanaik,Senior,Karnataka,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-KA-08,Nilay Shetty,Senior,Karnataka,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-KA-09,Prajna Mundra,Senior,Karnataka,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-KA-10,Pransi Agrawal,Senior,Karnataka,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-KA-11,Rishaan Jhabakh,Senior,Karnataka,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-KA-12,Rohan Poddar,Senior,Karnataka,23 Oct,3:30 PM - 4:30 PM,24 Oct,4:30 PM - 5:30 PM,30 Oct,4:30 PM - 5:30 PM
+S-KA-13,Saksham Hangirgekar,Senior,Karnataka,24 Oct,12:30 PM - 1:30 PM,25 Oct,12:30 PM - 1:30 PM,21 Oct,3:30 PM - 4:30 PM
+S-KA-14,Samarth Anand,Senior,Karnataka,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-KA-15,Shresht Khadloya,Senior,Karnataka,23 Oct,4:30 PM - 5:30 PM,28 Oct,4:30 PM - 5:30 PM,30 Oct,6:30 PM - 7:30 PM
+S-KA-16,Shrishti Khadloya,Senior,Karnataka,22 Oct,3:30 PM - 4:30 PM,27 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-KA-17,Swarnima Janardhan,Senior,Karnataka,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-KA-18,Taniah Parvez,Senior,Karnataka,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-KA-19,Tanishka Lakra,Senior,Karnataka,23 Oct,6:30 PM - 7:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-KA-20,Tashi Prem,Senior,Karnataka,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-KA-21,Tejas Sriwastava,Senior,Karnataka,27 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-KA-22,Yug Pachchhapurkar,Senior,Karnataka,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MP-01,Aadhya Shah,Senior,Madhya Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MP-02,Araina Mutneja,Senior,Madhya Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-MP-03,Arav Khabiya,Senior,Madhya Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,30 Oct,4:30 PM - 5:30 PM
+S-MP-04,Hammad Quadri,Senior,Madhya Pradesh,23 Oct,5:30 PM - 6:00 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MP-05,Ishita Wagle,Senior,Madhya Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MP-06,Jonathan Nobin,Senior,Madhya Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MP-07,Krishanali Merchant,Senior,Madhya Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MP-08,Mishca Mahajan,Senior,Madhya Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MP-09,Prithiya Saboo,Senior,Madhya Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MP-10,Rishant Choudhary,Senior,Madhya Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MP-11,Rishika Bajaj,Senior,Madhya Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,24 Oct,3:30 PM - 4:30 PM
+S-MP-12,Samarth Dwivedi,Senior,Madhya Pradesh,22 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,28 Oct,6:30 PM - 7:30 PM
+S-MP-13,Sparsh Gaud,Senior,Madhya Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-MP-14,Varalika Mishra,Senior,Madhya Pradesh,23 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-MP-15,Vihaan Patel,Senior,Madhya Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-01,Aakarshan Saxena,Senior,Maharashtra,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-02,Advay Gupta,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-MH-03,Akshat Sanghi,Senior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-04,Amairah Bahri,Senior,Maharashtra,22 Oct,5:30 PM - 6:00 PM,27 Oct,5:30 PM - 6:00 PM,29 Oct,5:30 PM - 6:00 PM
+S-MH-05,Anaya Meghani,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-MH-06,Arjun Dhanuka,Senior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MH-07,Avantika Ahuja,Senior,Maharashtra,23 Oct,3:30 PM - 4:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,3:30 PM - 4:30 PM
+S-MH-08,Avantika Sen,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MH-09,Devendra Ketan Palaye,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,24 Oct,8:00 PM - 9:00 PM,29 Oct,5:30 PM - 6:00 PM
+S-MH-10,Devina Goel,Senior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-MH-11,Harshit Yadav,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-MH-12,Hazel Sonawala,Senior,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-13,Ira Jain,Senior,Maharashtra,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-14,Ishaan Ankleshwaria,Senior,Maharashtra,22 Oct,4:30 PM - 5:30 PM,28 Oct,6:30 PM - 7:30 PM,21 Oct,4:30 PM - 5:30 PM
+S-MH-15,Kaustav Chakravorty,Senior,Maharashtra,23 Oct,5:30 PM - 6:00 PM,26 Oct,5:30 PM - 6:00 PM,28 Oct,5:30 PM - 6:00 PM
+S-MH-16,Manan Kedia,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-17,Marc K Raj,Senior,Maharashtra,23 Oct,5:30 PM - 6:00 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-MH-18,Mayank Amit Dhavalikar,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MH-19,Neil Kalanke,Senior,Maharashtra,22 Oct,6:30 PM - 7:30 PM,27 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MH-20,Orhan Khan,Senior,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-21,Piyya Shah,Senior,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-MH-22,Poulomi Banerjee,Senior,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-23,Pradyumn Pawaskar,Senior,Maharashtra,25 Oct,4:30 PM - 5:30 PM,27 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MH-24,Rahul Vidwans,Senior,Maharashtra,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-25,Saket Goel,Senior,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,30 Oct,7:30 PM - 8:30 PM
+S-MH-26,Shinjini Mittal,Senior,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-27,Spandana Bansod,Senior,Maharashtra,23 Oct,5:30 PM - 6:00 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-28,Stuti Sinha,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-29,Suhani Ghodawat,Senior,Maharashtra,24 Oct,8:00 PM - 9:00 PM,21 Oct,6:30 PM - 7:30 PM,UNPLACED,
+S-MH-30,Trina Chaitanya,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-31,Vanika Bubna,Senior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-32,Varsha Reddy,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-MH-33,Vedika Shah,Senior,Maharashtra,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-34,Viha Sharma,Senior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-MH-35,Vijayshree Veeramani Iyer,Senior,Maharashtra,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-36,Yatee Jaiswal,Senior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,7:30 PM - 8:30 PM
+S-MH-37,Yusuf Zafar Shaikh,Senior,Maharashtra,23 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-OR-01,Alicia Maria Das,Senior,Orissa,22 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-PB-01,Aashima Palyal,Senior,Punjab,23 Oct,5:30 PM - 6:00 PM,27 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-PB-02,Amya Malhotra,Senior,Punjab,23 Oct,3:30 PM - 4:30 PM,25 Oct,11:30 AM - 12:30 PM,24 Oct,11:30 AM - 12:30 PM
+S-PB-03,Delisha Chohan,Senior,Punjab,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-PB-04,Dhruvi Garg,Senior,Punjab,21 Oct,7:30 PM - 8:30 PM,27 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-PB-05,Gunisha Kaur,Senior,Punjab,23 Oct,6:30 PM - 7:30 PM,25 Oct,7:00 PM - 8:00 PM,29 Oct,6:30 PM - 7:30 PM
+S-PB-06,Gurnoor Kaur Sandhu,Senior,Punjab,23 Oct,3:30 PM - 4:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-PB-07,Lakshita Sood,Senior,Punjab,24 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,30 Oct,3:30 PM - 4:30 PM
+S-PB-08,Manvi Kharbanda,Senior,Punjab,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-PB-09,Plaksha Mahajan,Senior,Punjab,22 Oct,7:30 PM - 8:30 PM,28 Oct,4:30 PM - 5:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-PB-10,Reet Nalwa,Senior,Punjab,23 Oct,7:30 PM - 8:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-PB-11,Ruhani Sethi,Senior,Punjab,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,30 Oct,6:30 PM - 7:30 PM
+S-PB-12,Saanvi Dadwal,Senior,Punjab,23 Oct,6:30 PM - 7:30 PM,25 Oct,12:30 PM - 1:30 PM,24 Oct,12:30 PM - 1:30 PM
+S-PB-13,Sargun Malhi,Senior,Punjab,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-PB-14,Shiven Manchanda,Senior,Punjab,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,30 Oct,4:30 PM - 5:30 PM
+S-PB-15,Yuvraj Gupta,Senior,Punjab,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-RJ-01,Aanya Soni,Senior,Rajasthan,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-RJ-02,Adheeyaan Pareek,Senior,Rajasthan,23 Oct,5:30 PM - 6:00 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-RJ-03,Aditya Singh Rathore,Senior,Rajasthan,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-RJ-04,Akshaj Nigam,Senior,Rajasthan,23 Oct,7:30 PM - 8:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-RJ-05,Areen Khan,Senior,Rajasthan,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-RJ-06,Deepal Bhurat,Senior,Rajasthan,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-RJ-07,Deepesh Manglani,Senior,Rajasthan,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-RJ-08,Devagya Kalra,Senior,Rajasthan,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-RJ-09,Kashni Choudhary,Senior,Rajasthan,21 Oct,7:30 PM - 8:30 PM,27 Oct,6:30 PM - 7:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-RJ-10,Pranatie Gautam,Senior,Rajasthan,30 Oct,5:30 PM - 6:00 PM,UNPLACED,,UNPLACED,
+S-RJ-11,Prisha Bindrani,Senior,Rajasthan,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-RJ-12,Saanvi Sharma,Senior,Rajasthan,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-RJ-13,Tanya Bordia,Senior,Rajasthan,23 Oct,4:30 PM - 5:30 PM,25 Oct,10:30 AM - 11:30 AM,29 Oct,4:30 PM - 5:30 PM
+S-RJ-14,Zohaan Khan,Senior,Rajasthan,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TN-01,Abjayan Ghosh,Senior,Tamil Nadu,23 Oct,5:30 PM - 6:00 PM,27 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-TN-02,Anvika Karthik Chidambaram,Senior,Tamil Nadu,24 Oct,7:00 PM - 8:00 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-03,B.Adhithi,Senior,Tamil Nadu,24 Oct,10:30 AM - 11:30 AM,25 Oct,6:00 PM - 7:00 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-04,Bia Kaur Suri,Senior,Tamil Nadu,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-TN-05,Harin Elangovan,Senior,Tamil Nadu,22 Oct,7:30 PM - 8:30 PM,27 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-06,Harseni Neha,Senior,Tamil Nadu,22 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM,24 Oct,10:30 AM - 11:30 AM
+S-TN-07,Harshini Sre Palanivenkatesan,Senior,Tamil Nadu,23 Oct,7:30 PM - 8:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-TN-08,Lila Narayan,Senior,Tamil Nadu,23 Oct,6:30 PM - 7:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-09,Mahimashri R,Senior,Tamil Nadu,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-TN-10,Mantra Venkatachalam,Senior,Tamil Nadu,23 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TN-11,Pritvi Palaniappan,Senior,Tamil Nadu,23 Oct,5:30 PM - 6:00 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TN-12,Pritvi Palaniappan,Senior,Tamil Nadu,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-TN-13,Priyanka,Senior,Tamil Nadu,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-14,Rithiga Kannadasan,Senior,Tamil Nadu,23 Oct,3:30 PM - 4:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-TN-15,Saanvi Muppidi,Senior,Tamil Nadu,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-TN-16,Sakesh M,Senior,Tamil Nadu,24 Oct,11:30 AM - 12:30 PM,26 Oct,6:30 PM - 7:30 PM,28 Oct,7:30 PM - 8:30 PM
+S-TN-17,Samiksha Muthu Rajan,Senior,Tamil Nadu,23 Oct,3:30 PM - 4:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-18,Samyukta,Senior,Tamil Nadu,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,27 Oct,3:30 PM - 4:30 PM
+S-TN-19,Sarvika S,Senior,Tamil Nadu,24 Oct,6:00 PM - 7:00 PM,25 Oct,8:00 PM - 9:00 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-20,Serah Elizabeth Thomas,Senior,Tamil Nadu,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TN-21,Shree Radha Sanjay,Senior,Tamil Nadu,23 Oct,6:30 PM - 7:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-22,Shriya Sekhar,Senior,Tamil Nadu,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-TN-23,Swarnabho Deb,Senior,Tamil Nadu,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-TN-24,Vedant Chandra,Senior,Tamil Nadu,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TN-25,Vinayan,Senior,Tamil Nadu,23 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TG-01,Aaradhya Ramakrishna,Senior,Telangana,27 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TG-02,Akshara Iyer,Senior,Telangana,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,25 Oct,3:30 PM - 4:30 PM
+S-TG-03,Amatullah H Rangoonwala,Senior,Telangana,23 Oct,5:30 PM - 6:00 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TG-04,Amiti Mathur,Senior,Telangana,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TG-05,Ashritha Jaggannagari,Senior,Telangana,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TG-06,Dhruv Reddy Paturi,Senior,Telangana,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-TG-07,Hanisha Mahtani,Senior,Telangana,23 Oct,5:30 PM - 6:00 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-TG-08,Hrishikesh Varma,Senior,Telangana,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-TG-09,Madiha Fatima Shaik,Senior,Telangana,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TG-10,Mouktika Poolla,Senior,Telangana,23 Oct,5:30 PM - 6:00 PM,26 Oct,5:30 PM - 6:00 PM,27 Oct,5:30 PM - 6:00 PM
+S-TG-11,Naaira Bashir Babukhan,Senior,Telangana,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TG-12,Nishka Algam,Senior,Telangana,23 Oct,6:30 PM - 7:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,4:30 PM - 5:30 PM
+S-TG-13,Poovaiah Kc,Senior,Telangana,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-TG-14,Prisha Garg,Senior,Telangana,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-TG-15,Pushkal V H S Vutukuri,Senior,Telangana,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-TG-16,Ritvik Santosh Modani,Senior,Telangana,23 Oct,5:30 PM - 6:00 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,5:30 PM - 6:00 PM
+S-TG-17,Saanvi Mihira Tumula,Senior,Telangana,24 Oct,11:30 AM - 12:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-TG-18,Seeyona Guha,Senior,Telangana,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-TG-19,Sree Asrita Padala,Senior,Telangana,23 Oct,4:30 PM - 5:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,4:30 PM - 5:30 PM
+S-TG-20,Uthaiah Kc,Senior,Telangana,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-UP-01,Advait Sharma,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-UP-02,Aira Nanda,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-03,Akul Agarwal,Senior,Uttar Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,27 Oct,7:30 PM - 8:30 PM
+S-UP-04,Aryan Sethi,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-05,Asmita Jaitly,Senior,Uttar Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-06,Daksh Laroia,Senior,Uttar Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-UP-07,Gia Gupta,Senior,Uttar Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-08,Himaksh Mendiratta,Senior,Uttar Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-09,Ishanvi Dwivedi,Senior,Uttar Pradesh,25 Oct,8:00 PM - 9:00 PM,27 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-UP-10,Manan Singhal,Senior,Uttar Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-11,Mihir Maheshwari,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-12,Nesha Jacob,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-13,Ojas Gupta,Senior,Uttar Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-14,Prabhav Singhal,Senior,Uttar Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-UP-15,Prisha Laul,Senior,Uttar Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-UP-16,Priyal Choudhary,Senior,Uttar Pradesh,23 Oct,6:30 PM - 7:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-UP-17,Saarthak Bidani,Senior,Uttar Pradesh,23 Oct,5:30 PM - 6:00 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-18,Samridhi Singh,Senior,Uttar Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,3:30 PM - 4:30 PM,30 Oct,3:30 PM - 4:30 PM
+S-UP-19,Siddhant Bansal,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-20,Siya Luthra,Senior,Uttar Pradesh,23 Oct,5:30 PM - 6:00 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,6:30 PM - 7:30 PM
+S-UP-21,Siyona Chicker,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-22,Siyona Mishra,Senior,Uttar Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-23,Soumya Bajaj,Senior,Uttar Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,7:30 PM - 8:30 PM
+S-UP-24,Sparsh Singh,Senior,Uttar Pradesh,23 Oct,5:30 PM - 6:00 PM,26 Oct,5:30 PM - 6:00 PM,29 Oct,3:30 PM - 4:30 PM
+S-UP-25,Swaraj Parida,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-UP-26,Trisha,Senior,Uttar Pradesh,23 Oct,3:30 PM - 4:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-27,Vandita Gupta,Senior,Uttar Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-UP-28,Vartika Tejwani,Senior,Uttar Pradesh,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-UP-29,Yaash Sahnan,Senior,Uttar Pradesh,24 Oct,3:30 PM - 4:30 PM,26 Oct,6:30 PM - 7:30 PM,29 Oct,6:30 PM - 7:30 PM
+S-UP-30,Zain Goyal,Senior,Uttar Pradesh,23 Oct,7:30 PM - 8:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,5:30 PM - 6:00 PM
+S-UK-01,Mansee,Senior,Uttarkhand,24 Oct,3:30 PM - 4:30 PM,25 Oct,3:30 PM - 4:30 PM,30 Oct,7:30 PM - 8:30 PM
+S-WB-01,Arshia Datta,Senior,West Bengal,23 Oct,4:30 PM - 5:30 PM,26 Oct,7:30 PM - 8:30 PM,29 Oct,3:30 PM - 4:30 PM
+S-WB-02,Eshan Ghosh,Senior,West Bengal,23 Oct,4:30 PM - 5:30 PM,26 Oct,4:30 PM - 5:30 PM,29 Oct,4:30 PM - 5:30 PM
+S-WB-03,T.M. Vardhani,Senior,West Bengal,22 Oct,4:30 PM - 5:30 PM,27 Oct,6:30 PM - 7:30 PM,25 Oct,10:30 AM - 11:30 AM

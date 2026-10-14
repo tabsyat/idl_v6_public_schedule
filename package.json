@@ -1,0 +1,23 @@
+{
+  "name": "idl-public-pages",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Indian Debating League – 1v1 speech round: public schedule/pairings site and adjudicator site",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start:public": "node public/server.js",
+    "start:adj": "node adj/server.js",
+    "dev:public": "SOURCE=csv SAMPLE_DIR=sample/data ADMIN_KEY=devkey DEFAULT_SLOTS_VISIBLE=true DEFAULT_PAIRINGS_VISIBLE=true DATA_DIR=.devdata PORT=3000 node public/server.js",
+    "dev:adj": "SOURCE=csv SAMPLE_DIR=sample/data ADMIN_KEY=devkey ADJ_SECRET=dev-secret BALLOT_APP_URL=https://example.invalid/ballot PORT=3001 node adj/server.js",
+    "sample": "node sample/build-sample.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "google-auth-library": "^9.14.1"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}

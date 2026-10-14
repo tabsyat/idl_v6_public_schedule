@@ -1,0 +1,16 @@
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.panel h2 { font-size: 1.05rem; margin-bottom: 4px; }
+.help { color: var(--muted); font-size: .9rem; margin: 2px 0 12px; }
+button.big { width: 100%; min-height: 56px; border: 0; border-radius: 10px; background: var(--brand); color: var(--brand-ink); font-weight: 750; font-size: 1.1rem; cursor: pointer; }
+button.big[disabled] { opacity: .6; cursor: progress; }
+.status { margin-top: 10px; font-size: .95rem; min-height: 1.4em; }
+.status.err { color: var(--opp); font-weight: 650; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 12px 0 0; font-size: .92rem; }
+.facts dt { color: var(--muted); } .facts dd { margin: 0; font-weight: 600; }
+.sw { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--rule); cursor: pointer; }
+.sw:first-of-type { border-top: 0; }
+.sw input { width: 26px; height: 26px; margin-top: 2px; flex: none; }
+.sw b { display: block; } .sw small { display: block; color: var(--muted); }
+.warnlist { margin: 6px 0 0; padding-left: 18px; font-size: .92rem; }
+.warnlist li { margin: 4px 0; }
+.warnlist li.ok { list-style: none; margin-left: -18px; color: var(--prop); font-weight: 650; }
