@@ -37,7 +37,6 @@ main { max-width: 680px; margin: 0 auto; padding: 16px 16px 8px; }
 .field, .pickers label { display: block; font-size: .85rem; color: var(--muted); margin: 0 0 4px; font-weight: 600; }
 input[type=search], input[type=number], select { width: 100%; min-height: 48px; padding: 10px 12px; border: 2px solid var(--rule); border-radius: 8px; background: var(--surface); }
 input:focus, select:focus { border-color: var(--brand); outline: none; }
-.row-inline { max-width: 220px; margin-bottom: 12px; }
 .pickers { display: grid; gap: 10px; grid-template-columns: 1fr 1.4fr .8fr; margin-bottom: 6px; }
 .pickers select { padding: 8px 6px; }
 button.ghost { background: var(--surface); border: 2px solid var(--rule); border-radius: 8px; min-width: 44px; min-height: 44px; cursor: pointer; font-size: 1.3rem; line-height: 1; }
@@ -83,13 +82,8 @@ button.link { background: none; border: 0; padding: 10px 0; color: var(--brand);
 .absent { text-decoration: line-through; opacity: .75; }
 
 /* ---------- room finder and browse ---------- */
-.slotnav { display: grid; grid-template-columns: 44px 1fr 44px; gap: 8px; align-items: center; }
-.slotlabel { text-align: center; font-weight: 650; }
-.slotlabel small { display: block; color: var(--muted); font-weight: 500; font-size: .82rem; }
-.roombox { margin-top: 10px; border: 2px solid var(--rule); border-radius: 10px; padding: 16px; background: var(--surface); }
-.roombox .rno { font-size: 2rem; font-weight: 850; }
-.roombox .sp { font-size: 1.2rem; font-weight: 650; padding: 8px 0; border-top: 1px solid var(--rule); }
-.roombox .sp:first-of-type { border-top: 0; }
+.round .rn { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.round .rn .badge { margin-left: 0; font-size: .7rem; }
 .tbl { width: 100%; border-collapse: collapse; margin-top: 10px; }
 .tbl th { text-align: left; font-size: .8rem; color: var(--muted); font-weight: 650; padding: 6px 6px 6px 0; border-bottom: 2px solid var(--rule); }
 .tbl td { padding: 9px 8px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
