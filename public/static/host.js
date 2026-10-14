@@ -8,7 +8,7 @@
   }
   function clock(ms) { var d = new Date(ms + 330 * 60000); return ('0' + d.getUTCHours()).slice(-2) + ':' + ('0' + d.getUTCMinutes()).slice(-2) + ':' + ('0' + d.getUTCSeconds()).slice(-2) + ' IST'; }
   function show(s) {
-    $('swSlots').checked = s.slots; $('swPairings').checked = s.pairings; $('swRoster').checked = !!s.roster;
+    $('swSlots').checked = s.slots; $('swPairings').checked = s.pairings; $('swRoster').checked = !!s.roster; $('swSides').checked = !!s.sides;
     var f = $('facts'); f.textContent = '';
     function row(k, v) { var a = document.createElement('dt'), b = document.createElement('dd'); a.textContent = k; b.textContent = v; f.appendChild(a); f.appendChild(b); }
     row('Last refreshed', s.builtAt ? clock(s.builtAt) : 'never');
@@ -36,6 +36,6 @@
         .catch(function () { $('smsg').className = 'status err'; $('smsg').textContent = 'Could not save. Try again.'; });
     });
   }
-  sw('swSlots', 'slots'); sw('swPairings', 'pairings'); sw('swRoster', 'roster');
+  sw('swSlots', 'slots'); sw('swPairings', 'pairings'); sw('swRoster', 'roster'); sw('swSides', 'sides');
   api('/status').then(show);
 })();
