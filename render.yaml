@@ -7,7 +7,7 @@ services:
     runtime: docker
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    plan: starter
+    plan: free
     dockerCommand: node public/server.js
     healthCheckPath: /healthz
     disk:                         # keeps the host switches across restarts
@@ -29,7 +29,7 @@ services:
     runtime: docker
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    plan: starter
+    plan: free
     dockerCommand: node adj/server.js
     healthCheckPath: /healthz
     envVars:
