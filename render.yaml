@@ -3,7 +3,7 @@
 # Both services build from ./Dockerfile; each runs a different command. Fill the "sync: false" values when asked.
 services:
   - type: web
-    name: idl-public
+    name: idl-6o-r1-public-schedule
     runtime: docker
     dockerfilePath: ./Dockerfile
     dockerContext: .
