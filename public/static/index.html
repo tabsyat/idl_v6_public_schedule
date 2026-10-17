@@ -6,19 +6,21 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
-<title>IDL Online Round: find your room</title>
+<title>IDL 6.0 Round 1</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <header class="bar">
+  <div class="contact"><a id="contactBtn" class="contact-btn" href="mailto:idlschedule@indiandebatingleague.com">Contact us in case of any queries</a></div>
   <div class="bar-in">
-    <h1>IDL Online Round</h1>
+    <h1><a id="homeLink" href="./">IDL 6.0 Round 1</a></h1>
     <p class="tz">All times are IST</p>
   </div>
   <nav id="tabs" class="tabs" role="tablist" aria-label="Views">
     <button role="tab" data-tab="roster" aria-selected="false" id="tabRoster" hidden>Schedule</button>
-    <button role="tab" data-tab="find" aria-selected="true">Find me</button>
+    <button role="tab" data-tab="find" aria-selected="false">Find me</button>
     <button role="tab" data-tab="browse" aria-selected="false">All rooms</button>
+    <button role="tab" data-tab="motions" aria-selected="false">Motions</button>
   </nav>
 </header>
 
@@ -27,25 +29,30 @@
 <main id="main">
   <p id="loading" class="msg">Loading the schedule…</p>
 
-  <section id="v-find" class="view" hidden>
-    <label class="field" for="q">Search by name or student ID</label>
-    <input id="q" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="For example: Aarav or J-AP-01">
-    <div id="results" aria-live="polite"></div>
-    <div id="card"></div>
+  <section id="v-home" class="view">
+    <h2 class="home-h">Welcome to IDL 6.0 Round 1</h2>
+    <p class="home-p">Check your debate slots, find your room and read the motions here. All times are in IST. Choose where to go:</p>
+    <div id="homeLinks" class="home-links"></div>
   </section>
 
-  <section id="v-room" class="view" hidden>
-    <div class="row-inline">
-      <label class="field" for="roomNo">Room number</label>
-      <input id="roomNo" type="number" inputmode="numeric" min="1" value="1">
+  <section id="v-roster" class="view" hidden>
+    <div class="pickers">
+      <label>Category<select id="rCat"></select></label>
+      <label>State<select id="rState"></select></label>
+      <label>Sort<select id="rSort"><option value="name">Name</option><option value="id">Student ID</option></select></label>
     </div>
-    <div class="slotnav">
-      <button id="roomPrev" class="ghost" aria-label="Earlier section">&lsaquo;</button>
-      <div id="roomSlot" class="slotlabel"></div>
-      <button id="roomNext" class="ghost" aria-label="Later section">&rsaquo;</button>
-    </div>
-    <button id="roomNow" class="link">Jump to the current section</button>
-    <div id="roomOut"></div>
+    <label class="field" for="rq">Filter by name or ID</label>
+    <input id="rq" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type a name, ID or school to filter">
+    <div class="rrow"><p id="rCount" class="sum"></p><button id="rClear" class="link" type="button">Clear all</button></div>
+    <div id="rOut" class="rwrap"></div>
+    <button id="rMore" class="ghost more-btn" hidden>Show more</button>
+  </section>
+
+  <section id="v-find" class="view" hidden>
+    <label class="field" for="q">Search by name or student ID</label>
+    <input id="q" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="For example: Aarav, J-AP-01 or your school">
+    <div id="results" aria-live="polite"></div>
+    <div id="card"></div>
   </section>
 
   <section id="v-browse" class="view" hidden>
@@ -56,20 +63,12 @@
     </div>
     <button id="bNow" class="link">Jump to the current section</button>
     <div id="bOut"></div>
-    <p><a id="projLink" class="link" href="?mode=projector">Open projector mode</a></p>
   </section>
 
-  <section id="v-roster" class="view" hidden>
-    <div class="pickers">
-      <label>Category<select id="rCat"></select></label>
-      <label>State<select id="rState"></select></label>
-      <label>Sort<select id="rSort"><option value="name">Name</option><option value="id">Student ID</option></select></label>
-    </div>
-    <label class="field" for="rq">Filter by name or ID</label>
-    <input id="rq" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type to filter the list">
-    <p id="rCount" class="sum"></p>
-    <div id="rOut" class="rwrap"></div>
-    <button id="rMore" class="ghost more-btn" hidden>Show more</button>
+
+  <section id="v-motions" class="view" hidden>
+    <p class="sum">Motions open at 00:00 IST, three days before each round day. Times are IST.</p>
+    <div id="mOut"></div>
   </section>
 </main>
 

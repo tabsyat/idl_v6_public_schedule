@@ -20,7 +20,7 @@ test('public snapshot never contains token, adjudicator, debate id or key', asyn
   assert.ok(!/Sample Adjudicator/.test(json));
   assert.ok(!/"(token|adjudicator|debate_id|key|time_made)"/.test(json));
   const allowed = new Set(['d', 'b', 's', 'r', 'n', 'm', 'sv', 'w', 'ab']);
-  built.snapshot.debates.forEach(d => Object.keys(d).forEach(k => assert.ok(allowed.has(k), 'unexpected field ' + k)));
+  [true, false].forEach(on => snapshotLib.exportDebates(built.snapshot.debates, on).forEach(d => Object.keys(d).forEach(k => assert.ok(allowed.has(k), 'unexpected field ' + k))));
   assert.ok(!json.includes('"st"'), 'state must be absent unless SHOW_STATE=true');
 });
 
@@ -28,19 +28,20 @@ test('hidden sides: alphabetical order, no side flag; revealed: Prop first', asy
   const { built, pd } = await buildSample(false);
   const names = {}; built.snapshot.students.forEach(s => names[s.i] = s.n.toLowerCase());
   let hidden = 0, shown = 0;
-  built.snapshot.debates.forEach(d => {
+  const pub = snapshotLib.exportDebates(built.snapshot.debates, true);
+  pub.forEach(d => {
     if (d.sv === 0) { hidden++; assert.ok(names[d.m[0]] <= names[d.m[1]], 'not alphabetical: ' + d.m); }
     else shown++;
   });
   assert.ok(hidden > 50 && shown > 50, 'sample should contain both kinds');
   // revealed debates really are [Prop, Opp] from the sheet
   const first = pd.debates.find(x => x.sidesVisible);
-  const out = built.snapshot.debates.find(x => x.sv === 1 && x.m[0] === first.propId && x.m[1] === first.oppId);
+  const out = pub.find(x => x.sv === 1 && x.m[0] === first.propId && x.m[1] === first.oppId);
   assert.ok(out);
   // hidden sides must not depend on who was Prop: alphabetical even when Prop sorts last
   const h = pd.debates.filter(x => !x.sidesVisible).find(x => x.propName.toLowerCase() > x.oppName.toLowerCase());
   assert.ok(h, 'need a hidden debate where Prop sorts after Opp');
-  const o2 = built.snapshot.debates.find(x => x.sv === 0 && x.m.includes(h.propId) && x.m.includes(h.oppId) && x.d === h.date && x.r === h.room);
+  const o2 = pub.find(x => x.sv === 0 && x.m.includes(h.propId) && x.m.includes(h.oppId) && x.d === h.date && x.r === h.room);
   assert.strictEqual(o2.m[0], h.oppId);
 });
 
@@ -75,4 +76,18 @@ test('Google source: missing required column gives a clear error', async () => {
   const fakeFetch = async () => ({ ok: true, json: async () => ({ values: [['debate_id', 'room']] }) });
   const src = googleSource({ SHEET_ID: 'x', GOOGLE_CREDENTIALS: JSON.stringify({ client_email: 'a@b', private_key: 'k' }) }, { getToken: async () => 't', fetch: fakeFetch });
   await assert.rejects(() => src.table('Debates', { columns: ['date'] }), /Missing column "date"/);
+});
+
+test('Junior sides stay hidden (alphabetical, no flag) until the host reveals them', async () => {
+  const { built } = await buildSample(false);
+  const names = {}; built.snapshot.students.forEach(s => names[s.i] = s.n.toLowerCase());
+  const junior = id => /^J-/.test(id);
+  const off = snapshotLib.exportDebates(built.snapshot.debates, false), on = snapshotLib.exportDebates(built.snapshot.debates, true);
+  const jOff = off.filter(d => junior(d.m[0])), jOn = on.filter(d => junior(d.m[0]));
+  assert.ok(jOff.length > 50);
+  jOff.forEach(d => { assert.strictEqual(d.sv, 0); assert.ok(names[d.m[0]] <= names[d.m[1]], 'Junior order leaks Prop/Opp'); });
+  assert.ok(jOn.some(d => d.sv === 1));
+  assert.ok(!/"(jr|hm)"/.test(JSON.stringify(off) + JSON.stringify(on)), 'internal fields exported');
+  // Middle and Senior are unaffected by the switch
+  assert.deepStrictEqual(off.filter(d => !junior(d.m[0])), on.filter(d => !junior(d.m[0])));
 });

@@ -1,6 +1,6 @@
 const test = require('node:test'), assert = require('node:assert'), fs = require('fs'), path = require('path'), os = require('os');
 const H = require('./helpers');
-Object.assign(process.env, { SOURCE: 'csv', SAMPLE_DIR: H.tmpSample(), ADMIN_KEY: 'rk', DATA_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'rs-')), DEFAULT_SLOTS_VISIBLE: 'true', DEFAULT_PAIRINGS_VISIBLE: 'true' });
+Object.assign(process.env, { SOURCE: 'csv', SAMPLE_DIR: H.tmpSample(), ADMIN_KEY: 'rk', DATA_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'rs-')), DEFAULT_SIDES_VISIBLE: 'true', DEFAULT_SLOTS_VISIBLE: 'true', DEFAULT_PAIRINGS_VISIBLE: 'true' });
 const { app, refresh } = require('../public/server');
 let base, server; const errors = [];
 test.before(async () => { await refresh(); ({ server, base } = await H.listen(app)); });
@@ -10,13 +10,15 @@ const sw = b => fetch(base + '/host/rk/switch', { method: 'POST', headers: { 'Co
 test('Roster tab is hidden until the host switches it on, then lists students with 3 rounds', async () => {
   await sw({ roster: false });
   let dom = await H.page(base + '/?now=2026-10-21T15:55', errors), d = dom.window.document;
-  assert.ok(await H.until(() => !d.getElementById('v-find').hidden));
+  assert.ok(await H.openTab(dom, 'find'));
   assert.ok(d.getElementById('tabRoster').hidden);
   dom.window.close();
   await sw({ roster: true });
   dom = await H.page(base + '/?now=2026-10-21T15:55', errors); d = dom.window.document;
   assert.ok(await H.until(() => !d.getElementById('tabRoster').hidden));
-  d.getElementById('tabRoster').click();
+  assert.deepStrictEqual([...d.querySelectorAll('#tabs button:not([hidden])')].map(b => b.textContent), ['Schedule', 'Find me', 'All rooms', 'Motions']);
+  assert.ok(!d.getElementById('v-home').hidden && d.getElementById('v-roster').hidden, 'opens on Home, which has no tab');
+  d.querySelector('[data-tab=roster]').click();
   assert.ok(await H.until(() => d.querySelectorAll('#rOut tbody tr').length > 0));
   const rows = d.querySelectorAll('#rOut tbody tr');
   assert.ok(rows.length <= 50);
