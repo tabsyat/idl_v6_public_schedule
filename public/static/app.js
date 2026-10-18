@@ -106,7 +106,7 @@
     if (x && x.k === 'paired' && x.d.sv) return x.d.m[0] === s.i ? 'Prop' : 'Opp';
     return s.sd && s.sd[n - 1] ? s.sd[n - 1] : null;
   }
-  var SIDE_LABEL = { Prop: 'Prop (for)', Opp: 'Opp (Against)' };      // the words every side badge shows
+  var SIDE_LABEL = { Prop: 'Prop (For)', Opp: 'Opp (Against)' };      // the words every side badge shows
   function sideTag(side) { return side ? el('span', 'badge ' + (side === 'Prop' ? 'p' : 'o'), SIDE_LABEL[side]) : null; }
   function sideBadge(d, i) { return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? SIDE_LABEL.Prop : SIDE_LABEL.Opp) : null; }
   function speakerCell(d, i, asButton) {
@@ -224,17 +224,18 @@
   }
   function renderBrowse() {
     var i = S.browse.i == null ? slotIndexNow() : S.browse.i, sl = S.idx.slots[i], out = clear($('bOut'));
-    if (!sl) { add(out, el('p', 'msg', 'No sections are scheduled yet.')); return; }
+    if (!sl) { add(out, el('p', 'msg', 'No batches are scheduled yet.')); return; }
     var dates = [], blocksOn = [], seenD = {}, seenB = {};
     S.idx.slots.forEach(function (x) {
       if (!seenD[x.date]) { seenD[x.date] = 1; dates.push({ value: x.date, label: T.dayLabel(x.date) }); }
       if (x.date === sl.date && !seenB[x.b]) { seenB[x.b] = 1; blocksOn.push({ value: x.b, label: blockRange(x.b) }); }
     });
-    var secs = []; for (var k = 1; k <= block(sl.b).n; k++) secs.push({ value: k, label: String(k) });
+    // Batch options carry the time range of the chosen slot, e.g. "Batch 1 (3:30 – 3:50 PM)"
+    var secs = []; for (var k = 1; k <= block(sl.b).n; k++) secs.push({ value: k, label: 'Batch ' + k + ' (' + secRange(sl.b, k) + ')' });
     fillSelect($('bDate'), dates, sl.date); fillSelect($('bBlock'), blocksOn, sl.b); fillSelect($('bSec'), secs, sl.sec);
     var ds = debatesIn(sl);
     add(out, el('p', 'sum', ds.length + ' of ' + S.snap.cfg.rooms + ' rooms paired. ' + T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec) + '.'));
-    if (!ds.length) { add(out, el('p', 'msg', 'No pairings are published for this section yet.')); return; }
+    if (!ds.length) { add(out, el('p', 'msg', 'No pairings are published for this batch yet.')); return; }
     var tb = el('table', 'tbl'), hd = el('tr');
     ['Room', 'Speaker 1', 'Speaker 2'].forEach(function (t) { add(hd, el('th', null, t)); });
     add(tb, add(el('thead'), hd));
@@ -349,14 +350,14 @@
   // ---- projector
   function renderProj() {
     var i = S.proj.i == null ? slotIndexNow() : S.proj.i, sl = S.idx.slots[i], grid = clear($('pGrid'));
-    if (!sl) { $('pTitle').textContent = 'No sections scheduled'; return; }
+    if (!sl) { $('pTitle').textContent = 'No batches scheduled'; return; }
     var ds = debatesIn(sl), pages = Math.max(1, Math.ceil(ds.length / PAGE_SIZE)), t = now();
     if (S.proj.page >= pages) S.proj.page = 0;
     var live = sl.start <= t && t < sl.start + SEC, before = sl.start > t;
     $('pTitle').textContent = T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec);
-    $('pSub').textContent = 'Section ' + sl.sec + ' of the ' + blockRange(sl.b) + ' block. ' + (live ? 'Live now' : before ? 'Starts in ' + inMin(sl.start - t) : 'Finished');
+    $('pSub').textContent = 'Batch ' + sl.sec + ' of the ' + blockRange(sl.b) + ' slot. ' + (live ? 'Live now' : before ? 'Starts in ' + inMin(sl.start - t) : 'Finished');
     $('pLive').textContent = S.proj.i == null ? 'Following live' : 'Follow live';
-    if (!ds.length) add(grid, el('div', 'p-empty', 'No pairings published for this section yet.'));
+    if (!ds.length) add(grid, el('div', 'p-empty', 'No pairings published for this batch yet.'));
     ds.slice(S.proj.page * PAGE_SIZE, (S.proj.page + 1) * PAGE_SIZE).forEach(function (d) {
       var c = el('div', 'p-cell'), nm = el('div', 'p-names');
       add(c, el('div', 'p-room', String(d.r)));
@@ -389,7 +390,7 @@
     roster: ['Schedule', 'Every student\'s slots for all three rounds'],
     motions: ['Motions', 'Read the motions once they are released'],
     find: ['Find me', 'Search your name or ID to see your slots, room and opponent'],
-    browse: ['All rooms', 'Who is in each room, section by section']
+    browse: ['All rooms', 'Who is in each room, batch by batch']
   };
   // Home page: opened by default and by clicking the title; it has no tab of its own
   function renderHome() {
@@ -527,7 +528,8 @@
     function browseChange(which) {
       var d = $('bDate').value, b = +$('bBlock').value, s = +$('bSec').value, i;
       if (which === 'date') { i = -1; for (var k = 0; k < S.idx.slots.length; k++) if (S.idx.slots[k].date === d) { i = k; break; } }
-      else if (which === 'block') i = findSlot(d, b, 1); else i = findSlot(d, b, s);
+      else if (which === 'block') { i = findSlot(d, b, s); if (i < 0) i = findSlot(d, b, 1); }   // keep the chosen batch number under the new slot
+      else i = findSlot(d, b, s);
       if (i >= 0) { S.browse.i = i; renderBrowse(); }
     }
     $('bDate').addEventListener('change', function () { browseChange('date'); });

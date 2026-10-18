@@ -92,17 +92,28 @@ test('Motions stays second when the Schedule list is switched off (Find me, Moti
   assert.deepStrictEqual([...d.querySelectorAll('#homeLinks button')].map(b => b.dataset.go), ['find', 'motions', 'browse']);
   dom.window.close(); await sw({ roster: true });
 });
-test('side badges say "Prop (for)" and "Opp (Against)" everywhere', async () => {
+test('side badges say "Prop (For)" and "Opp (Against)" everywhere', async () => {
   await fetch(base + '/host/uk/switch', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sidesAll: { r1: true, r2: true, r3: true } }) });
-  const dom = await open('/?now=2026-10-21T15:45'), d = dom.window.document;     // section 1 of the 3:30 block is the one with Junior pairings
+  const dom = await open('/?now=2026-10-21T15:45'), d = dom.window.document;     // batch 1 of the 3:30 slot is the one with Junior pairings
   const labels = sel => [...new Set([...d.querySelectorAll(sel)].map(b => b.textContent))].sort();
   d.querySelector('[data-tab=browse]').click();                                   // All rooms, Junior debates with revealed sides
-  assert.deepStrictEqual(labels('#bOut .badge:not(.x)'), ['Opp (Against)', 'Prop (for)']);
+  assert.deepStrictEqual(labels('#bOut .badge:not(.x)'), ['Opp (Against)', 'Prop (For)']);
   assert.ok(![...d.querySelectorAll('#bOut .badge')].some(b => b.textContent === 'Prop' || b.textContent === 'Opp'), 'no bare Prop/Opp left');
   d.querySelector('[data-tab=find]').click(); type(dom, 'q', 'J-AP-01');          // student card: own side under the round label
-  assert.deepStrictEqual(labels('#card .rn .badge'), ['Opp (Against)', 'Prop (for)']);
+  assert.deepStrictEqual(labels('#card .rn .badge'), ['Opp (Against)', 'Prop (For)']);
   d.querySelector('[data-tab=roster]').click(); type(dom, 'rq', 'J-AP-01');       // Schedule list
-  assert.ok([...d.querySelectorAll('#rOut td.rc .badge')].every(b => /^(Prop \(for\)|Opp \(Against\))$/.test(b.textContent)));
+  assert.ok([...d.querySelectorAll('#rOut td.rc .badge')].every(b => /^(Prop \(For\)|Opp \(Against\))$/.test(b.textContent)));
+  dom.window.close();
+});
+test('All rooms: pickers are Slot and Batch, and Batch options show the times of the chosen slot', async () => {
+  const dom = await open('/?now=2026-10-21T15:45'), d = dom.window.document;
+  d.querySelector('[data-tab=browse]').click();
+  assert.match(txt(d, '#v-browse .pickers'), /Slot/); assert.match(txt(d, '#v-browse .pickers'), /Batch/);
+  assert.doesNotMatch(txt(d, '#v-browse .pickers'), /Block|Section/);
+  assert.match(d.getElementById('bNow').textContent, /current batch/);
+  const opts = [...d.getElementById('bSec').options].map(o => o.textContent);
+  assert.match(opts[0], /^Batch 1 \(3:30.*3:50 PM\)$/);
+  assert.match(opts[2], /^Batch 3 \(4:10.*4:30 PM\)$/);
   dom.window.close();
 });
 test('Schedule on phones: cells carry the labels the card layout uses, and the phone rules exist', async () => {
