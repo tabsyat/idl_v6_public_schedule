@@ -14,3 +14,28 @@ button.big[disabled] { opacity: .6; cursor: progress; }
 .warnlist { margin: 6px 0 0; padding-left: 18px; font-size: .92rem; }
 .warnlist li { margin: 4px 0; }
 .warnlist li.ok { list-style: none; margin-left: -18px; color: var(--prop); font-weight: 650; }
+
+/* ---- motions + backup */
+.mday { border-top: 1px solid var(--rule); padding: 4px 0; }
+.mday:first-child { border-top: 0; }
+.mday summary { cursor: pointer; padding: 10px 0; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.mday summary b { min-width: 7.5em; }
+.mstate { color: var(--muted); font-size: .9rem; }
+.mstate.released { color: var(--prop); font-weight: 650; }
+.mstate.held { color: var(--opp); font-weight: 650; }
+.mwarn { color: var(--opp); font-size: .88rem; font-weight: 650; }
+.mbody { padding: 4px 0 14px; }
+.mbody label { display: block; font-weight: 650; margin: 10px 0 4px; }
+.mbody textarea { width: 100%; min-height: 84px; font: inherit; padding: 8px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); resize: vertical; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+.mbody input[type=datetime-local] { font: inherit; padding: 8px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
+.btn, .mbody button { font: inherit; font-weight: 650; padding: 10px 14px; min-height: 44px; border-radius: 8px; border: 1px solid var(--brand); background: var(--brand); color: var(--brand-ink); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+.btn.alt, .mbody button.alt { background: transparent; color: var(--ink); border-color: var(--rule); }
+.mbody button.danger { border-color: var(--opp); background: transparent; color: var(--opp); }
+.mbody button[disabled] { opacity: .6; cursor: progress; }
+.mrel { margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--rule); }
+.mrel .lab { font-weight: 650; display: block; margin-bottom: 6px; }
+.mmini { color: var(--muted); font-size: .85rem; margin-top: 6px; }
+
+.mvis { display: flex !important; align-items: center; gap: 12px; font-size: 1.05rem; padding: 10px 12px; margin: 4px 0 8px !important; border: 1px solid var(--rule); border-radius: 8px; cursor: pointer; }
+.mvis input { width: 26px; height: 26px; flex: none; }

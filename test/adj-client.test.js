@@ -17,6 +17,7 @@ test('personal page: next-up highlight, countdown, ballot buttons', async () => 
   const hrefs = [...d.querySelectorAll('a.ballot')].map(a => a.href);
   assert.strictEqual(hrefs.length, 4); assert.ok(hrefs.every(h => h.startsWith('https://ballot.example.invalid/exec?debate=D-') && /&t=[0-9a-f]{12}$/.test(h)));
   assert.strictEqual(d.querySelector('a.ballot').rel, 'noopener noreferrer');
+  assert.deepStrictEqual([...new Set([...d.querySelectorAll('.dwho .badge:not(.x)')].map(b => b.textContent))].sort(), ['Opp (Against)', 'Prop (for)'], 'side badges are worded the same way on the adjudicator page');
   dom.window.close();
 });
 test('live section is highlighted', async () => {

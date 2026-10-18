@@ -46,10 +46,20 @@ function parseDebates(rows, opt) {
   return { debates: out, warnings: warnings, dropped: dropped, bad: bad };
 }
 
-/** Slot plan / Roster -> students with 3 planned slots. null slot = not placed yet. */
+/** 'Prop' | 'Opp' | '' from whatever the sheet holds (Prop, prop, P, Proposition, Opp, O, Opposition ...) */
+function normSide(v) {
+  var s = String(v == null ? '' : v).trim().toLowerCase();
+  return !s ? '' : s[0] === 'p' ? 'Prop' : s[0] === 'o' ? 'Opp' : '';
+}
+
+/**
+ * Slot plan / Roster -> students with 3 planned slots (null = not placed yet).
+ * Optional columns side_R1..side_R3 hold each JUNIOR's pre-assigned side. Sides on any other category are ignored
+ * (Middle/Senior sides follow Debates.sides_visible only) and counted in `ignoredSides` so the host can be warned.
+ */
 function parseStudents(rows, opt) {
   opt = opt || {};
-  var unplaced = 0, students = [];
+  var unplaced = 0, students = [], ignoredSides = 0, juniors = 0, juniorsWithSides = 0;
   rows.forEach(function (r) {
     if (!r.student_id) return;
     var plan = [1, 2, 3].map(function (n) {
@@ -57,9 +67,13 @@ function parseStudents(rows, opt) {
       return d && b ? { date: d, block: b } : null;
     });
     unplaced += plan.filter(function (p) { return !p; }).length;
-    students.push({ id: r.student_id, name: r.name, category: r.category, state: r.state || '', plan: plan });
+    var raw = [1, 2, 3].map(function (n) { return normSide(r['side_R' + n]); });
+    var isJunior = /^junior/i.test(r.category || ''), sides = null;
+    if (isJunior) { juniors++; if (raw.some(Boolean)) { sides = raw; juniorsWithSides++; } }
+    else if (raw.some(Boolean)) ignoredSides++;
+    students.push({ id: r.student_id, name: r.name, category: r.category, state: r.state || '', school: String(r.school || '').replace(/\s+/g, ' ').trim(), plan: plan, sides: sides });
   });
-  return { students: students, unplaced: unplaced };
+  return { students: students, unplaced: unplaced, ignoredSides: ignoredSides, juniors: juniors, juniorsWithSides: juniorsWithSides };
 }
 
 /** Adj_Grid: row 1 = 'Room', dates...; one row per room. Cells may hold several names (comma/semicolon/newline). */
@@ -82,7 +96,7 @@ function parseAdjGrid(rows, defaultYear) {
 }
 
 module.exports = {
-  parseConfig: parseConfig, parseDebates: parseDebates, parseStudents: parseStudents, parseAdjGrid: parseAdjGrid,
+  normSide: normSide, parseConfig: parseConfig, parseDebates: parseDebates, parseStudents: parseStudents, parseAdjGrid: parseAdjGrid,
   DEBATE_PUBLIC_COLUMNS: DEBATE_PUBLIC_COLUMNS, DEBATE_PUBLIC_OPTIONAL: DEBATE_PUBLIC_OPTIONAL, DEBATE_PRIVATE_EXTRA: DEBATE_PRIVATE_EXTRA,
   SPLIT: SPLIT, truthy: truthy
 };

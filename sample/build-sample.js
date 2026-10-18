@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * build-sample.js - makes SAMPLE Debates.csv and Adj_Grid.csv from sample/data/Roster.csv + Config.csv.
- * Pairings come from the REAL Pairing.gs (sample/vendor/Pairing.gs) so the data behaves like the host's script.
+ * Middle/Senior pairings come from the REAL Pairing.gs (sample/vendor/Pairing.gs). Junior pairings follow the Roster sides
+ * (side_R1..R3): a Prop is paired with an Opp, as on the real desk.
  * Everything here is fake test data: names in Adj_Grid are "Sample Adjudicator NN", tokens are made up.
  *
  * Scenario (so every screen has something to show):
@@ -46,10 +47,16 @@ function dateText(iso) { var p = iso.split('-'); return Number(p[2]) + ' ' + MON
   function token(id) { return crypto.createHmac('sha256', 'sample-secret').update('debate:' + id).digest('hex').slice(0, 12); }
   function pairBlock(iso, blockLabel, round, category, sectionsToPair, visible) {
     var group = students.filter(function (s) { var p = s.plan[round - 1]; return p && p.date === iso && p.block.label === blockLabel && s.category === category; })
-      .map(function (s) { return { id: s.id, name: s.name, state: s.state }; });
+      .map(function (s) { return { id: s.id, name: s.name, state: s.state, side: s.sides ? s.sides[round - 1] : '' }; });
     var hist = P.buildHistory_(rows.map(function (x) { return { prop: x.prop_id, opp: x.opp_id, round: Number(x.round.slice(1)), status: x.status, absent: x.absent_id }; }));
-    var res = P.pairGroup_(group, hist, rng);
-    var pairs = res.pairs.slice(0, sectionsToPair * ROOMS), block = T.parseBlock(blockLabel);
+    var allPairs;
+    if (category === 'Junior' && group.length && group.every(function (g) { return g.side; })) {
+      // Juniors have pre-assigned sides in the Roster (side_R1..R3): pair a Prop with an Opp, like the real desk
+      var shuffle = function (a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(rng() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; };
+      var props = shuffle(group.filter(function (g) { return g.side === 'Prop'; })), opps = shuffle(group.filter(function (g) { return g.side === 'Opp'; }));
+      allPairs = []; for (var k = 0; k < Math.min(props.length, opps.length); k++) allPairs.push({ prop: props[k], opp: opps[k] });
+    } else allPairs = P.pairGroup_(group, hist, rng).pairs;
+    var pairs = allPairs.slice(0, sectionsToPair * ROOMS), block = T.parseBlock(blockLabel);
     pairs.forEach(function (pr, i) {
       var section = Math.floor(i / ROOMS) + 1, room = (i % ROOMS) + 1, id = 'D-' + String(num++).padStart(4, '0');
       rows.push({ debate_id: id, category: category, date: dateText(iso), block: blockLabel, section: section, room: room,

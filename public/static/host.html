@@ -25,8 +25,37 @@
     <h2>What students can see</h2>
     <label class="sw"><input type="checkbox" id="swSlots"><span><b>Schedule</b><small>Off: students only see "The schedule will be released soon".</small></span></label>
     <label class="sw"><input type="checkbox" id="swPairings"><span><b>Pairings (rooms and opponents)</b><small>Off: students see their planned slots only.</small></span></label>
-    <label class="sw"><input type="checkbox" id="swRoster"><span><b>Roster tab (all students)</b><small>On: a "Roster" tab lists every student with name, ID, state and all 3 rounds. State is only sent to the public while this is on.</small></span></label>
+    <label class="sw"><input type="checkbox" id="swRoster"><span><b>Schedule tab (all students)</b><small>On: a "Schedule" tab lists every student with name, ID, state and all 3 rounds. State is only sent to the public while this is on.</small></span></label>
+    <label class="sw"><input type="checkbox" id="swSchool"><span><b>School names</b><small>On: each student's school (Roster column <b>school</b>) shows in the Schedule list, on the Find me card and in search. Off: schools are not sent to the public at all. Turn it on only when you are ready for names and schools to be public together.</small></span></label>
     <p id="smsg" class="status" role="status"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Junior sides (Prop / Opp)</h2>
+    <p class="help">Each Junior's side for R1, R2 and R3 is read from <b>side_R1, side_R2, side_R3</b> in the Roster tab (Juniors only). Change them in the sheet, then press Refresh. Middle and Senior are not affected: they follow <b>sides_visible</b> in Debates.</p>
+    <label class="sw"><input type="checkbox" id="swSidesAuto"><span><b id="sAutoLabel">Reveal automatically before each student's round</b><small>On: a Junior sees their side for a round from 00:00 IST, a few days before the date of <i>that</i> student's round. Off: sides show only for the rounds you tick below.</small></span></label>
+    <label class="sw"><input type="checkbox" id="swSidesR1"><span><b>R1: show every Junior's side now</b><small id="sInfo1"></small></span></label>
+    <label class="sw"><input type="checkbox" id="swSidesR2"><span><b>R2: show every Junior's side now</b><small id="sInfo2"></small></span></label>
+    <label class="sw"><input type="checkbox" id="swSidesR3"><span><b>R3: show every Junior's side now</b><small id="sInfo3"></small></span></label>
+    <p id="gmsg" class="status" role="status"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Motions</h2>
+    <p class="help">Type the motions here. Unreleased motions are never sent to anyone's phone. All times are IST.</p>
+    <label class="sw"><input type="checkbox" id="swMAuto"><span><b>Release automatically on schedule</b><small>On: each date opens by itself at 00:00 IST, 3 days before (you can still change any one date). Off: nothing opens until you press Release now on that date, or give it its own time.</small></span></label>
+    <div id="mdays"></div>
+    <p id="mmsg" class="status" role="status"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Backup</h2>
+    <p class="help">Saves your switches, motions and release times to a file. Download one after typing the motions. If the server ever loses its data, Restore puts everything back.</p>
+    <div class="row">
+      <a id="backup" class="btn" href="#" download>Download backup</a>
+      <label class="btn alt">Restore from file<input type="file" id="restoreFile" accept="application/json,.json" hidden></label>
+    </div>
+    <p id="bmsg" class="status" role="status"></p>
   </section>
 
   <section class="panel">

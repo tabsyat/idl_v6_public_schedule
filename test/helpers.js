@@ -12,5 +12,11 @@ async function page(url, errors) {
     beforeParse(w) { w.fetch = (u, o) => fetch(new URL(u, w.location.href), o); w.addEventListener('error', e => (errors || []).push(e.message)); } });
 }
 const wait = ms => new Promise(r => setTimeout(r, ms));
-async function until(fn, ms = 4000) { const t = Date.now(); while (Date.now() - t < ms) { if (fn()) return true; await wait(40); } return false; }
-module.exports = { root, tmpSample, listen, page, wait, until };
+async function until(fn, ms = 4000) { const t = Date.now(); while (Date.now() - t < ms) { if (await fn()) return true; await wait(40); } return false; }   // fn may be async
+async function openTab(dom, tab) {                 // wait for the data, then click a tab (the page now opens on Home)
+  const d = dom.window.document, sel = '[data-tab=' + tab + ']';
+  const ok = await until(() => d.getElementById('loading').hidden && d.querySelector(sel) && !d.querySelector(sel).hidden);
+  if (ok) d.querySelector(sel).click();
+  return ok;
+}
+module.exports = { openTab, root, tmpSample, listen, page, wait, until };

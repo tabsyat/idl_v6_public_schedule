@@ -35,7 +35,7 @@
     var who = el('div', 'dwho');
     d.students.forEach(function (s) {
       var row = el('div'), n = el('span', s.absent ? 'absent' : null, s.name);
-      add(row, n, s.side ? el('span', 'badge ' + (s.side === 'Prop' ? 'p' : 'o'), s.side) : null, s.absent ? el('span', 'badge x', 'absent') : null);
+      add(row, n, s.side ? el('span', 'badge ' + (s.side === 'Prop' ? 'p' : 'o'), s.side === 'Prop' ? 'Prop (for)' : 'Opp (Against)') : null, s.absent ? el('span', 'badge x', 'absent') : null);
       who.appendChild(row);
     });
     add(a, who);
