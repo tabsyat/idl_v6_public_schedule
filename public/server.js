@@ -53,7 +53,7 @@ function refresh() {
     try {
       var studentCols = ['student_id', 'name', 'category', 'R1 date', 'R1 slot', 'R2 date', 'R2 slot', 'R3 date', 'R3 slot'];
       var res = await Promise.all([
-        source.table(SLOT_TAB, { columns: studentCols, optional: ['state', 'school', 'side_R1', 'side_R2', 'side_R3'] }),
+        source.table(SLOT_TAB, { columns: studentCols, optional: ['state', 'school', 'side_R1', 'side_R2', 'side_R3', 'R1 batch', 'R2 batch', 'R3 batch'] }),
         source.table('Debates', { columns: M.DEBATE_PUBLIC_COLUMNS, optional: M.DEBATE_PUBLIC_OPTIONAL }),
         source.raw('Config').catch(function () { return []; })
       ]);
