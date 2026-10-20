@@ -39,9 +39,19 @@ function build(input) {
   // ---- students (+ anyone who appears in a debate but not in the plan)
   var byId = {};
   var schools = [], schoolIdx = new Map(), noSchool = [];
+  var badBatch = [];
   var outStudents = students.map(function (s) {
     byId[s.id] = s;
-    var o = { i: s.id, n: s.name, c: s.category, p: s.plan.map(function (p) { return p ? [p.date, blockIdx[p.block.label]] : null; }) };
+    // planned round = [date, blockIndex] or [date, blockIndex, batch] when the Roster gives a valid batch
+    var o = { i: s.id, n: s.name, c: s.category, p: s.plan.map(function (p, k) {
+      if (!p) return null;
+      var bi = blockIdx[p.block.label], e = [p.date, bi];
+      if (p.batch) {
+        if (p.batch <= blocks[bi].n) e.push(p.batch);
+        else badBatch.push(s.id + ' R' + (k + 1) + ' (batch ' + p.batch + ', ' + p.block.label + ' has ' + blocks[bi].n + ')');
+      }
+      return e;
+    }) };
     if (showState && s.state) o.st = s.state;
     if (s.school) {                               // each school name is stored once; students point to it (scx is internal, see exportStudents)
       if (!schoolIdx.has(s.school)) { schoolIdx.set(s.school, schools.length); schools.push(s.school); }
@@ -49,6 +59,7 @@ function build(input) {
     } else noSchool.push(s.id);
     return o;
   });
+  if (badBatch.length) warnings.push(badBatch.length + ' Roster batch(es) are higher than the sections of their slot and were ignored (e.g. ' + badBatch.slice(0, 3).join('; ') + ').');
   if (schools.length && noSchool.length) warnings.push(noSchool.length + ' student(s) have no school in the Roster (e.g. ' + noSchool.slice(0, 3).join(', ') + ').');
   var unknown = 0;
   function ensure(id, name, cat) {
