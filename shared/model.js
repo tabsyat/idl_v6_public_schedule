@@ -64,7 +64,10 @@ function parseStudents(rows, opt) {
     if (!r.student_id) return;
     var plan = [1, 2, 3].map(function (n) {
       var d = T.parseDate(r['R' + n + ' date'], opt.year), b = T.parseBlock(r['R' + n + ' slot']);
-      return d && b ? { date: d, block: b } : null;
+      if (!(d && b)) return null;
+      // optional "R<n> batch" (1, 1.0, "Batch 2"); blank / UNPLACED / anything unreadable = no batch
+      var raw = String(r['R' + n + ' batch'] == null ? '' : r['R' + n + ' batch']).trim(), m = /^(?:batch\s*)?(\d+)(?:\.0+)?$/i.exec(raw);
+      return { date: d, block: b, batch: m && Number(m[1]) >= 1 ? Number(m[1]) : 0 };
     });
     unplaced += plan.filter(function (p) { return !p; }).length;
     var raw = [1, 2, 3].map(function (n) { return normSide(r['side_R' + n]); });
