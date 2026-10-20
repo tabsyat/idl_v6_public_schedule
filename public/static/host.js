@@ -25,7 +25,7 @@
     });
   }
   function show(s) {
-    $('swSlots').checked = s.slots; $('swPairings').checked = s.pairings; $('swRoster').checked = !!s.roster; $('swSchool').checked = !!s.school; $('swMAuto').checked = s.motionsAuto !== false;
+    $('swSlots').checked = s.slots; $('swPairings').checked = s.pairings; $('swRoster').checked = !!s.roster; $('swSchool').checked = !!s.school; $('swBatchOnly').checked = !!s.batchOnly; $('swMAuto').checked = s.motionsAuto !== false;
     showSides(s);
     var f = $('facts'); f.textContent = '';
     function row(k, v) { var a = document.createElement('dt'), b = document.createElement('dd'); a.textContent = k; b.textContent = v; f.appendChild(a); f.appendChild(b); }
@@ -54,7 +54,7 @@
         .catch(function () { $('smsg').className = 'status err'; $('smsg').textContent = 'Could not save. Try again.'; });
     });
   }
-  sw('swSlots', 'slots'); sw('swPairings', 'pairings'); sw('swRoster', 'roster'); sw('swSchool', 'school');
+  sw('swSlots', 'slots'); sw('swPairings', 'pairings'); sw('swRoster', 'roster'); sw('swSchool', 'school'); sw('swBatchOnly', 'batchOnly');
   function sideSw(id, body) {
     $(id).addEventListener('change', function () {
       $('gmsg').className = 'status'; $('gmsg').textContent = 'Saving…';
