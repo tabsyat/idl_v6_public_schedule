@@ -63,14 +63,23 @@
     var d = pick(s.i, n), p = s.p[n - 1];
     if (d) {
       var start = secStartMs(d.d, d.b, d.s), st = T.sectionStartMin(block(d.b).s, d.s);
-      return { k: d.w && d.ab === s.i ? 'absent' : 'paired', d: d, date: d.d, start: start, end: start + SEC, startMin: st, time: secRange(d.b, d.s) };
+      // the Debates row is the real pairing: its batch wins over the Roster batch
+      return { k: d.w && d.ab === s.i ? 'absent' : 'paired', d: d, date: d.d, start: start, end: start + SEC, startMin: st, time: secRange(d.b, d.s),
+        slot: blockRange(d.b), batch: d.s, bt: secRange(d.b, d.s) };
     }
     if (p) {
-      var bl = block(p[1]), ds = T.dayStartMs(p[0]);
-      return { k: 'planned', date: p[0], start: ds + bl.s * 60000, end: ds + bl.e * 60000, startMin: bl.s, time: T.range(bl.s, bl.e) };
+      var bl = block(p[1]), ds = T.dayStartMs(p[0]), bn = p[2] >= 1 && p[2] <= bl.n ? p[2] : 0;
+      if (bn) {      // Roster batch known: the 20-minute batch window, not the whole slot
+        var bs = T.sectionStartMin(bl.s, bn);
+        return { k: 'planned', date: p[0], start: ds + bs * 60000, end: ds + bs * 60000 + SEC, startMin: bs, time: T.range(bs, bs + T.SECTION_MIN),
+          slot: T.range(bl.s, bl.e), batch: bn, bt: T.range(bs, bs + T.SECTION_MIN) };
+      }
+      return { k: 'planned', date: p[0], start: ds + bl.s * 60000, end: ds + bl.e * 60000, startMin: bl.s, time: T.range(bl.s, bl.e), slot: T.range(bl.s, bl.e), batch: 0 };
     }
     return { k: 'tbc' };
   }
+  function batchTag(x) { return x && x.batch ? ' (Batch ' + x.batch + ')' : ''; }                       // for the Now / Next text
+  function batchLine(x) { return x && x.batch ? el('span', 'batch', 'Batch ' + x.batch + ' (' + x.bt + ')') : null; }   // line under the slot time
   function slotIndexNow() {
     var t = now(), sl = S.idx.slots;
     for (var i = 0; i < sl.length; i++) if (sl[i].start + SEC > t) return i;
@@ -125,12 +134,12 @@
     var h = headline(s), band;
     if (h.type === 'live') {
       band = el('div', 'band live'); add(band, el('div', 'txt'), el('div', 'big', 'Room ' + h.info.d.r));
-      var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + ', vs ' + oppOf(h.info.d, s.i).n);
+      var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + batchTag(h.info) + ', vs ' + oppOf(h.info.d, s.i).n);
     } else if (h.type === 'window') {
-      band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + '. Opponent and room will be announced during attendance of that round'); add(band, t2);
+      band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + batchTag(h.info) + '. Opponent and room will be announced during attendance of that round'); add(band, t2);
     } else if (h.type === 'next') {
       band = el('div', 'band next'); var t3 = el('div', 'txt');
-      var when = T.dayLabel(h.info.date) + ', ' + h.info.time, soon = h.info.start - now();
+      var when = T.dayLabel(h.info.date) + ', ' + h.info.time + batchTag(h.info), soon = h.info.start - now();
       add(t3, el('b', null, 'Next: R' + h.n), when + (soon > 0 && soon < 3600000 ? ' (starts in ' + inMin(soon) + ')' : '')); add(band, t3);
       if (h.info.k === 'paired') add(band, el('div', 'big', 'Room ' + h.info.d.r));
     } else if (h.type === 'pending') {
@@ -151,7 +160,7 @@
         add(li, add(el('div', 'detail'), el('span', 'tbc', 'The organisers will confirm this slot.')));
       } else {
         if (x.start <= t && t < x.end) li.className += ' live'; else if (x.end <= t && x.k !== 'absent') li.className += ' past';
-        var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), el('span', 'time', x.time));
+        var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), el('span', 'time', x.slot || x.time), batchLine(x));
         add(li, when2);
         var room = el('div', 'room'); if (x.k === 'paired') add(room, 'Room ' + x.d.r);
         add(li, room);
@@ -177,7 +186,7 @@
     var h = headline(s);
     if (h.type === 'live') return { cls: 'quick now', text: 'Now: Room ' + h.info.d.r };
     if (h.type === 'window') return { cls: 'quick now', text: 'Slot open now' };
-    if (h.type === 'next') return { cls: 'quick', text: 'Next: R' + h.n + ', ' + T.shortDay(h.info.date) + ', ' + T.clock(h.info.startMin) + (h.info.k === 'paired' ? ', Room ' + h.info.d.r : '') };
+    if (h.type === 'next') return { cls: 'quick', text: 'Next: R' + h.n + ', ' + T.shortDay(h.info.date) + ', ' + T.clock(h.info.startMin) + (h.info.batch ? ', Batch ' + h.info.batch : '') + (h.info.k === 'paired' ? ', Room ' + h.info.d.r : '') };
     if (h.type === 'pending') return { cls: 'quick', text: 'Slot to be confirmed' };
     return { cls: 'quick', text: 'Finished' };
   }
@@ -254,7 +263,8 @@
     td.setAttribute('data-label', 'R' + n);                    // shown as the row label in the phone layout
     if (x.k === 'tbc') { add(td, el('span', 'tbc', 'To be confirmed')); return td; }
     if (x.end <= now() && x.k !== 'absent') td.className += ' past';
-    add(td, el('b', null, T.shortDay(x.date)), ' ', x.time);
+    add(td, el('b', null, T.shortDay(x.date)), ' ', x.slot || x.time);
+    if (x.batch) add(td, el('br'), batchLine(x));
     var own = x.k === 'absent' ? null : mySide(s, n, x);
     if (own) add(td, el('br'), 'speaks ', sideTag(own));
     if (x.k === 'paired') {
