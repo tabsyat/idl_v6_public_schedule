@@ -47,6 +47,25 @@ var version = 0;
 var inflight = null;
 function bump() { version = Math.max(version + 1, Date.now()); return version; }
 
+// Debates tab -> row objects. Accepts the header spellings used by the Desk script and by older copies of the sheet:
+//   block   = "block" | "time slot" | "time_slot" | "slot"        section = "section" | "batch"
+// Only the public columns are copied, so tokens, adjudicators and keys never enter this service.
+var DEBATE_ALIAS = { block: ['block', 'time slot', 'time_slot', 'slot'], section: ['section', 'batch'] };
+function debatesTable(rows) {
+  var head = (rows[0] || []).map(function (h) { return String(h == null ? '' : h).trim().toLowerCase().replace(/\s+/g, ' '); });
+  var want = M.DEBATE_PUBLIC_COLUMNS.concat(M.DEBATE_PUBLIC_OPTIONAL), idx = {}, missing = [];
+  want.forEach(function (c) {
+    var names = DEBATE_ALIAS[c] || [c], at = -1;
+    names.forEach(function (n) { if (at < 0) at = head.indexOf(n); });
+    if (at < 0 && c !== 'absent_id') missing.push(c);
+    idx[c] = at;
+  });
+  if (missing.length) throw new Error('Missing column "' + missing[0] + '" in tab Debates (header row: ' + head.join(', ') + ')');
+  return rows.slice(1).filter(function (r) { return r.some(function (v) { return String(v == null ? '' : v).trim() !== ''; }); }).map(function (r) {
+    var o = {}; want.forEach(function (c) { o[c] = idx[c] >= 0 && r[idx[c]] != null ? String(r[idx[c]]).trim() : ''; }); return o;
+  });
+}
+
 function refresh() {
   if (inflight) return inflight;
   inflight = (async function () {
@@ -54,7 +73,7 @@ function refresh() {
       var studentCols = ['student_id', 'name', 'category', 'R1 date', 'R1 slot', 'R2 date', 'R2 slot', 'R3 date', 'R3 slot'];
       var res = await Promise.all([
         source.table(SLOT_TAB, { columns: studentCols, optional: ['state', 'school', 'side_R1', 'side_R2', 'side_R3', 'R1 batch', 'R2 batch', 'R3 batch'] }),
-        source.table('Debates', { columns: M.DEBATE_PUBLIC_COLUMNS, optional: M.DEBATE_PUBLIC_OPTIONAL }),
+        source.raw('Debates').then(debatesTable),
         source.raw('Config').catch(function () { return []; })
       ]);
       var ps = M.parseStudents(res[0], { year: YEAR });
