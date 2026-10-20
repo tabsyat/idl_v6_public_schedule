@@ -384,6 +384,8 @@
   // ------------------------------------------------------------------ shell
   function setTab(t) {
     S.tab = t; S.tabChosen = true;
+    // the #ID in the address bar belongs to a student's card: drop it on every other tab, bring it back on Find me
+    try { history.replaceState(null, '', location.pathname + location.search + (t === 'find' && S.sel ? '#' + encodeURIComponent(S.sel) : '')); } catch (e) { /* ignore */ }
     applyTab();
     render();
   }
