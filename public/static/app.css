@@ -196,3 +196,12 @@ td.rn1 { vertical-align: top; }
   #v-browse .pickers { grid-template-columns: 1fr; }
   #v-browse .pickers label:nth-child(2) { grid-column: auto; order: 0; }
 }
+/* ---------- Schedule table: the batch line never wraps; on desktop the page and the round columns are wider ---------- */
+.tbl.rost .batch, .when .batch { white-space: nowrap; }
+@media (min-width: 701px) {
+  main.wide { max-width: 1700px; }
+  .tbl.rost { min-width: 1300px; }
+  .tbl.rost th:nth-last-child(-n+3), .tbl.rost td.rc { min-width: 270px; width: 25%; }
+  .tbl.rost td.rn1 { min-width: 170px; }
+  .tbl.rost td { padding-right: 20px; }
+}
