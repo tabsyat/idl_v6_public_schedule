@@ -30,6 +30,16 @@ var store = createStore(env.DATA_DIR || path.join(__dirname, '..', 'data'), {
   motionsAuto: env.DEFAULT_MOTIONS_AUTO == null ? true : isTrue(env.DEFAULT_MOTIONS_AUTO)
 });
 
+// "Show batch only" switch: kept in its own small file next to the other host data (survives restarts, included in the backup)
+var fs = require('fs');
+var DATA_DIR = env.DATA_DIR || path.join(__dirname, '..', 'data'), BO_FILE = path.join(DATA_DIR, 'batch-only.json');
+var batchOnly = isTrue(env.DEFAULT_BATCH_ONLY);
+try { batchOnly = !!JSON.parse(fs.readFileSync(BO_FILE, 'utf8')).batchOnly; } catch (e) { /* first run: keep the default */ }
+function setBatchOnly(v) {
+  batchOnly = !!v;
+  try { fs.mkdirSync(DATA_DIR, { recursive: true }); fs.writeFileSync(BO_FILE, JSON.stringify({ batchOnly: batchOnly })); } catch (e) { console.error('Could not save batch-only switch:', e.message); }
+}
+
 var SCFG = sidesLib.config(env);                  // Junior sides: shown 3 days before each student's round (SIDE_LEAD_DAYS)
 var clock = function () { return Date.now(); };   // tests can replace it (setClock)
 var MCFG = motionsLib.config(env, YEAR);          // dates 21-31 Oct, released 3 days ahead at 00:00 IST
@@ -109,13 +119,13 @@ function payload() {
   var now = clock(), reached = 0;
   current.instants.forEach(function (t) { if (t <= now) reached++; });      // Junior sides can open by themselves at these moments
   var base = Math.max(current.v, switchRev), v = base + '.' + reached;
-  var key = v + ':' + (sw.slots ? 1 : 0) + (sw.pairings ? 1 : 0) + (sw.roster ? 1 : 0) + (sw.school ? 1 : 0) + (sw.sidesAuto ? 1 : 0) + (sw.sidesAll.r1 ? 1 : 0) + (sw.sidesAll.r2 ? 1 : 0) + (sw.sidesAll.r3 ? 1 : 0);
+  var key = v + ':' + (sw.slots ? 1 : 0) + (sw.pairings ? 1 : 0) + (sw.roster ? 1 : 0) + (sw.school ? 1 : 0) + (sw.sidesAuto ? 1 : 0) + (sw.sidesAll.r1 ? 1 : 0) + (sw.sidesAll.r2 ? 1 : 0) + (sw.sidesAll.r3 ? 1 : 0) + (batchOnly ? 'b' : '');
   if (memo.key === key) return memo;
   var obj;
   if (!sw.slots) obj = { v: v, enabled: false, builtAt: current.builtAt };
   else {
     var withState = sw.roster || SHOW_STATE, reveal = sidesLib.revealer(SCFG, { auto: sw.sidesAuto, all: sw.sidesAll }, now);
-    obj = { v: v, enabled: true, pairings: sw.pairings, roster: sw.roster, builtAt: current.builtAt, showState: withState,
+    obj = { v: v, enabled: true, pairings: sw.pairings, roster: sw.roster, builtAt: current.builtAt, showState: withState, batchOnly: batchOnly ? 1 : undefined,
       cfg: current.snapshot.cfg,
       schools: sw.school ? current.snapshot.schools : undefined,
       students: snapshotLib.exportStudents(withState ? current.snapshot.students : current.snapshot.studentsNoState, reveal, { school: sw.school }),
@@ -182,7 +192,7 @@ function guard(req, res, next) {
 function status() {
   var sw = store.get();
   return {
-    slots: sw.slots, pairings: sw.pairings, roster: sw.roster, school: sw.school, motionsAuto: sw.motionsAuto, sidesAuto: sw.sidesAuto, sidesAll: sw.sidesAll,
+    slots: sw.slots, batchOnly: batchOnly, pairings: sw.pairings, roster: sw.roster, school: sw.school, motionsAuto: sw.motionsAuto, sidesAuto: sw.sidesAuto, sidesAll: sw.sidesAll,
     sidesInfo: sidesLib.hostView(SCFG, { auto: sw.sidesAuto, all: sw.sidesAll }, current ? current.snapshot.sideDates : null, clock()), source: source.kind, slotTab: SLOT_TAB, showState: SHOW_STATE,
     refreshing: !!inflight, builtAt: current ? current.builtAt : null, v: current ? current.v : null,
     stats: current ? current.stats : null, warnings: current ? current.warnings.slice(0, 60) : [],
@@ -197,6 +207,7 @@ app.post('/host/:key/refresh', guard, async function (req, res) {
 });
 app.post('/host/:key/switch', guard, express.json({ limit: '1kb' }), function (req, res) {
   var b = req.body || {}, patch = {};
+  if (typeof b.batchOnly === 'boolean') setBatchOnly(b.batchOnly);
   if (typeof b.slots === 'boolean') patch.slots = b.slots;
   if (typeof b.pairings === 'boolean') patch.pairings = b.pairings;
   if (typeof b.roster === 'boolean') patch.roster = b.roster;
@@ -237,7 +248,7 @@ app.post('/host/:key/motions/release', guard, express.json({ limit: '1kb' }), fu
 app.get('/host/:key/backup', guard, function (req, res) {
   var d = store.getData(), now = Date.now();
   var stamp = T.istIso(now).replace(/-/g, '') + '-' + T.istClock(now).replace(':', '');
-  var out = { app: 'idl-public', version: 1, exportedAt: now, switches: store.get(), motions: d.motions, release: d.release };
+  var out = { app: 'idl-public', version: 1, exportedAt: now, batchOnly: batchOnly, switches: store.get(), motions: d.motions, release: d.release };
   res.set({ 'Content-Type': 'application/json; charset=utf-8', 'Content-Disposition': 'attachment; filename="idl-backup-' + stamp + '.json"' });
   res.send(JSON.stringify(out, null, 2));
 });
@@ -250,6 +261,7 @@ app.post('/host/:key/restore', guard, express.json({ limit: '300kb' }), function
   ['slots', 'pairings', 'roster', 'school', 'motionsAuto', 'sidesAuto'].forEach(function (k) { if (typeof sw[k] === 'boolean') patch[k] = sw[k]; });
   if (sw.sidesAll && typeof sw.sidesAll === 'object') patch.sidesAll = sw.sidesAll;
   else if (typeof sw.sides === 'boolean') patch.sidesAll = { r1: sw.sides, r2: sw.sides, r3: sw.sides };   // backup from the older single switch
+  if (typeof b.batchOnly === 'boolean') setBatchOnly(b.batchOnly);
   store.set(patch);
   store.replaceData({ motions: r.motions, release: r.release });
   switchRev = bump();
