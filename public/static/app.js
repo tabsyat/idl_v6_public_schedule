@@ -78,6 +78,7 @@
     }
     return { k: 'tbc' };
   }
+  function slotHidden(x) { return !!(S.snap && S.snap.batchOnly && x && x.batch); }                  // host switch: show the batch, not the whole slot
   function batchTag(x) { return x && x.batch ? ' (Batch ' + x.batch + ')' : ''; }                       // for the Now / Next text
   function batchLine(x) { return x && x.batch ? el('span', 'batch', 'Batch ' + x.batch + ' (' + x.bt + ')') : null; }   // line under the slot time
   function slotIndexNow() {
@@ -160,7 +161,7 @@
         add(li, add(el('div', 'detail'), el('span', 'tbc', 'The organisers will confirm this slot.')));
       } else {
         if (x.start <= t && t < x.end) li.className += ' live'; else if (x.end <= t && x.k !== 'absent') li.className += ' past';
-        var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), el('span', 'time', x.slot || x.time), batchLine(x));
+        var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), slotHidden(x) ? null : el('span', 'time', x.slot || x.time), batchLine(x));
         add(li, when2);
         var room = el('div', 'room'); if (x.k === 'paired') add(room, 'Room ' + x.d.r);
         add(li, room);
@@ -263,7 +264,7 @@
     td.setAttribute('data-label', 'R' + n);                    // shown as the row label in the phone layout
     if (x.k === 'tbc') { add(td, el('span', 'tbc', 'To be confirmed')); return td; }
     if (x.end <= now() && x.k !== 'absent') td.className += ' past';
-    add(td, el('b', null, T.shortDay(x.date)), ' ', x.slot || x.time);
+    add(td, el('b', null, T.shortDay(x.date)), slotHidden(x) ? null : ' ' + (x.slot || x.time));
     if (x.batch) add(td, el('br'), batchLine(x));
     var own = x.k === 'absent' ? null : mySide(s, n, x);
     if (own) add(td, el('br'), 'speaks ', sideTag(own));
@@ -365,7 +366,7 @@
     if (S.proj.page >= pages) S.proj.page = 0;
     var live = sl.start <= t && t < sl.start + SEC, before = sl.start > t;
     $('pTitle').textContent = T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec);
-    $('pSub').textContent = 'Batch ' + sl.sec + ' of the ' + blockRange(sl.b) + ' slot. ' + (live ? 'Live now' : before ? 'Starts in ' + inMin(sl.start - t) : 'Finished');
+    $('pSub').textContent = 'Batch ' + sl.sec + (S.snap.batchOnly ? '. ' : ' of the ' + blockRange(sl.b) + ' slot. ') + (live ? 'Live now' : before ? 'Starts in ' + inMin(sl.start - t) : 'Finished');
     $('pLive').textContent = S.proj.i == null ? 'Following live' : 'Follow live';
     if (!ds.length) add(grid, el('div', 'p-empty', 'No pairings published for this batch yet.'));
     ds.slice(S.proj.page * PAGE_SIZE, (S.proj.page + 1) * PAGE_SIZE).forEach(function (d) {
