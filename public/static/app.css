@@ -227,3 +227,10 @@ body.proj .marquee { display: none; }
 .join-btn:hover { background: #2b74ff; }
 .join-btn:active { background: #0847c9; }
 body.proj .join-btn { display: none; }
+
+/* ---------- phones: both header buttons smaller ---------- */
+@media (max-width: 480px) {
+  .contact { padding: 4px 16px 0; gap: 4px 8px; }
+  .join-btn, .contact-btn { font-size: .66rem; padding: 4px 10px; gap: 5px; }
+  .join-btn svg { width: 13px; height: 13px; }
+}
