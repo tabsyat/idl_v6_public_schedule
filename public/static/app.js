@@ -1,238 +1,578 @@
-/* ---------- tokens: change these to restyle ---------- */
-:root {
-  --paper: #f4f6f7; --surface: #ffffff; --ink: #14232c; --muted: #55656e; --rule: #d3dbe0;
-  --brand: #0e5a6b; --brand-ink: #ffffff; --live: #ffb300; --live-ink: #1d1500;
-  --prop: #1e6b47; --opp: #9b3a2c; --warn-bg: #fff1d6; --warn-ink: #4a3200;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0f1a20; --surface: #16252d; --ink: #e8eef1; --muted: #9db0ba; --rule: #2b3f49;
-    --brand: #1b8aa3; --brand-ink: #04141a; --prop: #5bc08d; --opp: #e58b7c; --warn-bg: #4a3a12; --warn-ink: #ffe9b0;
+/* IDL public page. Data layer = load(); display layer = the render* functions. Plain ES5 for old phones. */
+(function () {
+  'use strict';
+  var T = window.IDLTime;
+  var SEC = T.SECTION_MIN * 60000;
+  var POLL_MS = 20000, STALE_MS = 120000, PAGE_SIZE = 12;
+  var params = new URLSearchParams(location.search);
+  var PROJECTOR = params.get('mode') === 'projector';
+  var ROTATE_S = Number(params.get('rotate')) || 12;
+
+  var S = { homeKey: '', snap: null, v: null, enabled: true, offset: 0, lastOk: 0, builtAt: 0, tab: 'home', sel: null, q: '',
+    idx: null, deep: null, browse: { i: null }, proj: { i: null, page: 0, paused: false }, fixedNow: null,
+    roster: { shown: 50, cat: '', state: '', sort: 'name', q: '' },
+    motions: null, mTimer: null, mOk: 0, mPoll: 0 };
+
+  // ------------------------------------------------------------------ helpers
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function add(parent) { for (var i = 1; i < arguments.length; i++) { var c = arguments[i]; if (c == null) continue; parent.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); } return parent; }
+  function clear(e) { while (e.firstChild) e.removeChild(e.firstChild); return e; }
+  function norm(s) {
+    s = String(s == null ? '' : s);
+    if (s.normalize) s = s.normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+    return s.toLowerCase().replace(/[^a-z0-9\u0900-\u097f ]+/g, ' ').replace(/\s+/g, ' ').trim();
   }
-}
-* { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.45 var(--font); font-variant-numeric: tabular-nums; }
-h1, h2, h3, p { margin: 0; }
-button, input, select { font: inherit; color: inherit; }
-:focus-visible { outline: 3px solid var(--live); outline-offset: 2px; }
-[hidden] { display: none !important; }
-a { color: var(--brand); }
+  function now() { return Date.now() + S.offset; }
+  function block(b) { return S.snap.cfg.blocks[b]; }
+  function secStartMs(date, b, sec) { return T.sectionStartMs(date, block(b).s, sec); }
+  function secRange(b, sec) { var st = T.sectionStartMin(block(b).s, sec); return T.range(st, st + T.SECTION_MIN); }
+  function blockRange(b) { return T.range(block(b).s, block(b).e); }
+  function student(id) { return S.idx.byId[id]; }
+  function inMin(ms) { var m = Math.round(ms / 60000); return m < 1 ? 'less than a minute' : m === 1 ? '1 minute' : m < 90 ? m + ' minutes' : Math.round(m / 60) + ' hours'; }
 
-/* ---------- header and tabs ---------- */
-.bar { background: var(--brand); color: var(--brand-ink); }
-.bar-in { max-width: 680px; margin: 0 auto; padding: 14px 16px 6px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.bar h1 { font-size: 1.15rem; font-weight: 750; letter-spacing: .01em; }
-.tz { font-size: .8rem; opacity: .85; }
-.tabs { max-width: 680px; margin: 0 auto; display: flex; padding: 0 8px; }
-.tabs button { flex: 1; background: none; border: 0; border-bottom: 3px solid transparent; color: inherit; opacity: .8; padding: 10px 4px 9px; min-height: 44px; cursor: pointer; font-weight: 600; }
-.tabs button[aria-selected="true"] { opacity: 1; border-bottom-color: var(--live); }
+  // ------------------------------------------------------------------ data layer
+  function buildIndex(snap) {
+    var byId = {}, rounds = {}, bySlot = {}, active = {}, blocks = snap.cfg.blocks;
+    snap.students.forEach(function (s) {
+      byId[s.i] = s; s._k = norm(s.n);
+      s._m = s._k + (snap.schools && s.sc != null ? ' ' + norm(snap.schools[s.sc]) : '');      // name + school: what search and filters match against
+      s.p.forEach(function (p) { if (p) active[p[0] + '|' + p[1]] = 1; });
+    });
+    snap.debates.forEach(function (d) {
+      active[d.d + '|' + d.b] = 1;
+      var k = d.d + '|' + d.b + '|' + d.s;
+      (bySlot[k] = bySlot[k] || []).push(d);
+      d.m.forEach(function (id) { (rounds[id] = rounds[id] || [[], [], []])[d.n - 1].push(d); });
+    });
+    var slots = [];
+    Object.keys(active).forEach(function (k) {
+      var a = k.split('|'), b = +a[1];
+      for (var sec = 1; sec <= blocks[b].n; sec++) slots.push({ date: a[0], b: b, sec: sec, start: T.sectionStartMs(a[0], blocks[b].s, sec) });
+    });
+    slots.sort(function (x, y) { return x.start - y.start; });
+    return { byId: byId, rounds: rounds, bySlot: bySlot, slots: slots, students: snap.students };
+  }
+  function pick(id, n) {
+    var c = (S.idx.rounds[id] || [[], [], []])[n - 1];
+    if (!c.length) return null;
+    var ok = c.filter(function (d) { return !(d.w && d.ab === id); });
+    return ok.length ? ok[ok.length - 1] : c[c.length - 1];
+  }
+  function info(s, n) {
+    var d = pick(s.i, n), p = s.p[n - 1];
+    if (d) {
+      var start = secStartMs(d.d, d.b, d.s), st = T.sectionStartMin(block(d.b).s, d.s);
+      // the Debates row is the real pairing: its batch wins over the Roster batch
+      return { k: d.w && d.ab === s.i ? 'absent' : 'paired', d: d, date: d.d, start: start, end: start + SEC, startMin: st, time: secRange(d.b, d.s),
+        slot: blockRange(d.b), batch: d.s, bt: secRange(d.b, d.s) };
+    }
+    if (p) {
+      var bl = block(p[1]), ds = T.dayStartMs(p[0]), bn = p[2] >= 1 && p[2] <= bl.n ? p[2] : 0;
+      if (bn) {      // Roster batch known: the 20-minute batch window, not the whole slot
+        var bs = T.sectionStartMin(bl.s, bn);
+        return { k: 'planned', date: p[0], start: ds + bs * 60000, end: ds + bs * 60000 + SEC, startMin: bs, time: T.range(bs, bs + T.SECTION_MIN),
+          slot: T.range(bl.s, bl.e), batch: bn, bt: T.range(bs, bs + T.SECTION_MIN) };
+      }
+      return { k: 'planned', date: p[0], start: ds + bl.s * 60000, end: ds + bl.e * 60000, startMin: bl.s, time: T.range(bl.s, bl.e), slot: T.range(bl.s, bl.e), batch: 0 };
+    }
+    return { k: 'tbc' };
+  }
+  function slotHidden(x) { return !!(S.snap && S.snap.batchOnly && x && x.batch); }                  // host switch: show the batch, not the whole slot
+  function batchTag(x) { return x && x.batch ? ' (Batch ' + x.batch + ')' : ''; }                       // for the Now / Next text
+  function batchLine(x) { return x && x.batch ? el('span', 'batch', 'Batch ' + x.batch + ' (' + x.bt + ')') : null; }   // line under the slot time
+  function slotIndexNow() {
+    var t = now(), sl = S.idx.slots;
+    for (var i = 0; i < sl.length; i++) if (sl[i].start + SEC > t) return i;
+    return Math.max(0, sl.length - 1);
+  }
+  function findSlot(date, b, sec) {
+    var sl = S.idx.slots;
+    for (var i = 0; i < sl.length; i++) if (sl[i].date === date && sl[i].b === b && sl[i].sec === sec) return i;
+    return -1;
+  }
+  function debatesIn(slot) { return (S.idx.bySlot[slot.date + '|' + slot.b + '|' + slot.sec] || []).slice().sort(function (a, b) { return a.r - b.r; }); }
 
-main { max-width: 680px; margin: 0 auto; padding: 16px 16px 8px; }
-.msg { color: var(--muted); padding: 24px 0; }
-.warn { background: var(--warn-bg); color: var(--warn-ink); padding: 10px 16px; text-align: center; font-size: .92rem; }
+  // what matters to a student right now
+  function headline(s) {
+    var t = now(), infos = [1, 2, 3].map(function (n) { return info(s, n); }), next = null, nextN = 0, hasTbc = false, i;
+    for (i = 0; i < 3; i++) {
+      var x = infos[i];
+      if (x.k === 'tbc') { hasTbc = true; continue; }
+      if (x.k === 'absent') continue;
+      if (x.start <= t && t < x.end) return { type: x.k === 'paired' ? 'live' : 'window', info: x, n: i + 1 };
+      if (x.start > t && (!next || x.start < next.start)) { next = x; nextN = i + 1; }
+    }
+    if (next) return { type: 'next', info: next, n: nextN };
+    return { type: hasTbc ? 'pending' : 'done' };
+  }
+  function schoolOf(s) { return S.snap && S.snap.schools && s.sc != null ? S.snap.schools[s.sc] : ''; }
+  function oppOf(d, id) { return student(d.m[0] === id ? d.m[1] : d.m[0]); }
 
-/* ---------- form controls ---------- */
-.field, .pickers label { display: block; font-size: .85rem; color: var(--muted); margin: 0 0 4px; font-weight: 600; }
-input[type=search], input[type=number], select { width: 100%; min-height: 48px; padding: 10px 12px; border: 2px solid var(--rule); border-radius: 8px; background: var(--surface); }
-input:focus, select:focus { border-color: var(--brand); outline: none; }
-.pickers { display: grid; gap: 10px; grid-template-columns: 1fr 1.4fr .8fr; margin-bottom: 6px; }
-.pickers select { padding: 8px 6px; }
-button.ghost { background: var(--surface); border: 2px solid var(--rule); border-radius: 8px; min-width: 44px; min-height: 44px; cursor: pointer; font-size: 1.3rem; line-height: 1; }
-button.link { background: none; border: 0; padding: 10px 0; color: var(--brand); text-decoration: underline; cursor: pointer; font-size: .92rem; min-height: 44px; }
+  // ------------------------------------------------------------------ pieces of UI
+  function nameBtn(id, cls) { var s = student(id), b = el('button', cls || 'opp-link', s ? s.n : id); b.setAttribute('data-open', id); b.type = 'button'; return b; }
+  // a student's own side in round n: from the paired debate when its sides are shown, else the Roster side the server has revealed
+  function mySide(s, n, x) {
+    if (x && x.k === 'paired' && x.d.sv) return x.d.m[0] === s.i ? 'Prop' : 'Opp';
+    return s.sd && s.sd[n - 1] ? s.sd[n - 1] : null;
+  }
+  var SIDE_LABEL = { Prop: 'Prop (For)', Opp: 'Opp (Against)' };      // the words every side badge shows
+  function sideTag(side) { return side ? el('span', 'badge ' + (side === 'Prop' ? 'p' : 'o'), SIDE_LABEL[side]) : null; }
+  function sideBadge(d, i) { return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? SIDE_LABEL.Prop : SIDE_LABEL.Opp) : null; }
+  function speakerCell(d, i, asButton) {
+    var id = d.m[i], w = el('span'), n = asButton ? nameBtn(id) : el('span', null, student(id).n);
+    if (d.w && d.ab === id) { n.className = (n.className ? n.className + ' ' : '') + 'absent'; }
+    add(w, n, sideBadge(d, i), d.w && d.ab === id ? el('span', 'badge x', 'absent') : null);
+    return w;
+  }
 
-/* ---------- search results ---------- */
-#results { margin-top: 8px; }
-.res { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
-.res li button { width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--rule); padding: 12px 2px; min-height: 56px; display: flex; justify-content: space-between; gap: 12px; align-items: center; cursor: pointer; }
-.res .who { font-weight: 650; }
-.res .sub { display: block; font-size: .82rem; color: var(--muted); }
-.res .quick { font-size: .85rem; text-align: right; flex: none; max-width: 48%; }
-.res .quick.now { background: var(--live); color: var(--live-ink); padding: 3px 8px; border-radius: 6px; font-weight: 700; }
-.more { color: var(--muted); font-size: .88rem; padding: 10px 2px; }
+  function renderCard() {
+    var box = clear($('card')), s = S.sel && student(S.sel);
+    if (!s) return;
+    var back = el('button', 'link back', 'Back to search'); back.type = 'button'; back.id = 'backBtn';
+    add(box, back, el('h2', 'who-h', s.n),
+      el('p', 'who-sub', s.i + ', ' + s.c + (s.st ? ', ' + s.st : '')), schoolOf(s) ? el('p', 'who-school', schoolOf(s)) : null);
+    var h = headline(s), band;
+    if (h.type === 'live') {
+      band = el('div', 'band live'); add(band, el('div', 'txt'), el('div', 'big', 'Room ' + h.info.d.r));
+      var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + batchTag(h.info) + ', vs ' + oppOf(h.info.d, s.i).n);
+    } else if (h.type === 'window') {
+      band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + batchTag(h.info) + '. Opponent and room will be announced during attendance of that round'); add(band, t2);
+    } else if (h.type === 'next') {
+      band = el('div', 'band next'); var t3 = el('div', 'txt');
+      var when = T.dayLabel(h.info.date) + ', ' + h.info.time + batchTag(h.info), soon = h.info.start - now();
+      add(t3, el('b', null, 'Next: R' + h.n), when + (soon > 0 && soon < 3600000 ? ' (starts in ' + inMin(soon) + ')' : '')); add(band, t3);
+      if (h.info.k === 'paired') add(band, el('div', 'big', 'Room ' + h.info.d.r));
+    } else if (h.type === 'pending') {
+      band = el('div', 'band next'); add(band, el('div', 'txt', 'Some of your rounds do not have a slot yet. The organisers will confirm them.'));
+    } else {
+      band = el('div', 'band done'); add(band, el('div', 'txt', 'All your rounds are finished.'));
+    }
+    add(box, band);
 
-/* ---------- student card ---------- */
-#card { margin-top: 14px; }
-.back { margin-bottom: 4px; }
-.who-h { font-size: 1.35rem; font-weight: 750; line-height: 1.2; }
-.who-sub { color: var(--muted); font-size: .9rem; margin: 2px 0 12px; }
-.band { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 10px; margin: 8px 0 16px; }
-.band .big { font-size: 2.4rem; font-weight: 850; line-height: 1; }
-.band .txt { font-size: .98rem; }
-.band .txt b { display: block; font-size: 1.05rem; }
-.band.live { background: var(--live); color: var(--live-ink); }
-.band.next { border: 2px solid var(--brand); }
-.band.done { border: 2px dashed var(--rule); color: var(--muted); }
-.rounds { list-style: none; margin: 0; padding: 0; }
-.round { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 14px 0; border-top: 1px solid var(--rule); }
-.round:last-child { border-bottom: 1px solid var(--rule); }
-.rn { font-weight: 800; font-size: 1.1rem; color: var(--brand); }
-.when .day { font-weight: 650; display: block; }
-.when .time { color: var(--muted); font-size: .95rem; }
-.room { font-size: 1.5rem; font-weight: 850; text-align: right; line-height: 1.1; }
-.room small { display: block; font-size: .75rem; font-weight: 600; color: var(--muted); }
-.detail { grid-column: 1 / -1; font-size: .95rem; }
-.detail .tbc { color: var(--muted); }
-.when .batch { display: block; color: var(--brand); font-size: .92rem; font-weight: 650; }
-.tbl.rost .batch { color: var(--brand); font-weight: 650; }
-.round.past .when, .round.past .room { opacity: .6; }
-.round.live { background: rgba(255, 179, 0, .22); margin: 0 -10px; padding-left: 10px; padding-right: 10px; border-radius: 8px; }
-.opp-link { background: none; border: 0; padding: 0; color: var(--brand); text-decoration: underline; cursor: pointer; font-weight: 650; }
-.badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: 1px 7px; border-radius: 99px; border: 1.5px solid currentColor; vertical-align: 1px; margin-left: 4px; }
-.badge.p { color: var(--prop); } .badge.o { color: var(--opp); } .badge.x { color: var(--opp); }
-.absent { text-decoration: line-through; opacity: .75; }
+    var ol = el('ol', 'rounds'), t = now();
+    [1, 2, 3].forEach(function (n) {
+      var x = info(s, n), li = el('li', 'round');
+      var rn = el('div', 'rn'), side = x.k === 'absent' ? null : mySide(s, n, x);
+      add(rn, el('span', null, 'R' + n), sideTag(side));
+      add(li, rn);
+      if (x.k === 'tbc') {
+        add(li, el('div', 'when', 'Slot to be confirmed'), el('div'));
+        add(li, add(el('div', 'detail'), el('span', 'tbc', 'The organisers will confirm this slot.')));
+      } else {
+        if (x.start <= t && t < x.end) li.className += ' live'; else if (x.end <= t && x.k !== 'absent') li.className += ' past';
+        var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), slotHidden(x) ? null : el('span', 'time', x.slot || x.time), batchLine(x));
+        add(li, when2);
+        var room = el('div', 'room'); if (x.k === 'paired') add(room, 'Room ' + x.d.r);
+        add(li, room);
+        var det = el('div', 'detail');
+        if (x.k === 'paired') {
+          var d = x.d, opp = oppOf(d, s.i);
+          add(det, 'vs ', nameBtn(opp.i));
+          if (!d.sv && !side) add(det, el('br'), 'Sides are announced on the call.');
+          if (d.w) add(det, el('br'), 'Walkover: ' + student(d.ab).n + ' was marked absent.');
+        } else if (x.k === 'absent') {
+          add(det, 'You were marked absent for this debate. Check with the organisers for a new slot.');
+        } else {
+          add(det, el('span', 'tbc', 'Opponent and room will be announced during attendance of that round'));
+        }
+        add(li, det);
+      }
+      add(ol, li);
+    });
+    add(box, ol);
+  }
 
-/* ---------- room finder and browse ---------- */
-.tbl { width: 100%; border-collapse: collapse; margin-top: 10px; }
-.tbl th { text-align: left; font-size: .8rem; color: var(--muted); font-weight: 650; padding: 6px 6px 6px 0; border-bottom: 2px solid var(--rule); }
-.tbl td { padding: 9px 8px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
-.tbl td.rm { font-weight: 850; width: 3.2em; font-size: 1.1rem; }
-.sum { color: var(--muted); font-size: .9rem; margin-top: 10px; }
+  function quick(s) {
+    var h = headline(s);
+    if (h.type === 'live') return { cls: 'quick now', text: 'Now: Room ' + h.info.d.r };
+    if (h.type === 'window') return { cls: 'quick now', text: 'Slot open now' };
+    if (h.type === 'next') return { cls: 'quick', text: 'Next: R' + h.n + ', ' + T.shortDay(h.info.date) + ', ' + T.clock(h.info.startMin) + (h.info.batch ? ', Batch ' + h.info.batch : '') + (h.info.k === 'paired' ? ', Room ' + h.info.d.r : '') };
+    if (h.type === 'pending') return { cls: 'quick', text: 'Slot to be confirmed' };
+    return { cls: 'quick', text: 'Finished' };
+  }
 
-/* ---------- footer ---------- */
-.foot { max-width: 680px; margin: 0 auto; padding: 18px 16px 28px; color: var(--muted); font-size: .8rem; }
-.foot .note { display: block; margin-top: 4px; }
+  function search(q) {
+    var raw = q.trim().toLowerCase(), out = [], i, s;
+    if (raw.length < 2) return null;
+    var idMode = raw.indexOf(' ') < 0 && raw.indexOf('-') >= 0;
+    if (idMode) { for (i = 0; i < S.idx.students.length; i++) { s = S.idx.students[i]; if (s.i.toLowerCase().indexOf(raw) >= 0) out.push(s); } }
+    else {
+      var toks = norm(q).split(' ').filter(Boolean);
+      if (!toks.length) return null;
+      for (i = 0; i < S.idx.students.length; i++) { s = S.idx.students[i]; if (toks.every(function (t) { return s._m.indexOf(t) >= 0; })) out.push(s); }
+      out.sort(function (a, b) {
+        var pa = a._k.indexOf(toks[0]) === 0 ? 0 : 1, pb = b._k.indexOf(toks[0]) === 0 ? 0 : 1;
+        return pa - pb || (a._k < b._k ? -1 : a._k > b._k ? 1 : 0);
+      });
+    }
+    return out;
+  }
 
-/* ---------- projector mode ---------- */
-body.proj { background: #06141b; color: #ffffff; overflow: hidden; }
-body.proj .bar, body.proj main, body.proj .foot, body.proj .warn { display: none !important; }
-.proj-wrap { height: 100vh; padding: 2.4vh 3vw; display: flex; flex-direction: column; gap: 2vh; }
-.proj-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 2vw; }
-.p-title { font-size: 6vh; font-weight: 850; line-height: 1.05; }
-.p-sub { font-size: 3.2vh; color: #ffd36b; margin-top: .6vh; font-weight: 650; }
-.p-ctl { display: flex; gap: 1vw; opacity: .55; }
-.p-ctl:hover, .p-ctl:focus-within { opacity: 1; }
-.proj-wrap button.ghost { background: transparent; color: #fff; border-color: #4b6573; font-size: 2.6vh; padding: 0 1.2vw; }
-.p-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 1.6vh 2vw; min-height: 0; }
-.p-cell { display: flex; align-items: center; gap: 1.6vw; border: .35vh solid #2f4b59; border-radius: 1.2vh; padding: 0 1.4vw; min-width: 0; }
-.p-room { font-size: 7.5vh; font-weight: 900; color: #ffb300; min-width: 2.2em; text-align: center; line-height: 1; }
-.p-names { font-size: 3.3vh; font-weight: 700; line-height: 1.2; min-width: 0; overflow-wrap: anywhere; }
-.p-names .badge { font-size: 2vh; color: #fff; }
-.p-names .badge.p { color: #7be0a8; } .p-names .badge.o { color: #ffa493; }
-.p-names .vs { display: block; font-size: 2.1vh; font-weight: 500; color: #a9c0cc; }
-.p-empty { grid-column: 1 / -1; align-self: center; text-align: center; font-size: 5vh; color: #a9c0cc; }
-.p-foot { font-size: 2.2vh; color: #a9c0cc; display: flex; justify-content: space-between; }
+  function renderFind() {
+    var res = clear($('results')), list = search(S.q);
+    if (S.sel) { res.hidden = true; renderCard(); return; }
+    res.hidden = false; clear($('card'));
+    if (list === null) { add(res, el('p', 'msg', 'Type at least 2 letters of your name, or your student ID.')); return; }
+    if (!list.length) { add(res, el('p', 'msg', 'No student found. Check the spelling, or try your student ID.')); return; }
+    if (list.length === 1) { S.sel = list[0].i; res.hidden = true; renderCard(); return; }
+    var ul = el('ul', 'res');
+    list.slice(0, 25).forEach(function (s) {
+      var li = el('li'), b = el('button'), l = el('span'), q = quick(s);
+      b.type = 'button'; b.setAttribute('data-open', s.i);
+      add(l, el('span', 'who', s.n), el('span', 'sub', s.i + ', ' + s.c + (s.st ? ', ' + s.st : '') + (schoolOf(s) ? ', ' + schoolOf(s) : '')));
+      add(b, l, el('span', q.cls, q.text)); add(li, b); add(ul, li);
+    });
+    add(res, ul);
+    if (list.length > 25) add(res, el('p', 'more', (list.length - 25) + ' more students match. Keep typing to narrow the list.'));
+  }
 
-@media (max-width: 420px) { .pickers { grid-template-columns: 1fr 1fr; } .pickers label:nth-child(2) { grid-column: 1 / -1; order: 3; } }
-@media (prefers-reduced-motion: no-preference) { .band.live { animation: pulse 2.4s ease-in-out 2; } @keyframes pulse { 50% { filter: brightness(1.08); } } }
+  // ---- browse
+  function fillSelect(sel, items, value) {
+    clear(sel);
+    items.forEach(function (it) { var o = el('option', null, it.label); o.value = it.value; if (String(it.value) === String(value)) o.selected = true; sel.appendChild(o); });
+  }
+  function renderBrowse() {
+    var i = S.browse.i == null ? slotIndexNow() : S.browse.i, sl = S.idx.slots[i], out = clear($('bOut'));
+    if (!sl) { add(out, el('p', 'msg', 'No batches are scheduled yet.')); return; }
+    var dates = [], blocksOn = [], seenD = {}, seenB = {};
+    S.idx.slots.forEach(function (x) {
+      if (!seenD[x.date]) { seenD[x.date] = 1; dates.push({ value: x.date, label: T.dayLabel(x.date) }); }
+      if (x.date === sl.date && !seenB[x.b]) { seenB[x.b] = 1; blocksOn.push({ value: x.b, label: blockRange(x.b) }); }
+    });
+    // Batch options carry the time range of the chosen slot, e.g. "Batch 1 (3:30 – 3:50 PM)"
+    var secs = []; for (var k = 1; k <= block(sl.b).n; k++) secs.push({ value: k, label: 'Batch ' + k + ' (' + secRange(sl.b, k) + ')' });
+    fillSelect($('bDate'), dates, sl.date); fillSelect($('bBlock'), blocksOn, sl.b); fillSelect($('bSec'), secs, sl.sec);
+    var ds = debatesIn(sl);
+    add(out, el('p', 'sum', ds.length + ' of ' + S.snap.cfg.rooms + ' rooms paired. ' + T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec) + '.'));
+    if (!ds.length) { add(out, el('p', 'msg', 'No pairings are published for this batch yet.')); return; }
+    var tb = el('table', 'tbl'), hd = el('tr');
+    ['Room', 'Speaker 1', 'Speaker 2'].forEach(function (t) { add(hd, el('th', null, t)); });
+    add(tb, add(el('thead'), hd));
+    var body = el('tbody');
+    ds.forEach(function (d) {
+      var tr = el('tr');
+      add(tr, el('td', 'rm', String(d.r)), add(el('td'), speakerCell(d, 0, true)), add(el('td'), speakerCell(d, 1, true)));
+      add(body, tr);
+    });
+    add(tb, body); add(out, add(el('div'), tb));
+  }
 
-/* ---- roster tab */
-#v-roster .pickers { grid-template-columns: 1fr 1fr 1fr; }
-.rwrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -12px; padding: 0 12px; }
-.tbl.rost { min-width: 760px; font-size: .88rem; }
-.tbl.rost td { padding-right: 10px; }
-.tbl.rost .rid { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--muted); }
-.tbl.rost .rc { min-width: 150px; }
-.tbl.rost .rc.past { opacity: .6; }
-.tbl.rost .rrm { font-weight: 700; }
-.tbl.rost td.rn1 { min-width: 130px; }
-.more-btn { width: 100%; font-size: 1rem; margin: 14px 0; }
-main.wide { max-width: 980px; }
-@media (max-width: 420px) { #v-roster .pickers { grid-template-columns: 1fr 1fr; } #v-roster .pickers label:nth-child(2) { grid-column: auto; order: 0; } }
+  // ---- roster (all students, 3 rounds each); only present when the host switches it on
+  function roundCell(s, n) {
+    var x = info(s, n), td = el('td', 'rc');
+    td.setAttribute('data-label', 'R' + n);                    // shown as the row label in the phone layout
+    if (x.k === 'tbc') { add(td, el('span', 'tbc', 'To be confirmed')); return td; }
+    if (x.end <= now() && x.k !== 'absent') td.className += ' past';
+    add(td, el('b', null, T.shortDay(x.date)), slotHidden(x) ? null : ' ' + (x.slot || x.time));
+    if (x.batch) add(td, el('br'), batchLine(x));
+    var own = x.k === 'absent' ? null : mySide(s, n, x);
+    if (own) add(td, el('br'), 'speaks ', sideTag(own));
+    if (x.k === 'paired') {
+      var d = x.d, oi = d.m[0] === s.i ? 1 : 0, opp = student(d.m[oi]);
+      add(td, el('br'), el('span', 'rrm', 'Room ' + d.r), ' vs ', nameBtn(opp.i));
+      if (d.w) add(td, el('br'), el('span', 'tbc', 'Walkover: ' + student(d.ab).n + ' absent'));
+    } else if (x.k === 'absent') add(td, el('br'), el('span', 'tbc', 'Marked absent'));
+    return td;
+  }
+  function rosterList() {
+    var R = S.roster, toks = norm(R.q).split(' ').filter(Boolean), raw = R.q.trim().toLowerCase();
+    var out = S.idx.students.filter(function (s) {
+      if (R.cat && s.c !== R.cat) return false;
+      if (R.state && (s.st || '') !== R.state) return false;
+      if (!toks.length) return true;
+      return s.i.toLowerCase().indexOf(raw) >= 0 || toks.every(function (t) { return s._m.indexOf(t) >= 0; });
+    });
+    out.sort(function (a, b) {
+      var x = R.sort === 'id' ? a.i : a._k, y = R.sort === 'id' ? b.i : b._k;
+      return x < y ? -1 : x > y ? 1 : (a.i < b.i ? -1 : 1);
+    });
+    return out;
+  }
+  function fillRosterFilters() {
+    var cats = {}, states = {};
+    S.idx.students.forEach(function (s) { if (s.c) cats[s.c] = 1; if (s.st) states[s.st] = 1; });
+    function opts(map, allLabel, cur) { var a = [{ value: '', label: allLabel }]; Object.keys(map).sort().forEach(function (k) { a.push({ value: k, label: k }); }); return { a: a, cur: cur }; }
+    var c = opts(cats, 'All categories', S.roster.cat), st = opts(states, 'All states', S.roster.state);
+    fillSelect($('rCat'), c.a, c.cur); fillSelect($('rState'), st.a, st.cur);
+  }
+  function renderRoster() {
+    var list = rosterList(), R = S.roster, out = clear($('rOut'));
+    if (!$('rCat').options.length) fillRosterFilters();
+    $('rCount').textContent = list.length + ' of ' + S.idx.students.length + ' students. Times are IST.';
+    if (!list.length) { add(out, el('p', 'msg', 'No students match.')); $('rMore').hidden = true; return; }
+    var tb = el('table', 'tbl rost'), hd = el('tr');
+    var withSchool = !!S.snap.schools;
+    ['Name', 'ID', 'State'].concat(withSchool ? ['School'] : [], ['Round 1', 'Round 2', 'Round 3']).forEach(function (t) { add(hd, el('th', null, t)); });
+    add(tb, add(el('thead'), hd));
+    var body = el('tbody');
+    list.slice(0, R.shown).forEach(function (s) {
+      var tr = el('tr');
+      add(tr, add(el('td', 'rn1'), nameBtn(s.i)), el('td', 'rid', s.i), el('td', 'rst', s.st || ''));
+      if (withSchool) add(tr, el('td', 'rsch', schoolOf(s)));
+      [1, 2, 3].forEach(function (n) { add(tr, roundCell(s, n)); });
+      add(body, tr);
+    });
+    add(tb, body); add(out, tb);
+    $('rMore').hidden = list.length <= R.shown;
+    $('rMore').textContent = 'Show more (' + (list.length - R.shown) + ' left)';
+  }
 
-/* round label and side badge share the first line of the row ("Opp (Against)" is too wide for a narrow column) */
-.round .rn { grid-column: 1 / -1; display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; gap: 4px 10px; }
-.round .rn .badge { margin-left: 0; font-size: .75rem; }
+  // ---- motions (released by the server; unreleased text is never in the data)
+  var MCATS = ['Junior', 'Middle', 'Senior'];
+  function relText(ms) {
+    var hm = T.istClock(ms).split(':'), h = Number(hm[0]), mi = Number(hm[1]);
+    return T.shortDay(T.istIso(ms)) + ', ' + T.clock(h * 60 + mi) + ' IST';
+  }
+  function renderMotions() {
+    var out = clear($('mOut')), M = S.motions;
+    if (!M) { add(out, el('p', 'msg', S.mOk ? 'Loading…' : 'Loading the motions…')); return; }
+    M.dates.forEach(function (x) {
+      var c = el('article', 'mcard' + (x.ok ? ' open' : ' locked')), h = el('h3', null, T.dayLabel(x.d));
+      add(h, el('span', 'mchip', x.ok ? 'Released' : 'Not released yet'));
+      add(c, h);
+      if (!x.ok) add(c, el('p', 'mwait', x.rel ? 'Releases ' + relText(x.rel) : 'Release time to be announced'));
+      else if (!x.m) add(c, el('p', 'mwait', 'The motions will be posted here shortly.'));
+      else MCATS.forEach(function (cat) {
+        if (!x.m[cat]) return;
+        add(c, add(el('div', 'mrow'), el('span', 'mcat', cat), el('p', 'mtxt', x.m[cat])));
+      });
+      add(out, c);
+    });
+  }
+  function scheduleMotions() {
+    clearTimeout(S.mTimer);
+    if (!S.motions || S.motions.next == null) return;
+    var wait = S.motions.next - now() + 1500;           // just after the release moment
+    if (wait < 1500) wait = 1500;
+    if (wait < 2000000000) S.mTimer = setTimeout(loadMotions, wait);
+  }
+  function loadMotions() {
+    return fetch('api/motions', { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error('motions ' + r.status);
+      return r.json();
+    }).then(function (j) {
+      var js = JSON.stringify(j.dates), changed = js !== S.mJson;
+      S.mOk = Date.now(); S.motions = j; S.mJson = js; scheduleMotions();
+      if (S.tab === 'motions') { if (changed) render(); else renderFoot(); }
+    }).catch(function () { if (S.tab === 'motions' && !S.motions) { clear($('mOut')); add($('mOut'), el('p', 'msg', 'Cannot reach the server. Check your connection and try again.')); } });
+  }
 
-/* ---- motions tab */
-.mcard { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; margin: 0 0 12px; }
-.mcard h3 { margin: 0 0 6px; font-size: 1.1rem; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
-.mcard.locked { opacity: .8; }
-.mchip { font-size: .72rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); }
-.mcard.open .mchip { color: var(--prop); border-color: var(--prop); }
-.mwait { margin: 0; color: var(--muted); }
-.mrow { padding: 10px 0; border-top: 1px solid var(--rule); }
-.mrow:first-of-type { border-top: 0; }
-.mcat { display: inline-block; font-size: .75rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
-.mtxt { margin: 0; font-size: 1.05rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+  // ---- projector
+  function renderProj() {
+    var i = S.proj.i == null ? slotIndexNow() : S.proj.i, sl = S.idx.slots[i], grid = clear($('pGrid'));
+    if (!sl) { $('pTitle').textContent = 'No batches scheduled'; return; }
+    var ds = debatesIn(sl), pages = Math.max(1, Math.ceil(ds.length / PAGE_SIZE)), t = now();
+    if (S.proj.page >= pages) S.proj.page = 0;
+    var live = sl.start <= t && t < sl.start + SEC, before = sl.start > t;
+    $('pTitle').textContent = T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec);
+    $('pSub').textContent = 'Batch ' + sl.sec + (S.snap.batchOnly ? '. ' : ' of the ' + blockRange(sl.b) + ' slot. ') + (live ? 'Live now' : before ? 'Starts in ' + inMin(sl.start - t) : 'Finished');
+    $('pLive').textContent = S.proj.i == null ? 'Following live' : 'Follow live';
+    if (!ds.length) add(grid, el('div', 'p-empty', 'No pairings published for this batch yet.'));
+    ds.slice(S.proj.page * PAGE_SIZE, (S.proj.page + 1) * PAGE_SIZE).forEach(function (d) {
+      var c = el('div', 'p-cell'), nm = el('div', 'p-names');
+      add(c, el('div', 'p-room', String(d.r)));
+      [0, 1].forEach(function (k) {
+        var row = el('div'); add(row, speakerCell(d, k, false)); add(nm, row);
+      });
+      add(c, nm); add(grid, c);
+    });
+    $('pFoot').textContent = '';
+    add($('pFoot'), el('span', null, ds.length + ' of ' + S.snap.cfg.rooms + ' rooms paired' + (pages > 1 ? '. Page ' + (S.proj.page + 1) + ' of ' + pages : '')),
+      el('span', null, 'Updated ' + T.istClock(S.lastOk + S.offset, true) + ' IST'));
+  }
 
-/* ---------- home page, title link, schedule clear button ---------- */
-.bar h1 a { color: inherit; text-decoration: none; }
-.bar h1 a:hover { text-decoration: underline; }
-.home-h { font-size: 1.35rem; font-weight: 750; line-height: 1.2; margin: 4px 0 6px; }
-.home-p { color: var(--muted); margin-bottom: 16px; }
-.home-links { display: grid; gap: 10px; }
-.home-links button { display: block; width: 100%; text-align: left; background: var(--surface); border: 2px solid var(--rule); border-radius: 10px; padding: 14px 16px; min-height: 64px; cursor: pointer; }
-.home-links button:hover, .home-links button:focus-visible { border-color: var(--brand); }
-.home-links b { display: block; font-size: 1.1rem; color: var(--brand); }
-.home-links span { display: block; font-size: .92rem; color: var(--muted); margin-top: 2px; }
-.rrow { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.rrow .sum { margin: 6px 0; }
+  // ------------------------------------------------------------------ shell
+  function setTab(t) {
+    S.tab = t; S.tabChosen = true;
+    // the #ID in the address bar belongs to a student's card: drop it on every other tab, bring it back on Find me
+    try { history.replaceState(null, '', location.pathname + location.search + (t === 'find' && S.sel ? '#' + encodeURIComponent(S.sel) : '')); } catch (e) { /* ignore */ }
+    applyTab();
+    render();
+  }
+  // Order of the tabs (ribbon) and of the Home buttons: Motions always sits in second place.
+  //   Schedule on:  Schedule, Motions, Find me, All rooms        Schedule off: Find me, Motions, All rooms
+  function tabOrder() {
+    var base = [];
+    if (S.snap && S.enabled) { if (S.snap.roster) base.push('roster'); base.push('find', 'browse'); }
+    base.splice(Math.min(1, base.length), 0, 'motions');
+    return base;
+  }
+  function orderTabs() { var box = $('tabs'); tabOrder().forEach(function (k) { var b = tabBtn(k); if (b) box.appendChild(b); }); }
+  var HOME_ITEMS = {
+    roster: ['Schedule', 'Every student\'s slots for all three rounds'],
+    motions: ['Motions', 'Read the motions once they are released'],
+    find: ['Find me', 'Search your name or ID to see your slots, room and opponent'],
+    browse: ['All rooms', 'Who is in each room, batch by batch']
+  };
+  // Home page: opened by default and by clicking the title; it has no tab of its own
+  function renderHome() {
+    var items = tabOrder().map(function (k) { return [k, HOME_ITEMS[k][0], HOME_ITEMS[k][1]]; });
+    var key = items.map(function (i) { return i[0]; }).join();
+    if (S.homeKey === key) return;                       // unchanged: keep the buttons (and keyboard focus) as they are
+    S.homeKey = key;
+    var box = clear($('homeLinks'));
+    items.forEach(function (i) {
+      var b = el('button'); b.type = 'button'; b.setAttribute('data-go', i[0]);
+      add(b, el('b', null, i[1]), el('span', null, i[2])); box.appendChild(b);
+    });
+  }
+  function render() {
+    if (S.tab === 'home' && !PROJECTOR) { renderHome(); renderFoot(); return; }
+    if (S.tab === 'motions' && !PROJECTOR) { renderMotions(); renderFoot(); return; }
+    if (!S.snap) return;
+    try {
+      if (PROJECTOR) renderProj();
+      else if (S.tab === 'find') renderFind();
+      else if (S.tab === 'roster') renderRoster();
+      else renderBrowse();
+      renderFoot();
+    } catch (e) { console.error(e); msg('Something went wrong showing the schedule. Reload the page.'); }
+  }
+  function renderFoot() {
+    if (S.tab === 'motions' && !PROJECTOR) { $('footTime').textContent = S.mOk ? 'Motions checked at ' + T.istClock(S.mOk + S.offset, true) + ' IST.' : ''; return; }
+    if (!S.snap) { $('footTime').textContent = ''; return; }
+    var s = T.istClock(S.lastOk + S.offset, true), b = T.istClock(S.builtAt + S.offset);
+    $('footTime').textContent = 'Checked at ' + s + ' IST. Schedule data from ' + b + ' IST.';
+  }
+  function msg(text) {
+    if (PROJECTOR) { $('proj').hidden = false; $('pTitle').textContent = text; $('pSub').textContent = ''; clear($('pGrid')); clear($('pFoot')); return; }
+    $('loading').hidden = false; $('loading').textContent = text;
+  }
+  function warn(msg) { var w = $('warn'); w.hidden = !msg; w.textContent = msg || ''; }
+  function staleCheck() {
+    if (S.lastOk && Date.now() - S.lastOk > STALE_MS) warn('Cannot reach the server. Showing the schedule from ' + T.istClock(S.builtAt + S.offset) + ' IST. It may be out of date.');
+  }
 
-/* ---------- contact button, school ---------- */
-.contact { max-width: 680px; margin: 0 auto; padding: 6px 16px 0; text-align: right; }
-.contact-btn { display: inline-block; background: #ff8a2b; color: #2a1200; border: 0; font-weight: 700; font-size: .8rem; padding: 6px 14px; border-radius: 999px; text-decoration: none; min-height: 0; line-height: 1.3; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); transition: background .15s ease, transform .1s ease, box-shadow .15s ease; }
-.contact-btn:hover { background: #ff9d4f; box-shadow: 0 3px 8px rgba(0, 0, 0, .3); }
-.contact-btn:active { transform: scale(.97); background: #f07a18; }
-.who-school { font-weight: 600; margin: -6px 0 12px; }
-td.rsch { min-width: 11em; }
-body.proj .contact { display: none; }
+  function tabBtn(n) { return $('tabs').querySelector('[data-tab="' + n + '"]'); }
+  function applySnapshot(snap) {
+    S.snap = snap; S.enabled = snap.enabled !== false; S.builtAt = snap.builtAt;
+    $('loading').hidden = true;
+    if (!S.enabled) {
+      ['roster', 'find', 'browse'].forEach(function (n) { tabBtn(n).hidden = true; });
+      $('tabs').hidden = PROJECTOR;
+      if (!PROJECTOR) { if (!S.tabChosen || ['roster', 'find', 'browse'].indexOf(S.tab) >= 0) S.tab = 'home'; applyTab(); render(); }
+      msg('The schedule will be released soon. Please check back later.'); return;
+    }
+    ['find', 'browse'].forEach(function (n) { tabBtn(n).hidden = false; });
+    $('tabs').hidden = PROJECTOR;
+    S.idx = buildIndex(snap);
+    $('tabRoster').hidden = !snap.roster;
+    orderTabs();
+    if (!snap.roster && S.tab === 'roster') S.tab = 'home';
+    clear($('rCat')); clear($('rState'));
+    if (PROJECTOR) { $('proj').hidden = false; document.body.className = 'proj'; }
+    else applyTab();
+    render();
+    if (S.deep && student(S.deep)) { var id = S.deep; S.deep = null; openStudent(id); } else S.deep = null;
+  }
+  function applyTab() {
+    ['home', 'roster', 'find', 'browse', 'motions'].forEach(function (n) { $('v-' + n).hidden = n !== S.tab || (n !== 'motions' && n !== 'home' && (!S.snap || !S.enabled)); });
+    Array.prototype.forEach.call($('tabs').children, function (b) { b.setAttribute('aria-selected', b.getAttribute('data-tab') === S.tab ? 'true' : 'false'); });
+    $('main').className = S.tab === 'roster' ? 'wide' : '';
+  }
 
-/* names that wrap onto two lines stay left-aligned (a <button> centres its text by default) */
-.opp-link { text-align: left; font: inherit; font-weight: 650; line-height: 1.3; }
-td.rn1 { vertical-align: top; }
+  function loadSnapshot() {
+    return fetch('api/snapshot', { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error('snapshot ' + r.status);
+      return r.json();
+    }).then(function (snap) { S.v = snap.v; applySnapshot(snap); });
+  }
+  function poll() {
+    var t0 = Date.now();
+    if (t0 - S.mPoll > 55000) { S.mPoll = t0; loadMotions(); }       // motions are heavier than the version check: every minute is plenty (releases also fire their own timer)
+    return fetch('api/v', { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) { var e = new Error('v ' + r.status); e.status = r.status; throw e; }
+      return r.json();
+    }).then(function (j) {
+      var t1 = Date.now();
+      S.lastOk = t1; if (S.fixedNow == null) S.offset = j.now - (t0 + t1) / 2;
+      warn('');
+      if (j.v !== S.v) return loadSnapshot();
+      renderFoot();
+    }).catch(function (e) {
+      if (!S.snap) msg(e.status === 503 ? 'The schedule is not available yet. Try again in a minute.' : 'Cannot reach the server. Check your connection and try again.');
+      else staleCheck();
+    });
+  }
+  function loop() { (document.hidden ? Promise.resolve() : poll()).then(function () { setTimeout(loop, POLL_MS); }); }   // a tab in the background does not poll; it checks again as soon as it is shown
 
-/* ---------- Schedule on phones: one compact card per student instead of a wide table ---------- */
-@media (max-width: 700px) {
-  .rwrap { overflow-x: visible; margin: 0; padding: 0; }
-  .tbl.rost { min-width: 0; width: 100%; display: block; font-size: .95rem; }
-  .tbl.rost thead { display: none; }
-  .tbl.rost tbody { display: block; }
-  .tbl.rost tr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; padding: 14px 0 12px; border-bottom: 1px solid var(--rule); }
-  .tbl.rost td { display: block; border: 0; padding: 0; min-width: 0; }
-  .tbl.rost td:empty { display: none; }
-  .tbl.rost td.rn1 { flex: 1 0 100%; font-size: 1.1rem; margin-bottom: 2px; }
-  .tbl.rost td.rid, .tbl.rost td.rst { flex: 0 1 auto; color: var(--muted); font-size: .88rem; }
-  .tbl.rost td.rsch { flex: 1 0 100%; color: var(--muted); font-size: .88rem; }
-  .tbl.rost td.rc { flex: 1 0 100%; position: relative; padding: 8px 0 0 2.6em; }
-  .tbl.rost td.rc::before { content: attr(data-label); position: absolute; left: 0; top: 8px; font-weight: 800; color: var(--brand); }
-  .tbl.rost td.rc .badge { font-size: .72rem; }
-}
+  // ------------------------------------------------------------------ events
+  function openStudent(id) {
+    S.sel = id; S.q = student(id).n; $('q').value = S.q;
+    try { history.replaceState(null, '', '#' + encodeURIComponent(id)); } catch (e) { /* ignore */ }
+    if (S.tab !== 'find') setTab('find'); else render();
+    window.scrollTo(0, 0);
+  }
+  function stepSlot(cur, delta) {
+    var n = (cur == null ? slotIndexNow() : cur) + delta, last = S.idx.slots.length - 1;
+    return Math.min(Math.max(n, 0), last);
+  }
+  function wire() {
+    $('tabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setTab(b.getAttribute('data-tab')); });
+    $('q').addEventListener('input', function () { S.q = this.value; S.sel = null; renderFind(); });
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-open]') : null;
+      if (b) { openStudent(b.getAttribute('data-open')); return; }
+      if (e.target.id === 'backBtn') {
+        S.sel = null; S.q = ''; $('q').value = '';        // clear the name too, otherwise the single match re-opens the same card
+        try { history.replaceState(null, '', location.pathname + location.search); } catch (x) { /* ignore */ }
+        renderFind(); window.scrollTo(0, 0); return;
+      }
+      var go = e.target.closest ? e.target.closest('[data-go]') : null;
+      if (go) { setTab(go.getAttribute('data-go')); window.scrollTo(0, 0); }
+    });
+    function rosterChange() { S.roster.shown = 50; renderRoster(); }
+    $('rq').addEventListener('input', function () { S.roster.q = this.value; rosterChange(); });
+    $('rCat').addEventListener('change', function () { S.roster.cat = this.value; rosterChange(); });
+    $('rState').addEventListener('change', function () { S.roster.state = this.value; rosterChange(); });
+    $('rSort').addEventListener('change', function () { S.roster.sort = this.value; rosterChange(); });
+    $('rClear').addEventListener('click', function () {
+      S.roster.q = ''; S.roster.cat = ''; S.roster.state = ''; S.roster.sort = 'name';
+      $('rq').value = ''; $('rCat').value = ''; $('rState').value = ''; $('rSort').value = 'name';
+      rosterChange();
+    });
+    $('homeLink').addEventListener('click', function (e) {
+      e.preventDefault();
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (x) { /* ignore */ }
+      setTab('home'); window.scrollTo(0, 0);
+    });
+    $('rMore').addEventListener('click', function () { S.roster.shown += 100; renderRoster(); });
+    function browseChange(which) {
+      var d = $('bDate').value, b = +$('bBlock').value, s = +$('bSec').value, i;
+      if (which === 'date') { i = -1; for (var k = 0; k < S.idx.slots.length; k++) if (S.idx.slots[k].date === d) { i = k; break; } }
+      else if (which === 'block') { i = findSlot(d, b, s); if (i < 0) i = findSlot(d, b, 1); }   // keep the chosen batch number under the new slot
+      else i = findSlot(d, b, s);
+      if (i >= 0) { S.browse.i = i; renderBrowse(); }
+    }
+    $('bDate').addEventListener('change', function () { browseChange('date'); });
+    $('bBlock').addEventListener('change', function () { browseChange('block'); });
+    $('bSec').addEventListener('change', function () { browseChange('sec'); });
+    $('bNow').addEventListener('click', function () { S.browse.i = null; renderBrowse(); });
+    $('pPrev').addEventListener('click', function () { S.proj.i = stepSlot(S.proj.i, -1); S.proj.page = 0; renderProj(); });
+    $('pNext').addEventListener('click', function () { S.proj.i = stepSlot(S.proj.i, 1); S.proj.page = 0; renderProj(); });
+    $('pLive').addEventListener('click', function () { S.proj.i = null; S.proj.page = 0; renderProj(); });
+    $('proj').addEventListener('dblclick', function () { S.proj.paused = !S.proj.paused; });
+    document.addEventListener('keydown', function (e) {
+      if (!PROJECTOR || !S.snap || !S.idx) return;
+      if (e.key === 'ArrowRight') $('pNext').click(); else if (e.key === 'ArrowLeft') $('pPrev').click();
+      else if (e.key === 'l' || e.key === 'L') $('pLive').click(); else if (e.key === ' ') { S.proj.paused = !S.proj.paused; e.preventDefault(); }
+    });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) poll(); });
+    window.addEventListener('online', poll);
+  }
 
-/* ---------- All rooms pickers: Batch labels carry the time range, so give them room ---------- */
-#v-browse .pickers { grid-template-columns: 1fr 1.3fr 1.3fr; }
-@media (max-width: 420px) {
-  #v-browse .pickers { grid-template-columns: 1fr; }
-  #v-browse .pickers label:nth-child(2) { grid-column: auto; order: 0; }
-}
-/* ---------- Schedule table: the batch line never wraps; on desktop the round columns get room for date, slot, batch and side ---------- */
-.tbl.rost .batch, .when .batch { white-space: nowrap; }
-@media (min-width: 701px) {
-  main.wide { max-width: 1280px; }
-  .tbl.rost { min-width: 1100px; }
-  .tbl.rost td.rc { min-width: 215px; width: 215px; }
-  .tbl.rost td.rn1 { min-width: 150px; }
-  .tbl.rost td { padding-right: 14px; }
-}
-
-/* ---------- marquee in the header (all public pages) ---------- */
-.marquee { background: var(--live); color: var(--live-ink); overflow: hidden; font-weight: 700; font-size: .92rem; line-height: 1; }
-.marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
-.marquee-track span { flex: none; padding: 8px 0; }
-.marquee-track span::after { content: "\2022"; margin: 0 1.4em; opacity: .6; }
-.marquee-static { display: none; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { display: none; }
-  .marquee-static { display: block; text-align: center; padding: 8px 12px; line-height: 1.3; }
-}
-body.proj .marquee { display: none; }
-
-/* ---------- join button: on the left of the contact button, a little smaller ---------- */
-.contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
-.contact-btn { margin-left: auto; }
-.join-btn { display: inline-flex; align-items: center; gap: 6px; background: #0b5cff; color: #fff; font-weight: 700; font-size: .74rem; padding: 5px 12px; border-radius: 999px; text-decoration: none; line-height: 1.3; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); }
-.join-btn svg { width: 15px; height: 15px; flex: none; }
-.join-btn:hover { background: #2b74ff; }
-.join-btn:active { background: #0847c9; }
-body.proj .join-btn { display: none; }
-
-/* ---------- phones: the two header buttons share one row, each on two balanced lines (the <br class="brk"> only breaks here) ---------- */
-.brk { display: none; }
-@media (max-width: 480px) {
-  .brk { display: inline; }
-  .contact { flex-wrap: nowrap; align-items: stretch; justify-content: space-between; padding: 6px 16px 0; gap: 8px; }
-  .join-btn, .contact-btn { flex: 0 0 auto; margin: 0; justify-content: center; text-align: center; white-space: nowrap; font-size: .7rem; line-height: 1.2; padding: 5px 12px; gap: 6px; border-radius: 14px; }
-  .join-btn svg { width: 14px; height: 14px; }
-}
+  function boot() {
+    var fake = params.get('now');                       // testing aid: ?now=2026-10-21T15:55 (IST)
+    if (fake) { var ms = Date.parse(fake + (fake.length <= 16 ? ':00' : '') + '+05:30'); if (!isNaN(ms)) { S.fixedNow = ms; S.offset = ms - Date.now(); } }
+    if (PROJECTOR) { document.body.className = 'proj'; $('foot').hidden = true; }
+    wire();
+    try { S.deep = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { S.deep = null; }
+    loop();
+    setInterval(function () { if (S.tab !== 'motions') render(); staleCheck(); }, 15000);
+    setInterval(function () {
+      if (PROJECTOR && S.idx && !S.proj.paused) { S.proj.page += 1; renderProj(); }
+    }, ROTATE_S * 1000);
+  }
+  boot();
+})();
