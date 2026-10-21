@@ -3,7 +3,7 @@
   'use strict';
   var T = window.IDLTime;
   var SEC = T.SECTION_MIN * 60000;
-  var POLL_MS = 45000, STALE_MS = 120000, PAGE_SIZE = 12;
+  var POLL_MS = 20000, STALE_MS = 120000, PAGE_SIZE = 12;
   var params = new URLSearchParams(location.search);
   var PROJECTOR = params.get('mode') === 'projector';
   var ROTATE_S = Number(params.get('rotate')) || 12;
@@ -11,7 +11,7 @@
   var S = { homeKey: '', snap: null, v: null, enabled: true, offset: 0, lastOk: 0, builtAt: 0, tab: 'home', sel: null, q: '',
     idx: null, deep: null, browse: { i: null }, proj: { i: null, page: 0, paused: false }, fixedNow: null,
     roster: { shown: 50, cat: '', state: '', sort: 'name', q: '' },
-    motions: null, mTimer: null, mOk: 0 };
+    motions: null, mTimer: null, mOk: 0, mPoll: 0 };
 
   // ------------------------------------------------------------------ helpers
   function $(id) { return document.getElementById(id); }
@@ -480,7 +480,7 @@
   }
   function poll() {
     var t0 = Date.now();
-    loadMotions();
+    if (t0 - S.mPoll > 55000) { S.mPoll = t0; loadMotions(); }       // motions are heavier than the version check: every minute is plenty (releases also fire their own timer)
     return fetch('api/v', { cache: 'no-store' }).then(function (r) {
       if (!r.ok) { var e = new Error('v ' + r.status); e.status = r.status; throw e; }
       return r.json();
@@ -495,7 +495,7 @@
       else staleCheck();
     });
   }
-  function loop() { poll().then(function () { setTimeout(loop, POLL_MS); }); }
+  function loop() { (document.hidden ? Promise.resolve() : poll()).then(function () { setTimeout(loop, POLL_MS); }); }   // a tab in the background does not poll; it checks again as soon as it is shown
 
   // ------------------------------------------------------------------ events
   function openStudent(id) {
