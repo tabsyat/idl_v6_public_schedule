@@ -320,7 +320,7 @@
 
   // ---- motions (released by the server; unreleased text is never in the data)
   var MCATS = ['Junior', 'Middle', 'Senior'];
-  var MNOTE = { Junior: 'Sides revealed 3 days before your round', Middle: 'Sides will be revealed during attendance', Senior: 'Sides will be revealed during attendance' };
+  var MNOTE = { Junior: 'Sides revealed 3 days before your round', Middle: 'Sides will be revealed during attendance, please prepare for both sides', Senior: 'Sides will be revealed during attendance, please prepare for both sides' };
   function relText(ms) {
     var hm = T.istClock(ms).split(':'), h = Number(hm[0]), mi = Number(hm[1]);
     return T.shortDay(T.istIso(ms)) + ', ' + T.clock(h * 60 + mi) + ' IST';
@@ -336,7 +336,7 @@
       else if (!x.m) add(c, el('p', 'mwait', 'The motions will be posted here shortly.'));
       else MCATS.forEach(function (cat) {
         if (!x.m[cat]) return;
-        add(c, add(el('div', 'mrow'), add(el('div', 'mhead'), el('span', 'mcat', cat), MNOTE[cat] ? el('span', 'mnote', '(' + MNOTE[cat] + ')') : null), el('p', 'mtxt', x.m[cat])));
+        add(c, add(el('div', 'mrow'), add(el('div', 'mhead'), el('span', 'mcat', cat), MNOTE[cat] ? el('span', 'mnote' + (cat === 'Junior' ? '' : ' strong'), '(' + MNOTE[cat] + ')') : null), el('p', 'mtxt', x.m[cat])));
       });
       add(out, c);
     });
