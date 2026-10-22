@@ -320,6 +320,7 @@
 
   // ---- motions (released by the server; unreleased text is never in the data)
   var MCATS = ['Junior', 'Middle', 'Senior'];
+  var MNOTE = { Junior: 'Sides revealed 3 days before your round', Middle: 'Sides will be revealed during attendance', Senior: 'Sides will be revealed during attendance' };
   function relText(ms) {
     var hm = T.istClock(ms).split(':'), h = Number(hm[0]), mi = Number(hm[1]);
     return T.shortDay(T.istIso(ms)) + ', ' + T.clock(h * 60 + mi) + ' IST';
@@ -335,7 +336,7 @@
       else if (!x.m) add(c, el('p', 'mwait', 'The motions will be posted here shortly.'));
       else MCATS.forEach(function (cat) {
         if (!x.m[cat]) return;
-        add(c, add(el('div', 'mrow'), el('span', 'mcat', cat), el('p', 'mtxt', x.m[cat])));
+        add(c, add(el('div', 'mrow'), add(el('div', 'mhead'), el('span', 'mcat', cat), MNOTE[cat] ? el('span', 'mnote', '(' + MNOTE[cat] + ')') : null), el('p', 'mtxt', x.m[cat])));
       });
       add(out, c);
     });
@@ -383,10 +384,13 @@
   }
 
   // ------------------------------------------------------------------ shell
+  var TAB_HASH = { roster: 'schedule', motions: 'motions', browse: 'rooms', find: 'find' };       // tab -> address-bar hash, so a refresh stays on the same tab
+  var HASH_TAB = { schedule: 'roster', motions: 'motions', rooms: 'browse', find: 'find' };
   function setTab(t) {
     S.tab = t; S.tabChosen = true;
     // the #ID in the address bar belongs to a student's card: drop it on every other tab, bring it back on Find me
-    try { history.replaceState(null, '', location.pathname + location.search + (t === 'find' && S.sel ? '#' + encodeURIComponent(S.sel) : '')); } catch (e) { /* ignore */ }
+    var hs = t === 'find' && S.sel ? encodeURIComponent(S.sel) : (TAB_HASH[t] || '');
+    try { history.replaceState(null, '', location.pathname + location.search + (hs ? '#' + hs : '')); } catch (e) { /* ignore */ }
     applyTab();
     render();
   }
@@ -516,7 +520,7 @@
       if (b) { openStudent(b.getAttribute('data-open')); return; }
       if (e.target.id === 'backBtn') {
         S.sel = null; S.q = ''; $('q').value = '';        // clear the name too, otherwise the single match re-opens the same card
-        try { history.replaceState(null, '', location.pathname + location.search); } catch (x) { /* ignore */ }
+        try { history.replaceState(null, '', location.pathname + location.search + '#find'); } catch (x) { /* ignore */ }
         renderFind(); window.scrollTo(0, 0); return;
       }
       var go = e.target.closest ? e.target.closest('[data-go]') : null;
@@ -568,6 +572,7 @@
     if (PROJECTOR) { document.body.className = 'proj'; $('foot').hidden = true; }
     wire();
     try { S.deep = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { S.deep = null; }
+    if (!PROJECTOR && S.deep && HASH_TAB[S.deep]) { S.tab = HASH_TAB[S.deep]; S.tabChosen = true; S.deep = null; applyTab(); render(); }   // refresh on a tab: reopen it
     loop();
     setInterval(function () { if (S.tab !== 'motions') render(); staleCheck(); }, 15000);
     setInterval(function () {
