@@ -236,3 +236,9 @@ body.proj .join-btn { display: none; }
   .join-btn, .contact-btn { flex: 0 0 auto; margin: 0; justify-content: center; text-align: center; white-space: nowrap; font-size: .7rem; line-height: 1.2; padding: 5px 12px; gap: 6px; border-radius: 14px; }
   .join-btn svg { width: 14px; height: 14px; }
 }
+
+/* ---------- motions: category label with its side note (wraps onto a second line on phones) ---------- */
+.mhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; margin-bottom: 4px; }
+.mhead .mcat { margin-bottom: 0; }
+.mnote { font-size: .8rem; font-weight: 600; color: var(--muted); }
+@media (max-width: 480px) { .mnote { flex: 1 0 100%; } }
