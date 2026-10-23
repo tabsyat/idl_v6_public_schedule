@@ -3,14 +3,15 @@
   'use strict';
   var T = window.IDLTime;
   var SEC = T.SECTION_MIN * 60000;
-  var POLL_MS = 45000, STALE_MS = 120000, PAGE_SIZE = 12;
+  var POLL_MS = 20000, STALE_MS = 120000, PAGE_SIZE = 12;
   var params = new URLSearchParams(location.search);
   var PROJECTOR = params.get('mode') === 'projector';
   var ROTATE_S = Number(params.get('rotate')) || 12;
 
-  var S = { snap: null, v: null, enabled: true, offset: 0, lastOk: 0, builtAt: 0, tab: 'find', sel: null, q: '',
+  var S = { homeKey: '', snap: null, v: null, enabled: true, offset: 0, lastOk: 0, builtAt: 0, tab: 'home', sel: null, q: '',
     idx: null, deep: null, browse: { i: null }, proj: { i: null, page: 0, paused: false }, fixedNow: null,
-    roster: { shown: 50, cat: '', state: '', sort: 'name', q: '' } };
+    roster: { shown: 50, cat: '', state: '', sort: 'name', q: '' },
+    motions: null, mTimer: null, mOk: 0, mPoll: 0 };
 
   // ------------------------------------------------------------------ helpers
   function $(id) { return document.getElementById(id); }
@@ -35,6 +36,7 @@
     var byId = {}, rounds = {}, bySlot = {}, active = {}, blocks = snap.cfg.blocks;
     snap.students.forEach(function (s) {
       byId[s.i] = s; s._k = norm(s.n);
+      s._m = s._k + (snap.schools && s.sc != null ? ' ' + norm(snap.schools[s.sc]) : '');      // name + school: what search and filters match against
       s.p.forEach(function (p) { if (p) active[p[0] + '|' + p[1]] = 1; });
     });
     snap.debates.forEach(function (d) {
@@ -61,14 +63,24 @@
     var d = pick(s.i, n), p = s.p[n - 1];
     if (d) {
       var start = secStartMs(d.d, d.b, d.s), st = T.sectionStartMin(block(d.b).s, d.s);
-      return { k: d.w && d.ab === s.i ? 'absent' : 'paired', d: d, date: d.d, start: start, end: start + SEC, startMin: st, time: secRange(d.b, d.s) };
+      // the Debates row is the real pairing: its batch wins over the Roster batch
+      return { k: d.w && d.ab === s.i ? 'absent' : 'paired', d: d, date: d.d, start: start, end: start + SEC, startMin: st, time: secRange(d.b, d.s),
+        slot: blockRange(d.b), batch: d.s, bt: secRange(d.b, d.s) };
     }
     if (p) {
-      var bl = block(p[1]), ds = T.dayStartMs(p[0]);
-      return { k: 'planned', date: p[0], start: ds + bl.s * 60000, end: ds + bl.e * 60000, startMin: bl.s, time: T.range(bl.s, bl.e) };
+      var bl = block(p[1]), ds = T.dayStartMs(p[0]), bn = p[2] >= 1 && p[2] <= bl.n ? p[2] : 0;
+      if (bn) {      // Roster batch known: the 20-minute batch window, not the whole slot
+        var bs = T.sectionStartMin(bl.s, bn);
+        return { k: 'planned', date: p[0], start: ds + bs * 60000, end: ds + bs * 60000 + SEC, startMin: bs, time: T.range(bs, bs + T.SECTION_MIN),
+          slot: T.range(bl.s, bl.e), batch: bn, bt: T.range(bs, bs + T.SECTION_MIN) };
+      }
+      return { k: 'planned', date: p[0], start: ds + bl.s * 60000, end: ds + bl.e * 60000, startMin: bl.s, time: T.range(bl.s, bl.e), slot: T.range(bl.s, bl.e), batch: 0 };
     }
     return { k: 'tbc' };
   }
+  function slotHidden(x) { return !!(S.snap && S.snap.batchOnly && x && x.batch); }                  // host switch: show the batch, not the whole slot
+  function batchTag(x) { return x && x.batch ? ' (Batch ' + x.batch + ')' : ''; }                       // for the Now / Next text
+  function batchLine(x) { return x && x.batch ? el('span', 'batch', 'Batch ' + x.batch + ' (' + x.bt + ')') : null; }   // line under the slot time
   function slotIndexNow() {
     var t = now(), sl = S.idx.slots;
     for (var i = 0; i < sl.length; i++) if (sl[i].start + SEC > t) return i;
@@ -94,11 +106,19 @@
     if (next) return { type: 'next', info: next, n: nextN };
     return { type: hasTbc ? 'pending' : 'done' };
   }
+  function schoolOf(s) { return S.snap && S.snap.schools && s.sc != null ? S.snap.schools[s.sc] : ''; }
   function oppOf(d, id) { return student(d.m[0] === id ? d.m[1] : d.m[0]); }
 
   // ------------------------------------------------------------------ pieces of UI
   function nameBtn(id, cls) { var s = student(id), b = el('button', cls || 'opp-link', s ? s.n : id); b.setAttribute('data-open', id); b.type = 'button'; return b; }
-  function sideBadge(d, i) { return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? 'Prop' : 'Opp') : null; }
+  // a student's own side in round n: from the paired debate when its sides are shown, else the Roster side the server has revealed
+  function mySide(s, n, x) {
+    if (x && x.k === 'paired' && x.d.sv) return x.d.m[0] === s.i ? 'Prop' : 'Opp';
+    return s.sd && s.sd[n - 1] ? s.sd[n - 1] : null;
+  }
+  var SIDE_LABEL = { Prop: 'Prop (For)', Opp: 'Opp (Against)' };      // the words every side badge shows
+  function sideTag(side) { return side ? el('span', 'badge ' + (side === 'Prop' ? 'p' : 'o'), SIDE_LABEL[side]) : null; }
+  function sideBadge(d, i) { return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? SIDE_LABEL.Prop : SIDE_LABEL.Opp) : null; }
   function speakerCell(d, i, asButton) {
     var id = d.m[i], w = el('span'), n = asButton ? nameBtn(id) : el('span', null, student(id).n);
     if (d.w && d.ab === id) { n.className = (n.className ? n.className + ' ' : '') + 'absent'; }
@@ -111,16 +131,16 @@
     if (!s) return;
     var back = el('button', 'link back', 'Back to search'); back.type = 'button'; back.id = 'backBtn';
     add(box, back, el('h2', 'who-h', s.n),
-      el('p', 'who-sub', s.i + ', ' + s.c + (s.st ? ', ' + s.st : '')));
+      el('p', 'who-sub', s.i + ', ' + s.c + (s.st ? ', ' + s.st : '')), schoolOf(s) ? el('p', 'who-school', schoolOf(s)) : null);
     var h = headline(s), band;
     if (h.type === 'live') {
       band = el('div', 'band live'); add(band, el('div', 'txt'), el('div', 'big', 'Room ' + h.info.d.r));
-      var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + ', vs ' + oppOf(h.info.d, s.i).n);
+      var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + batchTag(h.info) + ', vs ' + oppOf(h.info.d, s.i).n);
     } else if (h.type === 'window') {
-      band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + '. Opponent and room will be announced during attendance of that round'); add(band, t2);
+      band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + batchTag(h.info) + '. Opponent and room will be announced during attendance of that round'); add(band, t2);
     } else if (h.type === 'next') {
       band = el('div', 'band next'); var t3 = el('div', 'txt');
-      var when = T.dayLabel(h.info.date) + ', ' + h.info.time, soon = h.info.start - now();
+      var when = T.dayLabel(h.info.date) + ', ' + h.info.time + batchTag(h.info), soon = h.info.start - now();
       add(t3, el('b', null, 'Next: R' + h.n), when + (soon > 0 && soon < 3600000 ? ' (starts in ' + inMin(soon) + ')' : '')); add(band, t3);
       if (h.info.k === 'paired') add(band, el('div', 'big', 'Room ' + h.info.d.r));
     } else if (h.type === 'pending') {
@@ -133,15 +153,15 @@
     var ol = el('ol', 'rounds'), t = now();
     [1, 2, 3].forEach(function (n) {
       var x = info(s, n), li = el('li', 'round');
-      var rn = el('div', 'rn'), mine = x.k === 'paired' && x.d.sv ? (x.d.m[0] === s.i ? 0 : 1) : -1;
-      add(rn, el('span', null, 'R' + n), mine >= 0 ? sideBadge(x.d, mine) : null);
+      var rn = el('div', 'rn'), side = x.k === 'absent' ? null : mySide(s, n, x);
+      add(rn, el('span', null, 'R' + n), sideTag(side));
       add(li, rn);
       if (x.k === 'tbc') {
         add(li, el('div', 'when', 'Slot to be confirmed'), el('div'));
         add(li, add(el('div', 'detail'), el('span', 'tbc', 'The organisers will confirm this slot.')));
       } else {
         if (x.start <= t && t < x.end) li.className += ' live'; else if (x.end <= t && x.k !== 'absent') li.className += ' past';
-        var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), el('span', 'time', x.time));
+        var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), slotHidden(x) ? null : el('span', 'time', x.slot || x.time), batchLine(x));
         add(li, when2);
         var room = el('div', 'room'); if (x.k === 'paired') add(room, 'Room ' + x.d.r);
         add(li, room);
@@ -149,7 +169,7 @@
         if (x.k === 'paired') {
           var d = x.d, opp = oppOf(d, s.i);
           add(det, 'vs ', nameBtn(opp.i));
-          if (!d.sv) add(det, el('br'), 'Sides are announced on the call.');
+          if (!d.sv && !side) add(det, el('br'), 'Sides are announced on the call.');
           if (d.w) add(det, el('br'), 'Walkover: ' + student(d.ab).n + ' was marked absent.');
         } else if (x.k === 'absent') {
           add(det, 'You were marked absent for this debate. Check with the organisers for a new slot.');
@@ -167,7 +187,7 @@
     var h = headline(s);
     if (h.type === 'live') return { cls: 'quick now', text: 'Now: Room ' + h.info.d.r };
     if (h.type === 'window') return { cls: 'quick now', text: 'Slot open now' };
-    if (h.type === 'next') return { cls: 'quick', text: 'Next: R' + h.n + ', ' + T.shortDay(h.info.date) + ', ' + T.clock(h.info.startMin) + (h.info.k === 'paired' ? ', Room ' + h.info.d.r : '') };
+    if (h.type === 'next') return { cls: 'quick', text: 'Next: R' + h.n + ', ' + T.shortDay(h.info.date) + ', ' + T.clock(h.info.startMin) + (h.info.batch ? ', Batch ' + h.info.batch : '') + (h.info.k === 'paired' ? ', Room ' + h.info.d.r : '') };
     if (h.type === 'pending') return { cls: 'quick', text: 'Slot to be confirmed' };
     return { cls: 'quick', text: 'Finished' };
   }
@@ -180,7 +200,7 @@
     else {
       var toks = norm(q).split(' ').filter(Boolean);
       if (!toks.length) return null;
-      for (i = 0; i < S.idx.students.length; i++) { s = S.idx.students[i]; if (toks.every(function (t) { return s._k.indexOf(t) >= 0; })) out.push(s); }
+      for (i = 0; i < S.idx.students.length; i++) { s = S.idx.students[i]; if (toks.every(function (t) { return s._m.indexOf(t) >= 0; })) out.push(s); }
       out.sort(function (a, b) {
         var pa = a._k.indexOf(toks[0]) === 0 ? 0 : 1, pb = b._k.indexOf(toks[0]) === 0 ? 0 : 1;
         return pa - pb || (a._k < b._k ? -1 : a._k > b._k ? 1 : 0);
@@ -200,7 +220,7 @@
     list.slice(0, 25).forEach(function (s) {
       var li = el('li'), b = el('button'), l = el('span'), q = quick(s);
       b.type = 'button'; b.setAttribute('data-open', s.i);
-      add(l, el('span', 'who', s.n), el('span', 'sub', s.i + ', ' + s.c + (s.st ? ', ' + s.st : '')));
+      add(l, el('span', 'who', s.n), el('span', 'sub', s.i + ', ' + s.c + (s.st ? ', ' + s.st : '') + (schoolOf(s) ? ', ' + schoolOf(s) : '')));
       add(b, l, el('span', q.cls, q.text)); add(li, b); add(ul, li);
     });
     add(res, ul);
@@ -212,19 +232,22 @@
     clear(sel);
     items.forEach(function (it) { var o = el('option', null, it.label); o.value = it.value; if (String(it.value) === String(value)) o.selected = true; sel.appendChild(o); });
   }
+  function browseHash(sl) { return 'rooms' + (S.browse.i == null || !sl ? '' : '/' + sl.date + '/' + block(sl.b).s + '/' + sl.sec); }   // a refresh keeps the chosen date, slot and batch
   function renderBrowse() {
     var i = S.browse.i == null ? slotIndexNow() : S.browse.i, sl = S.idx.slots[i], out = clear($('bOut'));
-    if (!sl) { add(out, el('p', 'msg', 'No sections are scheduled yet.')); return; }
+    if (!sl) { add(out, el('p', 'msg', 'No batches are scheduled yet.')); return; }
+    if (S.tab === 'browse') { try { history.replaceState(null, '', location.pathname + location.search + '#' + browseHash(sl)); } catch (e) { /* ignore */ } }
     var dates = [], blocksOn = [], seenD = {}, seenB = {};
     S.idx.slots.forEach(function (x) {
       if (!seenD[x.date]) { seenD[x.date] = 1; dates.push({ value: x.date, label: T.dayLabel(x.date) }); }
       if (x.date === sl.date && !seenB[x.b]) { seenB[x.b] = 1; blocksOn.push({ value: x.b, label: blockRange(x.b) }); }
     });
-    var secs = []; for (var k = 1; k <= block(sl.b).n; k++) secs.push({ value: k, label: String(k) });
+    // Batch options carry the time range of the chosen slot, e.g. "Batch 1 (3:30 – 3:50 PM)"
+    var secs = []; for (var k = 1; k <= block(sl.b).n; k++) secs.push({ value: k, label: 'Batch ' + k + ' (' + secRange(sl.b, k) + ')' });
     fillSelect($('bDate'), dates, sl.date); fillSelect($('bBlock'), blocksOn, sl.b); fillSelect($('bSec'), secs, sl.sec);
     var ds = debatesIn(sl);
     add(out, el('p', 'sum', ds.length + ' of ' + S.snap.cfg.rooms + ' rooms paired. ' + T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec) + '.'));
-    if (!ds.length) { add(out, el('p', 'msg', 'No pairings are published for this section yet.')); return; }
+    if (!ds.length) { add(out, el('p', 'msg', 'No pairings are published for this batch yet.')); return; }
     var tb = el('table', 'tbl'), hd = el('tr');
     ['Room', 'Speaker 1', 'Speaker 2'].forEach(function (t) { add(hd, el('th', null, t)); });
     add(tb, add(el('thead'), hd));
@@ -240,12 +263,16 @@
   // ---- roster (all students, 3 rounds each); only present when the host switches it on
   function roundCell(s, n) {
     var x = info(s, n), td = el('td', 'rc');
+    td.setAttribute('data-label', 'R' + n);                    // shown as the row label in the phone layout
     if (x.k === 'tbc') { add(td, el('span', 'tbc', 'To be confirmed')); return td; }
     if (x.end <= now() && x.k !== 'absent') td.className += ' past';
-    add(td, el('b', null, T.shortDay(x.date)), ' ', x.time);
+    add(td, el('b', null, T.shortDay(x.date)), slotHidden(x) ? null : ' ' + (x.slot || x.time));
+    if (x.batch) add(td, el('br'), batchLine(x));
+    var own = x.k === 'absent' ? null : mySide(s, n, x);
+    if (own) add(td, el('br'), 'speaks ', sideTag(own));
     if (x.k === 'paired') {
       var d = x.d, oi = d.m[0] === s.i ? 1 : 0, opp = student(d.m[oi]);
-      add(td, el('br'), el('span', 'rrm', 'Room ' + d.r), ' vs ', nameBtn(opp.i), d.sv ? sideBadge(d, oi ? 0 : 1) : null);
+      add(td, el('br'), el('span', 'rrm', 'Room ' + d.r), ' vs ', nameBtn(opp.i));
       if (d.w) add(td, el('br'), el('span', 'tbc', 'Walkover: ' + student(d.ab).n + ' absent'));
     } else if (x.k === 'absent') add(td, el('br'), el('span', 'tbc', 'Marked absent'));
     return td;
@@ -256,7 +283,7 @@
       if (R.cat && s.c !== R.cat) return false;
       if (R.state && (s.st || '') !== R.state) return false;
       if (!toks.length) return true;
-      return s.i.toLowerCase().indexOf(raw) >= 0 || toks.every(function (t) { return s._k.indexOf(t) >= 0; });
+      return s.i.toLowerCase().indexOf(raw) >= 0 || toks.every(function (t) { return s._m.indexOf(t) >= 0; });
     });
     out.sort(function (a, b) {
       var x = R.sort === 'id' ? a.i : a._k, y = R.sort === 'id' ? b.i : b._k;
@@ -277,12 +304,14 @@
     $('rCount').textContent = list.length + ' of ' + S.idx.students.length + ' students. Times are IST.';
     if (!list.length) { add(out, el('p', 'msg', 'No students match.')); $('rMore').hidden = true; return; }
     var tb = el('table', 'tbl rost'), hd = el('tr');
-    ['Name', 'ID', 'State', 'Round 1', 'Round 2', 'Round 3'].forEach(function (t) { add(hd, el('th', null, t)); });
+    var withSchool = !!S.snap.schools;
+    ['Name', 'ID', 'State'].concat(withSchool ? ['School'] : [], ['Round 1', 'Round 2', 'Round 3']).forEach(function (t) { add(hd, el('th', null, t)); });
     add(tb, add(el('thead'), hd));
     var body = el('tbody');
     list.slice(0, R.shown).forEach(function (s) {
       var tr = el('tr');
-      add(tr, add(el('td', 'rn1'), nameBtn(s.i)), el('td', 'rid', s.i), el('td', null, s.st || ''));
+      add(tr, add(el('td', 'rn1'), nameBtn(s.i)), el('td', 'rid', s.i), el('td', 'rst', s.st || ''));
+      if (withSchool) add(tr, el('td', 'rsch', schoolOf(s)));
       [1, 2, 3].forEach(function (n) { add(tr, roundCell(s, n)); });
       add(body, tr);
     });
@@ -291,17 +320,58 @@
     $('rMore').textContent = 'Show more (' + (list.length - R.shown) + ' left)';
   }
 
+  // ---- motions (released by the server; unreleased text is never in the data)
+  var MCATS = ['Junior', 'Middle', 'Senior'];
+  var MNOTE = { Junior: 'Sides revealed 3 days before your round', Middle: 'Sides will be revealed during attendance, please prepare for both sides', Senior: 'Sides will be revealed during attendance, please prepare for both sides' };
+  function relText(ms) {
+    var hm = T.istClock(ms).split(':'), h = Number(hm[0]), mi = Number(hm[1]);
+    return T.shortDay(T.istIso(ms)) + ', ' + T.clock(h * 60 + mi) + ' IST';
+  }
+  function renderMotions() {
+    var out = clear($('mOut')), M = S.motions;
+    if (!M) { add(out, el('p', 'msg', S.mOk ? 'Loading…' : 'Loading the motions…')); return; }
+    M.dates.forEach(function (x) {
+      var c = el('article', 'mcard' + (x.ok ? ' open' : ' locked')), h = el('h3', null, T.dayLabel(x.d));
+      add(h, el('span', 'mchip', x.ok ? 'Released' : 'Not released yet'));
+      add(c, h);
+      if (!x.ok) add(c, el('p', 'mwait', x.rel ? 'Releases ' + relText(x.rel) : 'Release time to be announced'));
+      else if (!x.m) add(c, el('p', 'mwait', 'The motions will be posted here shortly.'));
+      else MCATS.forEach(function (cat) {
+        if (!x.m[cat]) return;
+        add(c, add(el('div', 'mrow'), add(el('div', 'mhead'), el('span', 'mcat', cat), MNOTE[cat] ? el('span', 'mnote' + (cat === 'Junior' ? '' : ' strong'), '(' + MNOTE[cat] + ')') : null), el('p', 'mtxt', x.m[cat])));
+      });
+      add(out, c);
+    });
+  }
+  function scheduleMotions() {
+    clearTimeout(S.mTimer);
+    if (!S.motions || S.motions.next == null) return;
+    var wait = S.motions.next - now() + 1500;           // just after the release moment
+    if (wait < 1500) wait = 1500;
+    if (wait < 2000000000) S.mTimer = setTimeout(loadMotions, wait);
+  }
+  function loadMotions() {
+    return fetch('api/motions', { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error('motions ' + r.status);
+      return r.json();
+    }).then(function (j) {
+      var js = JSON.stringify(j.dates), changed = js !== S.mJson;
+      S.mOk = Date.now(); S.motions = j; S.mJson = js; scheduleMotions();
+      if (S.tab === 'motions') { if (changed) render(); else renderFoot(); }
+    }).catch(function () { if (S.tab === 'motions' && !S.motions) { clear($('mOut')); add($('mOut'), el('p', 'msg', 'Cannot reach the server. Check your connection and try again.')); } });
+  }
+
   // ---- projector
   function renderProj() {
     var i = S.proj.i == null ? slotIndexNow() : S.proj.i, sl = S.idx.slots[i], grid = clear($('pGrid'));
-    if (!sl) { $('pTitle').textContent = 'No sections scheduled'; return; }
+    if (!sl) { $('pTitle').textContent = 'No batches scheduled'; return; }
     var ds = debatesIn(sl), pages = Math.max(1, Math.ceil(ds.length / PAGE_SIZE)), t = now();
     if (S.proj.page >= pages) S.proj.page = 0;
     var live = sl.start <= t && t < sl.start + SEC, before = sl.start > t;
     $('pTitle').textContent = T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec);
-    $('pSub').textContent = 'Section ' + sl.sec + ' of the ' + blockRange(sl.b) + ' block. ' + (live ? 'Live now' : before ? 'Starts in ' + inMin(sl.start - t) : 'Finished');
+    $('pSub').textContent = 'Batch ' + sl.sec + (S.snap.batchOnly ? '. ' : ' of the ' + blockRange(sl.b) + ' slot. ') + (live ? 'Live now' : before ? 'Starts in ' + inMin(sl.start - t) : 'Finished');
     $('pLive').textContent = S.proj.i == null ? 'Following live' : 'Follow live';
-    if (!ds.length) add(grid, el('div', 'p-empty', 'No pairings published for this section yet.'));
+    if (!ds.length) add(grid, el('div', 'p-empty', 'No pairings published for this batch yet.'));
     ds.slice(S.proj.page * PAGE_SIZE, (S.proj.page + 1) * PAGE_SIZE).forEach(function (d) {
       var c = el('div', 'p-cell'), nm = el('div', 'p-names');
       add(c, el('div', 'p-room', String(d.r)));
@@ -316,12 +386,46 @@
   }
 
   // ------------------------------------------------------------------ shell
+  var TAB_HASH = { roster: 'schedule', motions: 'motions', browse: 'rooms', find: 'find' };       // tab -> address-bar hash, so a refresh stays on the same tab
+  var HASH_TAB = { schedule: 'roster', motions: 'motions', rooms: 'browse', find: 'find' };
   function setTab(t) {
     S.tab = t; S.tabChosen = true;
+    // the #ID in the address bar belongs to a student's card: drop it on every other tab, bring it back on Find me
+    var hs = t === 'find' && S.sel ? encodeURIComponent(S.sel) : t === 'browse' && S.idx ? browseHash(S.idx.slots[S.browse.i]) : (TAB_HASH[t] || '');
+    try { history.replaceState(null, '', location.pathname + location.search + (hs ? '#' + hs : '')); } catch (e) { /* ignore */ }
     applyTab();
     render();
   }
+  // Order of the tabs (ribbon) and of the Home buttons: Motions always sits in second place.
+  //   Schedule on:  Schedule, Motions, Find me, All rooms        Schedule off: Find me, Motions, All rooms
+  function tabOrder() {
+    var base = [];
+    if (S.snap && S.enabled) { if (S.snap.roster) base.push('roster'); base.push('find', 'browse'); }
+    base.splice(Math.min(1, base.length), 0, 'motions');
+    return base;
+  }
+  function orderTabs() { var box = $('tabs'); tabOrder().forEach(function (k) { var b = tabBtn(k); if (b) box.appendChild(b); }); }
+  var HOME_ITEMS = {
+    roster: ['Schedule', 'Every student\'s slots for all three rounds'],
+    motions: ['Motions', 'Read the motions once they are released'],
+    find: ['Find me', 'Search your name or ID to see your slots, room and opponent'],
+    browse: ['All rooms', 'Who is in each room, batch by batch']
+  };
+  // Home page: opened by default and by clicking the title; it has no tab of its own
+  function renderHome() {
+    var items = tabOrder().map(function (k) { return [k, HOME_ITEMS[k][0], HOME_ITEMS[k][1]]; });
+    var key = items.map(function (i) { return i[0]; }).join();
+    if (S.homeKey === key) return;                       // unchanged: keep the buttons (and keyboard focus) as they are
+    S.homeKey = key;
+    var box = clear($('homeLinks'));
+    items.forEach(function (i) {
+      var b = el('button'); b.type = 'button'; b.setAttribute('data-go', i[0]);
+      add(b, el('b', null, i[1]), el('span', null, i[2])); box.appendChild(b);
+    });
+  }
   function render() {
+    if (S.tab === 'home' && !PROJECTOR) { renderHome(); renderFoot(); return; }
+    if (S.tab === 'motions' && !PROJECTOR) { renderMotions(); renderFoot(); return; }
     if (!S.snap) return;
     try {
       if (PROJECTOR) renderProj();
@@ -332,6 +436,8 @@
     } catch (e) { console.error(e); msg('Something went wrong showing the schedule. Reload the page.'); }
   }
   function renderFoot() {
+    if (S.tab === 'motions' && !PROJECTOR) { $('footTime').textContent = S.mOk ? 'Motions checked at ' + T.istClock(S.mOk + S.offset, true) + ' IST.' : ''; return; }
+    if (!S.snap) { $('footTime').textContent = ''; return; }
     var s = T.istClock(S.lastOk + S.offset, true), b = T.istClock(S.builtAt + S.offset);
     $('footTime').textContent = 'Checked at ' + s + ' IST. Schedule data from ' + b + ' IST.';
   }
@@ -344,26 +450,34 @@
     if (S.lastOk && Date.now() - S.lastOk > STALE_MS) warn('Cannot reach the server. Showing the schedule from ' + T.istClock(S.builtAt + S.offset) + ' IST. It may be out of date.');
   }
 
+  function tabBtn(n) { return $('tabs').querySelector('[data-tab="' + n + '"]'); }
   function applySnapshot(snap) {
     S.snap = snap; S.enabled = snap.enabled !== false; S.builtAt = snap.builtAt;
     $('loading').hidden = true;
     if (!S.enabled) {
-      ['roster', 'find', 'browse'].forEach(function (n) { $('v-' + n).hidden = true; });
-      $('tabs').hidden = true; msg('The schedule will be released soon. Please check back later.'); return;
+      ['roster', 'find', 'browse'].forEach(function (n) { tabBtn(n).hidden = true; });
+      $('tabs').hidden = PROJECTOR;
+      if (!PROJECTOR) { if (!S.tabChosen || ['roster', 'find', 'browse'].indexOf(S.tab) >= 0) S.tab = 'home'; applyTab(); render(); }
+      msg('The schedule will be released soon. Please check back later.'); return;
     }
+    ['find', 'browse'].forEach(function (n) { tabBtn(n).hidden = false; });
     $('tabs').hidden = PROJECTOR;
     S.idx = buildIndex(snap);
+    if (S.pendingBrowse) {          // restore the batch that was open before the refresh
+      var pb = S.pendingBrowse; S.pendingBrowse = null;
+      for (var q = 0; q < S.idx.slots.length; q++) { var sx = S.idx.slots[q]; if (sx.date === pb.date && sx.sec === pb.sec && block(sx.b).s === pb.s) { S.browse.i = q; break; } }
+    }
     $('tabRoster').hidden = !snap.roster;
-    if (!snap.roster && S.tab === 'roster') S.tab = 'find';
-    else if (snap.roster && !S.tabChosen && !S.deep) S.tab = 'roster'; { b.setAttribute('aria-selected', b.getAttribute('data-tab') === S.tab ? 'true' : 'false'); });
+    orderTabs();
+    if (!snap.roster && S.tab === 'roster') S.tab = 'home';
     clear($('rCat')); clear($('rState'));
     if (PROJECTOR) { $('proj').hidden = false; document.body.className = 'proj'; }
     else applyTab();
     render();
     if (S.deep && student(S.deep)) { var id = S.deep; S.deep = null; openStudent(id); } else S.deep = null;
   }
-    function applyTab() {
-    ['roster', 'find', 'browse'].forEach(function (n) { $('v-' + n).hidden = n !== S.tab || !S.snap || !S.enabled; });
+  function applyTab() {
+    ['home', 'roster', 'find', 'browse', 'motions'].forEach(function (n) { $('v-' + n).hidden = n !== S.tab || (n !== 'motions' && n !== 'home' && (!S.snap || !S.enabled)); });
     Array.prototype.forEach.call($('tabs').children, function (b) { b.setAttribute('aria-selected', b.getAttribute('data-tab') === S.tab ? 'true' : 'false'); });
     $('main').className = S.tab === 'roster' ? 'wide' : '';
   }
@@ -376,6 +490,7 @@
   }
   function poll() {
     var t0 = Date.now();
+    if (t0 - S.mPoll > 55000) { S.mPoll = t0; loadMotions(); }       // motions are heavier than the version check: every minute is plenty (releases also fire their own timer)
     return fetch('api/v', { cache: 'no-store' }).then(function (r) {
       if (!r.ok) { var e = new Error('v ' + r.status); e.status = r.status; throw e; }
       return r.json();
@@ -390,7 +505,7 @@
       else staleCheck();
     });
   }
-  function loop() { poll().then(function () { setTimeout(loop, POLL_MS); }); }
+  function loop() { (document.hidden ? Promise.resolve() : poll()).then(function () { setTimeout(loop, POLL_MS); }); }   // a tab in the background does not poll; it checks again as soon as it is shown
 
   // ------------------------------------------------------------------ events
   function openStudent(id) {
@@ -409,18 +524,35 @@
     document.addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('[data-open]') : null;
       if (b) { openStudent(b.getAttribute('data-open')); return; }
-      if (e.target.id === 'backBtn') { S.sel = null; try { history.replaceState(null, '', location.pathname + location.search); } catch (x) { /* ignore */ } renderFind(); $('q').focus(); }
+      if (e.target.id === 'backBtn') {
+        S.sel = null; S.q = ''; $('q').value = '';        // clear the name too, otherwise the single match re-opens the same card
+        try { history.replaceState(null, '', location.pathname + location.search + '#find'); } catch (x) { /* ignore */ }
+        renderFind(); window.scrollTo(0, 0); return;
+      }
+      var go = e.target.closest ? e.target.closest('[data-go]') : null;
+      if (go) { setTab(go.getAttribute('data-go')); window.scrollTo(0, 0); }
     });
     function rosterChange() { S.roster.shown = 50; renderRoster(); }
     $('rq').addEventListener('input', function () { S.roster.q = this.value; rosterChange(); });
     $('rCat').addEventListener('change', function () { S.roster.cat = this.value; rosterChange(); });
     $('rState').addEventListener('change', function () { S.roster.state = this.value; rosterChange(); });
     $('rSort').addEventListener('change', function () { S.roster.sort = this.value; rosterChange(); });
+    $('rClear').addEventListener('click', function () {
+      S.roster.q = ''; S.roster.cat = ''; S.roster.state = ''; S.roster.sort = 'name';
+      $('rq').value = ''; $('rCat').value = ''; $('rState').value = ''; $('rSort').value = 'name';
+      rosterChange();
+    });
+    $('homeLink').addEventListener('click', function (e) {
+      e.preventDefault();
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (x) { /* ignore */ }
+      setTab('home'); window.scrollTo(0, 0);
+    });
     $('rMore').addEventListener('click', function () { S.roster.shown += 100; renderRoster(); });
     function browseChange(which) {
       var d = $('bDate').value, b = +$('bBlock').value, s = +$('bSec').value, i;
       if (which === 'date') { i = -1; for (var k = 0; k < S.idx.slots.length; k++) if (S.idx.slots[k].date === d) { i = k; break; } }
-      else if (which === 'block') i = findSlot(d, b, 1); else i = findSlot(d, b, s);
+      else if (which === 'block') { i = findSlot(d, b, s); if (i < 0) i = findSlot(d, b, 1); }   // keep the chosen batch number under the new slot
+      else i = findSlot(d, b, s);
       if (i >= 0) { S.browse.i = i; renderBrowse(); }
     }
     $('bDate').addEventListener('change', function () { browseChange('date'); });
@@ -444,11 +576,13 @@
     var fake = params.get('now');                       // testing aid: ?now=2026-10-21T15:55 (IST)
     if (fake) { var ms = Date.parse(fake + (fake.length <= 16 ? ':00' : '') + '+05:30'); if (!isNaN(ms)) { S.fixedNow = ms; S.offset = ms - Date.now(); } }
     if (PROJECTOR) { document.body.className = 'proj'; $('foot').hidden = true; }
-    $('projLink').href = '?mode=projector' + (fake ? '&now=' + encodeURIComponent(fake) : '');
     wire();
     try { S.deep = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { S.deep = null; }
+    var bm = /^rooms\/(\d{4}-\d{2}-\d{2})\/(\d+)\/(\d+)$/.exec(S.deep || '');
+    if (!PROJECTOR && bm) { S.pendingBrowse = { date: bm[1], s: Number(bm[2]), sec: Number(bm[3]) }; S.deep = 'rooms'; }
+    if (!PROJECTOR && S.deep && HASH_TAB[S.deep]) { S.tab = HASH_TAB[S.deep]; S.tabChosen = true; S.deep = null; applyTab(); render(); }   // refresh on a tab: reopen it
     loop();
-    setInterval(function () { render(); staleCheck(); }, 15000);
+    setInterval(function () { if (S.tab !== 'motions') render(); staleCheck(); }, 15000);
     setInterval(function () {
       if (PROJECTOR && S.idx && !S.proj.paused) { S.proj.page += 1; renderProj(); }
     }, ROTATE_S * 1000);
