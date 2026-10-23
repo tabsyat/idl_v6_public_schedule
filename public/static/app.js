@@ -232,9 +232,11 @@
     clear(sel);
     items.forEach(function (it) { var o = el('option', null, it.label); o.value = it.value; if (String(it.value) === String(value)) o.selected = true; sel.appendChild(o); });
   }
+  function browseHash(sl) { return 'rooms' + (S.browse.i == null || !sl ? '' : '/' + sl.date + '/' + block(sl.b).s + '/' + sl.sec); }   // a refresh keeps the chosen date, slot and batch
   function renderBrowse() {
     var i = S.browse.i == null ? slotIndexNow() : S.browse.i, sl = S.idx.slots[i], out = clear($('bOut'));
     if (!sl) { add(out, el('p', 'msg', 'No batches are scheduled yet.')); return; }
+    if (S.tab === 'browse') { try { history.replaceState(null, '', location.pathname + location.search + '#' + browseHash(sl)); } catch (e) { /* ignore */ } }
     var dates = [], blocksOn = [], seenD = {}, seenB = {};
     S.idx.slots.forEach(function (x) {
       if (!seenD[x.date]) { seenD[x.date] = 1; dates.push({ value: x.date, label: T.dayLabel(x.date) }); }
@@ -389,7 +391,7 @@
   function setTab(t) {
     S.tab = t; S.tabChosen = true;
     // the #ID in the address bar belongs to a student's card: drop it on every other tab, bring it back on Find me
-    var hs = t === 'find' && S.sel ? encodeURIComponent(S.sel) : (TAB_HASH[t] || '');
+    var hs = t === 'find' && S.sel ? encodeURIComponent(S.sel) : t === 'browse' && S.idx ? browseHash(S.idx.slots[S.browse.i]) : (TAB_HASH[t] || '');
     try { history.replaceState(null, '', location.pathname + location.search + (hs ? '#' + hs : '')); } catch (e) { /* ignore */ }
     applyTab();
     render();
@@ -461,6 +463,10 @@
     ['find', 'browse'].forEach(function (n) { tabBtn(n).hidden = false; });
     $('tabs').hidden = PROJECTOR;
     S.idx = buildIndex(snap);
+    if (S.pendingBrowse) {          // restore the batch that was open before the refresh
+      var pb = S.pendingBrowse; S.pendingBrowse = null;
+      for (var q = 0; q < S.idx.slots.length; q++) { var sx = S.idx.slots[q]; if (sx.date === pb.date && sx.sec === pb.sec && block(sx.b).s === pb.s) { S.browse.i = q; break; } }
+    }
     $('tabRoster').hidden = !snap.roster;
     orderTabs();
     if (!snap.roster && S.tab === 'roster') S.tab = 'home';
@@ -572,6 +578,8 @@
     if (PROJECTOR) { document.body.className = 'proj'; $('foot').hidden = true; }
     wire();
     try { S.deep = decodeURIComponent((location.hash || '').slice(1)); } catch (e) { S.deep = null; }
+    var bm = /^rooms\/(\d{4}-\d{2}-\d{2})\/(\d+)\/(\d+)$/.exec(S.deep || '');
+    if (!PROJECTOR && bm) { S.pendingBrowse = { date: bm[1], s: Number(bm[2]), sec: Number(bm[3]) }; S.deep = 'rooms'; }
     if (!PROJECTOR && S.deep && HASH_TAB[S.deep]) { S.tab = HASH_TAB[S.deep]; S.tabChosen = true; S.deep = null; applyTab(); render(); }   // refresh on a tab: reopen it
     loop();
     setInterval(function () { if (S.tab !== 'motions') render(); staleCheck(); }, 15000);
