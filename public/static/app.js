@@ -559,6 +559,13 @@
     $('bBlock').addEventListener('change', function () { browseChange('block'); });
     $('bSec').addEventListener('change', function () { browseChange('sec'); });
     $('bNow').addEventListener('click', function () { S.browse.i = null; renderBrowse(); });
+    $('bRefresh').addEventListener('click', function () {      // ask the server now instead of waiting for the next 20-second check
+      var b = this; if (b.disabled) return; b.disabled = true; b.textContent = 'Refreshing…';
+      poll().then(function () { if (S.tab === 'browse' && S.idx) renderBrowse(); })
+        .then(function () { b.textContent = '\u21BB Updated ' + T.istClock(Date.now() + S.offset, true); setTimeout(function () { b.textContent = '\u21BB Refresh'; }, 2500); })
+        .catch(function () { b.textContent = '\u21BB Refresh'; })
+        .then(function () { b.disabled = false; });
+    });
     $('pPrev').addEventListener('click', function () { S.proj.i = stepSlot(S.proj.i, -1); S.proj.page = 0; renderProj(); });
     $('pNext').addEventListener('click', function () { S.proj.i = stepSlot(S.proj.i, 1); S.proj.page = 0; renderProj(); });
     $('pLive').addEventListener('click', function () { S.proj.i = null; S.proj.page = 0; renderProj(); });
