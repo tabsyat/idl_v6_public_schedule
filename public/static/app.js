@@ -59,8 +59,8 @@
     var ok = c.filter(function (d) { return !(d.w && d.ab === id); });
     return ok.length ? ok[ok.length - 1] : c[c.length - 1];
   }
-  function info(s, n) {
-    var d = pick(s.i, n), p = s.p[n - 1];
+  function info(s, n, rosterOnly) {          // rosterOnly: ignore the Debates rows, use the Roster plan as it is
+    var d = rosterOnly ? null : pick(s.i, n), p = s.p[n - 1];
     if (d) {
       var start = secStartMs(d.d, d.b, d.s), st = T.sectionStartMin(block(d.b).s, d.s);
       // the Debates row is the real pairing: its batch wins over the Roster batch
@@ -267,7 +267,7 @@
 
   // ---- roster (all students, 3 rounds each); only present when the host switches it on
   function roundCell(s, n) {
-    var x = info(s, n), td = el('td', 'rc');
+    var x = info(s, n, true), td = el('td', 'rc');          // Schedule tab = Roster only: date, slot, batch, side; no room or opponent
     td.setAttribute('data-label', 'R' + n);                    // shown as the row label in the phone layout
     if (x.k === 'tbc') { add(td, el('span', 'tbc', 'To be confirmed')); return td; }
     if (x.end <= now() && x.k !== 'absent') td.className += ' past';
