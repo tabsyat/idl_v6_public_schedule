@@ -120,11 +120,12 @@
   var SIDE_LABEL = { Prop: 'Prop (For)', Opp: 'Opp (Against)' };      // the words every side badge shows
   function sideTag(side) { return side ? el('span', 'badge ' + (side === 'Prop' ? 'p' : 'o'), SIDE_LABEL[side]) : null; }
   function sideBadge(d, i) {
-    if (d.so) return d.sv && d.ss && i === 0 ? el('span', 'badge ' + (d.ss === 'Prop' ? 'p' : 'o'), SIDE_LABEL[d.ss]) : null;
+    if (d.so) return d.sv && d.ss ? el('span', 'badge ' + (d.ss === 'Prop' ? 'p' : 'o'), SIDE_LABEL[d.ss]) : null;
     return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? SIDE_LABEL.Prop : SIDE_LABEL.Opp) : null; }
   function speakerCell(d, i, asButton) {
-    if (d.so && i === 1) return el('span', 'tbc', SOLO_TEXT);
-    var id = d.m[i], w = el('span'), n = asButton ? nameBtn(id) : el('span', null, student(id).n);
+    // solo speech: Speaker 1 column = Prop, Speaker 2 = Opp; the lone student sits in the column of their side (Prop, or side not shown yet, in column 1)
+    if (d.so && i !== (d.sv && d.ss === 'Opp' ? 1 : 0)) return el('span', 'tbc', SOLO_TEXT);
+    var id = d.m[d.so ? 0 : i], w = el('span'), n = asButton ? nameBtn(id) : el('span', null, student(id).n);
     if (d.w && d.ab === id) { n.className = (n.className ? n.className + ' ' : '') + 'absent'; }
     add(w, n, sideBadge(d, i), d.w && d.ab === id ? el('span', 'badge x', 'absent') : null);
     return w;
