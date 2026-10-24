@@ -112,11 +112,8 @@ function build(input) {
   });
 
   // ---- Junior sides from the Roster (internal; never exported as-is)
-  var debDate = {}, outById = {};
+  var outById = {};
   outStudents.forEach(function (o) { outById[o.i] = o; });
-  sorted.forEach(function (d) {
-    [d.propId, d.oppId].forEach(function (id) { if (id && !(d.walkover && d.absentId === id)) debDate[id + '|' + d.round] = d.date; });
-  });
   var sideDates = { 1: {}, 2: {}, 3: {}, nodate: {} }, sideHolders = 0, noSide = [], mismatch = [];
   students.forEach(function (s) {
     if (!s.sides) return;
@@ -125,7 +122,7 @@ function build(input) {
     o.sd = s.sides.slice();
     [1, 2, 3].forEach(function (n) {
       if (!s.sides[n - 1]) return;
-      var iso = debDate[s.id + '|' + n] || (s.plan[n - 1] && s.plan[n - 1].date) || null;
+      var iso = (s.plan[n - 1] && s.plan[n - 1].date) || null;       // the 3-day rule follows the Roster date only, never the Debates
       dd[n - 1] = iso;
       if (iso) sideDates[n][iso] = (sideDates[n][iso] || 0) + 1; else sideDates.nodate[n] = (sideDates.nodate[n] || 0) + 1;
     });
