@@ -82,8 +82,14 @@ function build(input) {
     if (solo) m = [(A || B).id];
     else if (d.sidesVisible) { m = [A.id, B.id]; if (/^junior/i.test(d.category || '')) hm = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); }
     else { m = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); hidden++; }
-    var o = { d: d.date, b: blockIdx[d.block.label], s: d.section, r: d.room, n: d.round, m: m, sv: d.sidesVisible && !solo ? 1 : 0 };
-    if (solo) o.so = 1;
+    var o = { d: d.date, b: blockIdx[d.block.label], s: d.section, r: d.room, n: d.round, m: m, sv: d.sidesVisible ? 1 : 0 };
+    if (solo) {
+      o.so = 1;
+      if (d.sidesVisible) {      // the solo speaker's side: the Roster side for that round (Juniors), else the column the Desk used; revealed by exportDebates like any Junior side
+        var rs = byId[m[0]] && byId[m[0]].sides ? byId[m[0]].sides[d.round - 1] : '';
+        o.ss = rs || (d.propId ? 'Prop' : 'Opp'); o.jr = 1; o.hm = m.slice();
+      }
+    }
     if (hm) { o.jr = 1; o.hm = hm; }          // internal only: exportDebates() removes these
     if (d.walkover) { o.w = 1; o.ab = d.absentId; walkovers++; }
 
@@ -183,8 +189,9 @@ function exportDebates(list, reveal) {
   var rule = asRule(reveal);
   return list.map(function (d) {
     var o = {};
-    Object.keys(d).forEach(function (k) { if (k !== 'jr' && k !== 'hm') o[k] = d[k]; });
+    Object.keys(d).forEach(function (k) { if (k !== 'jr' && k !== 'hm' && k !== 'ss') o[k] = d[k]; });
     if (d.jr && !rule(d.n, d.d)) { o.m = d.hm.slice(); o.sv = 0; }
+    else if (d.ss) o.ss = d.ss;                // solo speaker's side, only once it is revealed
     return o;
   });
 }
