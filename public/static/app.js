@@ -114,12 +114,14 @@
   function nameBtn(id, cls) { var s = student(id), b = el('button', cls || 'opp-link', s ? s.n : id); b.setAttribute('data-open', id); b.type = 'button'; return b; }
   // a student's own side in round n: from the paired debate when its sides are shown, else the Roster side the server has revealed
   function mySide(s, n, x) {
-    if (x && x.k === 'paired' && x.d.sv) return x.d.m[0] === s.i ? 'Prop' : 'Opp';
+    if (x && x.k === 'paired' && x.d.sv) return x.d.so ? (x.d.ss || null) : x.d.m[0] === s.i ? 'Prop' : 'Opp';
     return s.sd && s.sd[n - 1] ? s.sd[n - 1] : null;
   }
   var SIDE_LABEL = { Prop: 'Prop (For)', Opp: 'Opp (Against)' };      // the words every side badge shows
   function sideTag(side) { return side ? el('span', 'badge ' + (side === 'Prop' ? 'p' : 'o'), SIDE_LABEL[side]) : null; }
-  function sideBadge(d, i) { return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? SIDE_LABEL.Prop : SIDE_LABEL.Opp) : null; }
+  function sideBadge(d, i) {
+    if (d.so) return d.sv && d.ss && i === 0 ? el('span', 'badge ' + (d.ss === 'Prop' ? 'p' : 'o'), SIDE_LABEL[d.ss]) : null;
+    return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? SIDE_LABEL.Prop : SIDE_LABEL.Opp) : null; }
   function speakerCell(d, i, asButton) {
     if (d.so && i === 1) return el('span', 'tbc', SOLO_TEXT);
     var id = d.m[i], w = el('span'), n = asButton ? nameBtn(id) : el('span', null, student(id).n);
