@@ -33,12 +33,12 @@ function parseDebates(rows, opt) {
     if (status !== 'ACTIVE' && status !== 'WALKOVER') { dropped++; return; }
     var date = T.parseDate(r.date, opt.year), block = T.parseBlock(r.block);
     var section = Number(r.section), room = Number(r.room), round = Number(String(r.round).replace(/\D/g, ''));
-    if (!date || !block || !(section >= 1) || !(room >= 1) || !(round >= 1 && round <= 3) || !r.prop_id || !r.opp_id) { bad++; warnings.push('Debates row ' + (i + 2) + ' skipped (unreadable date/block/section/room/round/ids)'); return; }
+    if (!date || !block || !(section >= 1) || !(room >= 1) || !(round >= 1 && round <= 3) || (!r.prop_id && !r.opp_id)) { bad++; warnings.push('Debates row ' + (i + 2) + ' skipped (unreadable date/block/section/room/round/ids)'); return; }
     var d = {
       row: i + 2, date: date, block: block, section: section, room: room, round: round,
       walkover: status === 'WALKOVER', sidesVisible: truthy(r.sides_visible),
       category: r.category, absentId: r.absent_id || '',
-      propId: r.prop_id, propName: r.prop_name, oppId: r.opp_id, oppName: r.opp_name
+      propId: r.prop_id || '', propName: r.prop_name, oppId: r.opp_id || '', oppName: r.opp_name
     };
     if (opt.private) { d.id = r.debate_id; d.token = r.token || ''; d.adjudicator = r.adjudicator || ''; }
     out.push(d);
