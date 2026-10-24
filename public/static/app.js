@@ -107,7 +107,8 @@
     return { type: hasTbc ? 'pending' : 'done' };
   }
   function schoolOf(s) { return S.snap && S.snap.schools && s.sc != null ? S.snap.schools[s.sc] : ''; }
-  function oppOf(d, id) { return student(d.m[0] === id ? d.m[1] : d.m[0]); }
+  function oppOf(d, id) { return d.so ? null : student(d.m[0] === id ? d.m[1] : d.m[0]); }
+  var SOLO_TEXT = 'Solo speech: no opponent';
 
   // ------------------------------------------------------------------ pieces of UI
   function nameBtn(id, cls) { var s = student(id), b = el('button', cls || 'opp-link', s ? s.n : id); b.setAttribute('data-open', id); b.type = 'button'; return b; }
@@ -120,6 +121,7 @@
   function sideTag(side) { return side ? el('span', 'badge ' + (side === 'Prop' ? 'p' : 'o'), SIDE_LABEL[side]) : null; }
   function sideBadge(d, i) { return d.sv ? el('span', 'badge ' + (i === 0 ? 'p' : 'o'), i === 0 ? SIDE_LABEL.Prop : SIDE_LABEL.Opp) : null; }
   function speakerCell(d, i, asButton) {
+    if (d.so && i === 1) return el('span', 'tbc', SOLO_TEXT);
     var id = d.m[i], w = el('span'), n = asButton ? nameBtn(id) : el('span', null, student(id).n);
     if (d.w && d.ab === id) { n.className = (n.className ? n.className + ' ' : '') + 'absent'; }
     add(w, n, sideBadge(d, i), d.w && d.ab === id ? el('span', 'badge x', 'absent') : null);
@@ -135,7 +137,7 @@
     var h = headline(s), band;
     if (h.type === 'live') {
       band = el('div', 'band live'); add(band, el('div', 'txt'), el('div', 'big', 'Room ' + h.info.d.r));
-      var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + batchTag(h.info) + ', vs ' + oppOf(h.info.d, s.i).n);
+      var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + batchTag(h.info) + (h.info.d.so ? ', solo speech' : ', vs ' + oppOf(h.info.d, s.i).n));
     } else if (h.type === 'window') {
       band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + batchTag(h.info) + '. Opponent and room will be announced during attendance of that round'); add(band, t2);
     } else if (h.type === 'next') {
@@ -168,8 +170,8 @@
         var det = el('div', 'detail');
         if (x.k === 'paired') {
           var d = x.d, opp = oppOf(d, s.i);
-          add(det, 'vs ', nameBtn(opp.i));
-          if (!d.sv && !side) add(det, el('br'), 'Sides are announced on the call.');
+          if (opp) add(det, 'vs ', nameBtn(opp.i)); else add(det, SOLO_TEXT);
+          if (!d.sv && !side && opp) add(det, el('br'), 'Sides are announced on the call.');
           if (d.w) add(det, el('br'), 'Walkover: ' + student(d.ab).n + ' was marked absent.');
         } else if (x.k === 'absent') {
           add(det, 'You were marked absent for this debate. Check with the organisers for a new slot.');
@@ -246,7 +248,7 @@
     var secs = []; for (var k = 1; k <= block(sl.b).n; k++) secs.push({ value: k, label: 'Batch ' + k + ' (' + secRange(sl.b, k) + ')' });
     fillSelect($('bDate'), dates, sl.date); fillSelect($('bBlock'), blocksOn, sl.b); fillSelect($('bSec'), secs, sl.sec);
     var ds = debatesIn(sl);
-    add(out, el('p', 'sum', ds.length + ' of ' + S.snap.cfg.rooms + ' rooms paired. ' + T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec) + '.'));
+    add(out, el('p', 'sum', T.dayLabel(sl.date) + ', ' + secRange(sl.b, sl.sec) + '.'));
     if (!ds.length) { add(out, el('p', 'msg', 'No pairings are published for this batch yet.')); return; }
     var tb = el('table', 'tbl'), hd = el('tr');
     ['Room', 'Speaker 1', 'Speaker 2'].forEach(function (t) { add(hd, el('th', null, t)); });
@@ -271,8 +273,8 @@
     var own = x.k === 'absent' ? null : mySide(s, n, x);
     if (own) add(td, el('br'), 'speaks ', sideTag(own));
     if (x.k === 'paired') {
-      var d = x.d, oi = d.m[0] === s.i ? 1 : 0, opp = student(d.m[oi]);
-      add(td, el('br'), el('span', 'rrm', 'Room ' + d.r), ' vs ', nameBtn(opp.i));
+      var d = x.d, oi = d.m[0] === s.i ? 1 : 0, opp = d.so ? null : student(d.m[oi]);
+      add(td, el('br'), el('span', 'rrm', 'Room ' + d.r), opp ? ' vs ' : ' ', opp ? nameBtn(opp.i) : el('span', 'tbc', SOLO_TEXT));
       if (d.w) add(td, el('br'), el('span', 'tbc', 'Walkover: ' + student(d.ab).n + ' absent'));
     } else if (x.k === 'absent') add(td, el('br'), el('span', 'tbc', 'Marked absent'));
     return td;
