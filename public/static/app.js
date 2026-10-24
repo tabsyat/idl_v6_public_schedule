@@ -60,7 +60,7 @@
     return ok.length ? ok[ok.length - 1] : c[c.length - 1];
   }
   function info(s, n, rosterOnly) {          // rosterOnly: ignore the Debates rows, use the Roster plan as it is
-    var d = rosterOnly ? null : pick(s.i, n), p = s.p[n - 1];
+    var d = rosterOnly === false ? pick(s.i, n) : null, p = s.p[n - 1];     // students' rounds always come from the Roster; only All rooms / projector read the Debates
     if (d) {
       var start = secStartMs(d.d, d.b, d.s), st = T.sectionStartMin(block(d.b).s, d.s);
       // the Debates row is the real pairing: its batch wins over the Roster batch
