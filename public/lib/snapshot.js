@@ -75,12 +75,15 @@ function build(input) {
   });
   var hidden = 0, walkovers = 0, slotRoom = {}, studentSlot = {}, studentRound = {};
   var outDebates = sorted.map(function (d) {
-    ensure(d.propId, d.propName, d.category); ensure(d.oppId, d.oppName, d.category);
-    var A = { id: d.propId, name: byId[d.propId].name }, B = { id: d.oppId, name: byId[d.oppId].name };
+    var solo = !d.propId || !d.oppId;          // solo speech: one student, no opponent (Juniors)
+    if (d.propId) ensure(d.propId, d.propName, d.category); if (d.oppId) ensure(d.oppId, d.oppName, d.category);
+    var A = d.propId ? { id: d.propId, name: byId[d.propId].name } : null, B = d.oppId ? { id: d.oppId, name: byId[d.oppId].name } : null;
     var m, hm = null;
-    if (d.sidesVisible) { m = [A.id, B.id]; if (/^junior/i.test(d.category || '')) hm = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); }
+    if (solo) m = [(A || B).id];
+    else if (d.sidesVisible) { m = [A.id, B.id]; if (/^junior/i.test(d.category || '')) hm = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); }
     else { m = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); hidden++; }
-    var o = { d: d.date, b: blockIdx[d.block.label], s: d.section, r: d.room, n: d.round, m: m, sv: d.sidesVisible ? 1 : 0 };
+    var o = { d: d.date, b: blockIdx[d.block.label], s: d.section, r: d.room, n: d.round, m: m, sv: d.sidesVisible && !solo ? 1 : 0 };
+    if (solo) o.so = 1;
     if (hm) { o.jr = 1; o.hm = hm; }          // internal only: exportDebates() removes these
     if (d.walkover) { o.w = 1; o.ab = d.absentId; walkovers++; }
 
@@ -90,7 +93,7 @@ function build(input) {
     if (slotRoom[rk]) warnings.push('Room ' + d.room + ' is used twice in ' + T.dayLabel(d.date) + ', ' + d.block.label + ', section ' + d.section + ' (Debates rows ' + slotRoom[rk] + ' and ' + d.row + ').');
     slotRoom[rk] = d.row;
     [d.propId, d.oppId].forEach(function (id) {
-      if (d.walkover && d.absentId === id) return;
+      if (!id || (d.walkover && d.absentId === id)) return;
       var k = id + '|' + slot, rr = id + '|R' + d.round;
       if (studentSlot[k]) warnings.push(byId[id].name + ' (' + id + ') is in two debates in the same section (Debates rows ' + studentSlot[k] + ' and ' + d.row + ').');
       studentSlot[k] = d.row;
@@ -106,7 +109,7 @@ function build(input) {
   var debDate = {}, outById = {};
   outStudents.forEach(function (o) { outById[o.i] = o; });
   sorted.forEach(function (d) {
-    [d.propId, d.oppId].forEach(function (id) { if (!(d.walkover && d.absentId === id)) debDate[id + '|' + d.round] = d.date; });
+    [d.propId, d.oppId].forEach(function (id) { if (id && !(d.walkover && d.absentId === id)) debDate[id + '|' + d.round] = d.date; });
   });
   var sideDates = { 1: {}, 2: {}, 3: {}, nodate: {} }, sideHolders = 0, noSide = [], mismatch = [];
   students.forEach(function (s) {
@@ -134,7 +137,7 @@ function build(input) {
   var rosterSide = {};
   students.forEach(function (s) { if (s.sides) rosterSide[s.id] = s.sides; });
   sorted.forEach(function (d) {
-    if (!/^junior/i.test(d.category || '')) return;
+    if (!/^junior/i.test(d.category || '') || !d.propId || !d.oppId) return;
     var a = rosterSide[d.propId], b = rosterSide[d.oppId];
     if ((a && a[d.round - 1] && a[d.round - 1] !== 'Prop') || (b && b[d.round - 1] && b[d.round - 1] !== 'Opp'))
       mismatch.push(d.propName + ' (' + d.propId + ') / ' + d.oppName + ' (' + d.oppId + ') R' + d.round);
