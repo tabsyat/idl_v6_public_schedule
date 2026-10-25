@@ -73,7 +73,12 @@ function build(input) {
   var sorted = debates.slice().sort(function (a, b) {
     return a.date < b.date ? -1 : a.date > b.date ? 1 : (a.block.start - b.block.start) || (a.section - b.section) || (a.room - b.room);
   });
-  var hidden = 0, walkovers = 0, slotRoom = {}, studentSlot = {}, studentRound = {};
+  var hidden = 0, walkovers = 0, slotRoom = {}, studentSlot = {};
+  function rosterRound(id, d) {            // which of the student's rounds (1-3) is planned on this debate's date and slot; 0 if none
+    var st = id && byId[id]; if (!st || !st.plan) return 0;
+    for (var k = 0; k < 3; k++) if (st.plan[k] && st.plan[k].date === d.date && st.plan[k].block.label === d.block.label) return k + 1;
+    return 0;
+  }
   var outDebates = sorted.map(function (d) {
     var solo = !d.propId || !d.oppId;          // solo speech: one student, no opponent (Juniors)
     if (d.propId) ensure(d.propId, d.propName, d.category); if (d.oppId) ensure(d.oppId, d.oppName, d.category);
@@ -82,11 +87,12 @@ function build(input) {
     if (solo) m = [(A || B).id];
     else if (d.sidesVisible) { m = [A.id, B.id]; if (/^junior/i.test(d.category || '')) hm = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); }
     else { m = [A, B].sort(byNameThenId).map(function (x) { return x.id; }); hidden++; }
-    var o = { d: d.date, b: blockIdx[d.block.label], s: d.section, r: d.room, n: d.round, m: m, sv: d.sidesVisible ? 1 : 0 };
+    var rn = rosterRound(d.propId, d) || rosterRound(d.oppId, d) || (d.round >= 1 && d.round <= 3 ? d.round : 0);   // round of this debate: from the students' Roster plan (same date and slot), else the Debates column if it has one
+    var o = { d: d.date, b: blockIdx[d.block.label], s: d.section, r: d.room, n: rn, m: m, sv: d.sidesVisible ? 1 : 0 };
     if (solo) {
       o.so = 1;
       if (d.sidesVisible) {      // the solo speaker's side: the Roster side for that round (Juniors), else the column the Desk used; revealed by exportDebates like any Junior side
-        var rs = byId[m[0]] && byId[m[0]].sides ? byId[m[0]].sides[d.round - 1] : '';
+        var rs = byId[m[0]] && byId[m[0]].sides ? byId[m[0]].sides[rn - 1] : '';
         o.ss = rs || (d.propId ? 'Prop' : 'Opp'); o.jr = 1; o.hm = m.slice();
       }
     }
@@ -100,11 +106,9 @@ function build(input) {
     slotRoom[rk] = d.row;
     [d.propId, d.oppId].forEach(function (id) {
       if (!id || (d.walkover && d.absentId === id)) return;
-      var k = id + '|' + slot, rr = id + '|R' + d.round;
+      var k = id + '|' + slot;
       if (studentSlot[k]) warnings.push(byId[id].name + ' (' + id + ') is in two debates in the same section (Debates rows ' + studentSlot[k] + ' and ' + d.row + ').');
       studentSlot[k] = d.row;
-      if (studentRound[rr]) warnings.push(byId[id].name + ' (' + id + ') has two active debates for R' + d.round + ' (Debates rows ' + studentRound[rr] + ' and ' + d.row + ').');
-      studentRound[rr] = d.row;
     });
     if (d.room > cfg.rooms) warnings.push('Debates row ' + d.row + ' uses room ' + d.room + ' but Config has ' + cfg.rooms + ' rooms.');
     if (d.section > d.block.sections) warnings.push('Debates row ' + d.row + ' uses section ' + d.section + ' but ' + d.block.label + ' only has ' + d.block.sections + '.');
@@ -142,8 +146,9 @@ function build(input) {
   sorted.forEach(function (d) {
     if (!/^junior/i.test(d.category || '') || !d.propId || !d.oppId) return;
     var a = rosterSide[d.propId], b = rosterSide[d.oppId];
-    if ((a && a[d.round - 1] && a[d.round - 1] !== 'Prop') || (b && b[d.round - 1] && b[d.round - 1] !== 'Opp'))
-      mismatch.push(d.propName + ' (' + d.propId + ') / ' + d.oppName + ' (' + d.oppId + ') R' + d.round);
+    var ra = rosterRound(d.propId, d), rb = rosterRound(d.oppId, d);
+    if ((a && ra && a[ra - 1] && a[ra - 1] !== 'Prop') || (b && rb && b[rb - 1] && b[rb - 1] !== 'Opp'))
+      mismatch.push(d.propName + ' (' + d.propId + ') / ' + d.oppName + ' (' + d.oppId + ')');
   });
   if (mismatch.length) warnings.unshift(mismatch.length + ' Junior debate(s) do not match the Roster sides (Debates has Prop/Opp the other way round), e.g. ' + mismatch.slice(0, 3).join('; ') + '. Students are shown the Debates version once paired.');
 
