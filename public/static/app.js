@@ -33,7 +33,7 @@
 
   // ------------------------------------------------------------------ data layer
   function buildIndex(snap) {
-    var byId = {}, rounds = {}, bySlot = {}, active = {}, dm = {}, blocks = snap.cfg.blocks;       // dm: 'studentId|date|block' -> that student's debate (for the side only)
+    var byId = {}, rounds = {}, bySlot = {}, active = {}, mine = {}, blocks = snap.cfg.blocks;       // mine: studentId -> the debates that student is in
     snap.students.forEach(function (s) {
       byId[s.i] = s; s._k = norm(s.n);
       s._m = s._k + (snap.schools && s.sc != null ? ' ' + norm(snap.schools[s.sc]) : '');      // name + school: what search and filters match against
@@ -43,8 +43,19 @@
       active[d.d + '|' + d.b] = 1;
       var k = d.d + '|' + d.b + '|' + d.s;
       (bySlot[k] = bySlot[k] || []).push(d);
-      d.m.forEach(function (id) { var k2 = id + '|' + d.d + '|' + d.b; if (!dm[k2] || !(d.w && d.ab === id)) dm[k2] = d; });
+      d.m.forEach(function (id) { if (!(d.w && d.ab === id)) (mine[id] = mine[id] || []).push(d); });     // the absent student of a walkover did not debate
       if (d.n >= 1 && d.n <= 3) d.m.forEach(function (id) { (rounds[id] = rounds[id] || [[], [], []])[d.n - 1].push(d); });
+    });
+    // Which debate counts for which Roster round (the Debates round column is not used):
+    // first a debate on the round's own date and slot, then any leftover debate fills the earliest round that has none.
+    snap.students.forEach(function (s) {
+      var ds = (mine[s.i] || []).slice().sort(function (a, b) { return T.sectionStartMs(a.d, blocks[a.b].s, a.s) - T.sectionStartMs(b.d, blocks[b.b].s, b.s); });
+      var got = [null, null, null], used = [], n, k;
+      for (n = 0; n < 3; n++) { var p = s.p[n]; if (!p) continue;
+        for (k = 0; k < ds.length; k++) if (used.indexOf(k) < 0 && ds[k].d === p[0] && ds[k].b === p[1]) { got[n] = ds[k]; used.push(k); break; } }
+      for (k = 0; k < ds.length; k++) { if (used.indexOf(k) >= 0) continue;
+        for (n = 0; n < 3; n++) if (!got[n]) { got[n] = ds[k]; used.push(k); break; } }
+      s._dn = got;
     });
     var slots = [];
     Object.keys(active).forEach(function (k) {
@@ -52,7 +63,7 @@
       for (var sec = 1; sec <= blocks[b].n; sec++) slots.push({ date: a[0], b: b, sec: sec, start: T.sectionStartMs(a[0], blocks[b].s, sec) });
     });
     slots.sort(function (x, y) { return x.start - y.start; });
-    return { byId: byId, rounds: rounds, bySlot: bySlot, dm: dm, slots: slots, students: snap.students };
+    return { byId: byId, rounds: rounds, bySlot: bySlot, slots: slots, students: snap.students };
   }
   function pick(id, n) {
     var c = (S.idx.rounds[id] || [[], [], []])[n - 1];
@@ -80,10 +91,10 @@
     return { k: 'tbc' };
   }
   function slotHidden(x) { return !!(S.snap && S.snap.batchOnly && x && x.batch); }                  // host switch: show the batch, not the whole slot
-  // a round is done when the student has a debate (not as the absent one) on that round's date and slot, and that debate's 20-minute batch has ended
-  function roundDone(s, x) {
-    var d = x && x.b != null ? S.idx.dm[s.i + '|' + x.date + '|' + x.b] : null;
-    return !!d && !(d.w && d.ab === s.i) && secStartMs(d.d, d.b, d.s) + SEC <= now();
+  // a round is done when the debate matched to it (see buildIndex) has ended its 20-minute batch
+  function roundDone(s, n) {
+    var d = s._dn && s._dn[n - 1];
+    return !!d && secStartMs(d.d, d.b, d.s) + SEC <= now();
   }
   function doneBadge() { return el('span', 'badge done', 'Completed'); }
   function batchTag(x) { return x && x.batch ? ' (Batch ' + x.batch + ')' : ''; }                       // for the Now / Next text
@@ -123,8 +134,8 @@
   function mySide(s, n, x) {
     // the side of the student's real debate on that date and slot, once its sides are shown; otherwise the Roster side the server has revealed
     if (!/^junior/i.test(s.c || '')) return null;       // Middle and Senior sides are announced on the call: no side badge for them on the card or the Schedule
-    var d = x && x.b != null ? S.idx.dm[s.i + '|' + x.date + '|' + x.b] : null;
-    if (d && d.sv && !(d.w && d.ab === s.i)) { if (d.so) return d.ss || null; return d.m[0] === s.i ? 'Prop' : 'Opp'; }
+    var d = s._dn ? s._dn[n - 1] : null;
+    if (d && d.sv) { if (d.so) return d.ss || null; return d.m[0] === s.i ? 'Prop' : 'Opp'; }
     return s.sd && s.sd[n - 1] ? s.sd[n - 1] : null;
   }
   var SIDE_LABEL = { Prop: 'Prop (For)', Opp: 'Opp (Against)' };      // the words every side badge shows
@@ -169,7 +180,7 @@
     [1, 2, 3].forEach(function (n) {
       var x = info(s, n), li = el('li', 'round');
       var rn = el('div', 'rn'), side = x.k === 'absent' ? null : mySide(s, n, x);
-      var done = roundDone(s, x);
+      var done = roundDone(s, n);
       add(rn, el('span', null, 'R' + n), sideTag(side), done ? doneBadge() : null);
       add(li, rn);
       if (x.k === 'tbc') {
@@ -279,7 +290,7 @@
     var x = info(s, n, true), td = el('td', 'rc');          // Schedule tab = Roster only: date, slot, batch, side; no room or opponent
     td.setAttribute('data-label', 'R' + n);                    // shown as the row label in the phone layout
     if (x.k === 'tbc') { add(td, el('span', 'tbc', 'To be confirmed')); return td; }
-    var done = roundDone(s, x);
+    var done = roundDone(s, n);
     if (done) td.className += ' past';
     add(td, el('b', null, T.shortDay(x.date)), slotHidden(x) ? null : ' ' + (x.slot || x.time));
     if (x.batch) add(td, el('br'), batchLine(x));
