@@ -142,7 +142,7 @@
       band = el('div', 'band live'); add(band, el('div', 'txt'), el('div', 'big', 'Room ' + h.info.d.r));
       var tx = band.firstChild; add(tx, el('b', null, 'Now: R' + h.n), h.info.time + batchTag(h.info) + (h.info.d.so ? ', solo speech' : ', vs ' + oppOf(h.info.d, s.i).n));
     } else if (h.type === 'window') {
-      band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + batchTag(h.info) + '. Opponent and room will be announced during attendance of that round'); add(band, t2);
+      band = el('div', 'band live'); var t2 = el('div', 'txt'); add(t2, el('b', null, 'Your slot is open now: R' + h.n), h.info.time + batchTag(h.info)); add(band, t2);
     } else if (h.type === 'next') {
       band = el('div', 'band next'); var t3 = el('div', 'txt');
       var when = T.dayLabel(h.info.date) + ', ' + h.info.time + batchTag(h.info), soon = h.info.start - now();
@@ -178,10 +178,8 @@
           if (d.w) add(det, el('br'), 'Walkover: ' + student(d.ab).n + ' was marked absent.');
         } else if (x.k === 'absent') {
           add(det, 'You were marked absent for this debate. Check with the organisers for a new slot.');
-        } else {
-          add(det, el('span', 'tbc', 'Opponent and room will be announced during attendance of that round'));
         }
-        add(li, det);
+        if (det.firstChild) add(li, det);
       }
       add(ol, li);
     });
@@ -413,7 +411,7 @@
   var HOME_ITEMS = {
     roster: ['Schedule', 'Every student\'s slots for all three rounds'],
     motions: ['Motions', 'Read the motions once they are released'],
-    find: ['Find me', 'Search your name or ID to see your slots, room and opponent'],
+    find: ['Find me', 'Search your name or ID to see your slots for all three rounds'],
     browse: ['All rooms', 'Who is in each room, batch by batch']
   };
   // Home page: opened by default and by clicking the title; it has no tab of its own
