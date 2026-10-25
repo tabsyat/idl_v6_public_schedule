@@ -33,7 +33,7 @@
 
   // ------------------------------------------------------------------ data layer
   function buildIndex(snap) {
-    var byId = {}, rounds = {}, bySlot = {}, active = {}, blocks = snap.cfg.blocks;
+    var byId = {}, rounds = {}, bySlot = {}, active = {}, dm = {}, blocks = snap.cfg.blocks;       // dm: 'studentId|date|block' -> that student's debate (for the side only)
     snap.students.forEach(function (s) {
       byId[s.i] = s; s._k = norm(s.n);
       s._m = s._k + (snap.schools && s.sc != null ? ' ' + norm(snap.schools[s.sc]) : '');      // name + school: what search and filters match against
@@ -43,6 +43,7 @@
       active[d.d + '|' + d.b] = 1;
       var k = d.d + '|' + d.b + '|' + d.s;
       (bySlot[k] = bySlot[k] || []).push(d);
+      d.m.forEach(function (id) { var k2 = id + '|' + d.d + '|' + d.b; if (!dm[k2] || !(d.w && d.ab === id)) dm[k2] = d; });
       if (d.n >= 1 && d.n <= 3) d.m.forEach(function (id) { (rounds[id] = rounds[id] || [[], [], []])[d.n - 1].push(d); });
     });
     var slots = [];
@@ -51,7 +52,7 @@
       for (var sec = 1; sec <= blocks[b].n; sec++) slots.push({ date: a[0], b: b, sec: sec, start: T.sectionStartMs(a[0], blocks[b].s, sec) });
     });
     slots.sort(function (x, y) { return x.start - y.start; });
-    return { byId: byId, rounds: rounds, bySlot: bySlot, slots: slots, students: snap.students };
+    return { byId: byId, rounds: rounds, bySlot: bySlot, dm: dm, slots: slots, students: snap.students };
   }
   function pick(id, n) {
     var c = (S.idx.rounds[id] || [[], [], []])[n - 1];
@@ -71,10 +72,10 @@
       var bl = block(p[1]), ds = T.dayStartMs(p[0]), bn = p[2] >= 1 && p[2] <= bl.n ? p[2] : 0;
       if (bn) {      // Roster batch known: the 20-minute batch window, not the whole slot
         var bs = T.sectionStartMin(bl.s, bn);
-        return { k: 'planned', date: p[0], start: ds + bs * 60000, end: ds + bs * 60000 + SEC, startMin: bs, time: T.range(bs, bs + T.SECTION_MIN),
+        return { k: 'planned', b: p[1], date: p[0], start: ds + bs * 60000, end: ds + bs * 60000 + SEC, startMin: bs, time: T.range(bs, bs + T.SECTION_MIN),
           slot: T.range(bl.s, bl.e), batch: bn, bt: T.range(bs, bs + T.SECTION_MIN) };
       }
-      return { k: 'planned', date: p[0], start: ds + bl.s * 60000, end: ds + bl.e * 60000, startMin: bl.s, time: T.range(bl.s, bl.e), slot: T.range(bl.s, bl.e), batch: 0 };
+      return { k: 'planned', b: p[1], date: p[0], start: ds + bl.s * 60000, end: ds + bl.e * 60000, startMin: bl.s, time: T.range(bl.s, bl.e), slot: T.range(bl.s, bl.e), batch: 0 };
     }
     return { k: 'tbc' };
   }
@@ -114,7 +115,9 @@
   function nameBtn(id, cls) { var s = student(id), b = el('button', cls || 'opp-link', s ? s.n : id); b.setAttribute('data-open', id); b.type = 'button'; return b; }
   // a student's own side in round n: from the paired debate when its sides are shown, else the Roster side the server has revealed
   function mySide(s, n, x) {
-    if (x && x.k === 'paired' && x.d.sv) return x.d.so ? (x.d.ss || null) : x.d.m[0] === s.i ? 'Prop' : 'Opp';
+    // the side of the student's real debate on that date and slot, once its sides are shown; otherwise the Roster side the server has revealed
+    var d = x && x.b != null ? S.idx.dm[s.i + '|' + x.date + '|' + x.b] : null;
+    if (d && d.sv && !(d.w && d.ab === s.i)) { if (d.so) return d.ss || null; return d.m[0] === s.i ? 'Prop' : 'Opp'; }
     return s.sd && s.sd[n - 1] ? s.sd[n - 1] : null;
   }
   var SIDE_LABEL = { Prop: 'Prop (For)', Opp: 'Opp (Against)' };      // the words every side badge shows
