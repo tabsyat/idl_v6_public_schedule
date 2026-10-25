@@ -80,6 +80,12 @@
     return { k: 'tbc' };
   }
   function slotHidden(x) { return !!(S.snap && S.snap.batchOnly && x && x.batch); }                  // host switch: show the batch, not the whole slot
+  // a round is done when the student has a debate (not as the absent one) on that round's date and slot, and that debate's 20-minute batch has ended
+  function roundDone(s, x) {
+    var d = x && x.b != null ? S.idx.dm[s.i + '|' + x.date + '|' + x.b] : null;
+    return !!d && !(d.w && d.ab === s.i) && secStartMs(d.d, d.b, d.s) + SEC <= now();
+  }
+  function doneBadge() { return el('span', 'badge done', 'Completed'); }
   function batchTag(x) { return x && x.batch ? ' (Batch ' + x.batch + ')' : ''; }                       // for the Now / Next text
   function batchLine(x) { return x && x.batch ? el('span', 'batch', 'Batch ' + x.batch + ' (' + x.bt + ')') : null; }   // line under the slot time
   function slotIndexNow() {
@@ -116,6 +122,7 @@
   // a student's own side in round n: from the paired debate when its sides are shown, else the Roster side the server has revealed
   function mySide(s, n, x) {
     // the side of the student's real debate on that date and slot, once its sides are shown; otherwise the Roster side the server has revealed
+    if (!/^junior/i.test(s.c || '')) return null;       // Middle and Senior sides are announced on the call: no side badge for them on the card or the Schedule
     var d = x && x.b != null ? S.idx.dm[s.i + '|' + x.date + '|' + x.b] : null;
     if (d && d.sv && !(d.w && d.ab === s.i)) { if (d.so) return d.ss || null; return d.m[0] === s.i ? 'Prop' : 'Opp'; }
     return s.sd && s.sd[n - 1] ? s.sd[n - 1] : null;
@@ -162,13 +169,14 @@
     [1, 2, 3].forEach(function (n) {
       var x = info(s, n), li = el('li', 'round');
       var rn = el('div', 'rn'), side = x.k === 'absent' ? null : mySide(s, n, x);
-      add(rn, el('span', null, 'R' + n), sideTag(side));
+      var done = roundDone(s, x);
+      add(rn, el('span', null, 'R' + n), sideTag(side), done ? doneBadge() : null);
       add(li, rn);
       if (x.k === 'tbc') {
         add(li, el('div', 'when', 'Slot to be confirmed'), el('div'));
         add(li, add(el('div', 'detail'), el('span', 'tbc', 'The organisers will confirm this slot.')));
       } else {
-        if (x.start <= t && t < x.end) li.className += ' live'; else if (x.end <= t && x.k !== 'absent') li.className += ' past';
+        if (x.start <= t && t < x.end) li.className += ' live'; else if (done) li.className += ' past';
         var when2 = el('div', 'when'); add(when2, el('span', 'day', T.dayLabel(x.date)), slotHidden(x) ? null : el('span', 'time', x.slot || x.time), batchLine(x));
         add(li, when2);
         var room = el('div', 'room'); if (x.k === 'paired') add(room, 'Room ' + x.d.r);
@@ -271,9 +279,11 @@
     var x = info(s, n, true), td = el('td', 'rc');          // Schedule tab = Roster only: date, slot, batch, side; no room or opponent
     td.setAttribute('data-label', 'R' + n);                    // shown as the row label in the phone layout
     if (x.k === 'tbc') { add(td, el('span', 'tbc', 'To be confirmed')); return td; }
-    if (x.end <= now() && x.k !== 'absent') td.className += ' past';
+    var done = roundDone(s, x);
+    if (done) td.className += ' past';
     add(td, el('b', null, T.shortDay(x.date)), slotHidden(x) ? null : ' ' + (x.slot || x.time));
     if (x.batch) add(td, el('br'), batchLine(x));
+    if (done) add(td, el('br'), doneBadge());
     var own = x.k === 'absent' ? null : mySide(s, n, x);
     if (own) add(td, el('br'), 'speaks ', sideTag(own));
     if (x.k === 'paired') {
