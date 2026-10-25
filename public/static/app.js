@@ -97,6 +97,12 @@
     return !!d && secStartMs(d.d, d.b, d.s) + SEC <= now();
   }
   function doneBadge() { return el('span', 'badge done', 'Completed'); }
+  // missed: 2 hours have passed since the round's time window (server time) and no debate in the Debates tab is matched to it
+  function roundMissed(s, n, x) {
+    if (!x || x.k === 'tbc' || !S.snap.pairings || (s._dn && s._dn[n - 1])) return false;      // pairings off = no debates are sent, so nothing can be judged
+    return x.end + 2 * 3600000 <= now();          // 2 hours after the round's time window ended (its batch, or its whole slot when there is no batch)
+  }
+  function missBadge() { return el('span', 'badge miss', 'Missed'); }
   function batchTag(x) { return x && x.batch ? ' (Batch ' + x.batch + ')' : ''; }                       // for the Now / Next text
   function batchLine(x) { return x && x.batch ? el('span', 'batch', 'Batch ' + x.batch + ' (' + x.bt + ')') : null; }   // line under the slot time
   function slotIndexNow() {
@@ -181,7 +187,7 @@
       var x = info(s, n), li = el('li', 'round');
       var rn = el('div', 'rn'), side = x.k === 'absent' ? null : mySide(s, n, x);
       var done = roundDone(s, n);
-      add(rn, el('span', null, 'R' + n), sideTag(side), done ? doneBadge() : null);
+      add(rn, el('span', null, 'R' + n), sideTag(side), done ? doneBadge() : null, roundMissed(s, n, x) ? missBadge() : null);
       add(li, rn);
       if (x.k === 'tbc') {
         add(li, el('div', 'when', 'Slot to be confirmed'), el('div'));
@@ -295,6 +301,7 @@
     add(td, el('b', null, T.shortDay(x.date)), slotHidden(x) ? null : ' ' + (x.slot || x.time));
     if (x.batch) add(td, el('br'), batchLine(x));
     if (done) add(td, el('br'), doneBadge());
+    else if (roundMissed(s, n, x)) add(td, el('br'), missBadge());
     var own = x.k === 'absent' ? null : mySide(s, n, x);
     if (own) add(td, el('br'), 'speaks ', sideTag(own));
     if (x.k === 'paired') {
