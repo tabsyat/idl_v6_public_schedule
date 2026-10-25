@@ -67,7 +67,7 @@ function debatesTable(rows) {
   want.forEach(function (c) {
     var names = DEBATE_ALIAS[c] || [c], at = -1;
     names.forEach(function (n) { if (at < 0) at = head.indexOf(n); });
-    if (at < 0 && c !== 'absent_id') missing.push(c);
+    if (at < 0 && c !== 'absent_id' && c !== 'round') missing.push(c);          // absent_id and round are optional
     idx[c] = at;
   });
   if (missing.length) throw new Error('Missing column "' + missing[0] + '" in tab Debates (header row: ' + head.join(', ') + ')');
