@@ -246,3 +246,4 @@ body.proj .join-btn { display: none; }
 
 /* completed round badge */
 .badge.done { color: var(--brand); }
+.badge.miss { color: var(--warn-ink); background: var(--warn-bg); border-color: var(--warn-ink); }
