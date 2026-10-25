@@ -1,6 +1,6 @@
 /**
  * Public service: students, parents and hosts. Read-only; holds NO ballot tokens and NO adjudicator data.
- * Sheet is read only when the host presses "Refresh" on the private host page (or at startup).
+ * Sheet is read at startup, every five minutes, and when the host presses "Refresh".
  */
 var path = require('path');
 var crypto = require('crypto');
@@ -20,6 +20,8 @@ var YEAR = Number(env.EVENT_YEAR) || 2026;
 var SLOT_TAB = env.SLOT_TAB || 'Roster';
 var SHOW_STATE = String(env.SHOW_STATE || 'false').toLowerCase() === 'true';
 var PORT = Number(env.PORT) || 3000;
+var AUTO_REFRESH_SECONDS = env.AUTO_REFRESH_SECONDS == null || env.AUTO_REFRESH_SECONDS.trim() === '' ? 300 : Number(env.AUTO_REFRESH_SECONDS);
+if (!Number.isFinite(AUTO_REFRESH_SECONDS) || AUTO_REFRESH_SECONDS < 0) AUTO_REFRESH_SECONDS = 300;
 var isTrue = function (v) { return String(v || '').toLowerCase() === 'true'; };
 
 var source = createSource(env);
@@ -194,7 +196,7 @@ function status() {
   return {
     slots: sw.slots, batchOnly: batchOnly, pairings: sw.pairings, roster: sw.roster, school: sw.school, motionsAuto: sw.motionsAuto, sidesAuto: sw.sidesAuto, sidesAll: sw.sidesAll,
     sidesInfo: sidesLib.hostView(SCFG, { auto: sw.sidesAuto, all: sw.sidesAll }, current ? current.snapshot.sideDates : null, clock()), source: source.kind, slotTab: SLOT_TAB, showState: SHOW_STATE,
-    refreshing: !!inflight, builtAt: current ? current.builtAt : null, v: current ? current.v : null,
+    refreshing: !!inflight, autoRefreshSeconds: AUTO_REFRESH_SECONDS, builtAt: current ? current.builtAt : null, v: current ? current.v : null,
     stats: current ? current.stats : null, warnings: current ? current.warnings.slice(0, 60) : [],
     lastError: lastError, now: Date.now()
   };
@@ -277,8 +279,7 @@ if (require.main === module) {
   app.listen(PORT, function () {
     console.log('Public service on :' + PORT + '  source=' + source.kind + '  host page: /host/' + ADMIN_KEY);
     refresh().catch(function () { /* logged; host can retry from the host page */ });
-    var every = Number(env.AUTO_REFRESH_SECONDS) || 0;
-    if (every > 0) setInterval(function () { refresh().catch(function () {}); }, every * 1000);
+    if (AUTO_REFRESH_SECONDS > 0) setInterval(function () { refresh().catch(function () {}); }, AUTO_REFRESH_SECONDS * 1000);
   });
 }
 module.exports = { app: app, refresh: refresh, payload: payload, setClock: function (fn) { clock = fn || function () { return Date.now(); }; memo = { v: -1 }; } };

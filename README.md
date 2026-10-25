@@ -7,7 +7,7 @@ Two small Node services in one repo. Deploy each as its own Render web service.
 | For | students, parents, hosts | the ~30 adjudicators, hosts |
 | Start command | `npm run start:public` | `npm run start:adj` |
 | Shows | each student's 3 rounds (planned slot, then room and opponent once paired), a Home page, optional Schedule list of all students, all rooms for a section, motions (`?mode=projector` still works on a laptop but has no link) | rooms per adjudicator per day, and a personal page with that adjudicator's debates and **Open ballot** buttons |
-| Sheet reads | only when the host presses **Refresh** (and once at startup) | on demand, reused for 15 s |
+| Sheet reads | every 5 minutes, at startup, and when the host presses **Refresh** | on demand, reused for 15 s |
 | Holds secrets? | no tokens, no adjudicator data | `ADJ_SECRET`, ballot tokens |
 
 Code layout: `shared/` (time rules, sheet reading, parsing), `public/`, `adj/`. In each service the server and `lib/` are the **data layer**; the `static/` folder (HTML, CSS, browser JS) is the **display layer**. To restyle, change the variables at the top of `public/static/app.css` or `adj/static/adj.css`.
@@ -58,13 +58,13 @@ Keep both services at **one instance** (the data is held in memory). Do not use 
 ## 4. Running it
 
 **Host page (public service, `/host/<ADMIN_KEY>`).** No password: the long random URL is the protection, so share it only with hosts (change `ADMIN_KEY` to rotate it).
-- **Refresh from sheet** reads the sheet once and publishes. Do it after *Make pairings* and after *Reveal sides*. The page shows what it published and flags problems (a room used twice, a student in two debates, rounds planned out of date order, students with no slot).
+- **Refresh from sheet** reads the sheet once and publishes immediately. The server also refreshes every **5 minutes**, even when the host page is closed. Set `AUTO_REFRESH_SECONDS` to change the interval, or `0` to disable automatic refresh. The page shows what it published and flags problems (a room used twice, a student in two debates, rounds planned out of date order, students with no slot).
 - **Schedule** switch: off shows students "The schedule will be released soon" and the server sends no student data.
 - **Pairings** switch: off shows planned slots only.
 - **Roster tab** switch: on adds a public "Roster" tab listing every student with name, ID, state and all 3 rounds (date, time, and room/opponent once paired). State is only sent to browsers while this switch is on. Off by default.
 - If Google fails, the refresh says so and the public page keeps the last good data.
 
-**Public page.** Students need no login. It opens on a **Home** page (welcome message and buttons for Schedule, Find me, All rooms and Motions); Home has no tab, and clicking the title "IDL 6.0 Round 1" returns to it from anywhere. Tabs and Home buttons run Schedule, **Motions**, Find me, All rooms (Motions is always second; with the Schedule list off it is Find me, Motions, All rooms). Side badges read **Prop (for)** and **Opp (Against)** on both sites. On phones (screens up to 700 px wide) the Schedule list shows one compact card per student (name, ID, state, school, then R1, R2, R3 stacked) instead of a wide table. Schedule has a **Clear all** button for its filters, and "Back to search" on a student card returns to the empty search box. The page checks a tiny version endpoint every 45 s and downloads new data only after you refresh. It shows "Checked at hh:mm:ss" and a warning if the server cannot be reached for 2 minutes. Times use the server's clock, so a phone with the wrong time still shows the right "now".
+**Public page.** Students need no login. It opens on a **Home** page (welcome message and buttons for Schedule, Find me, All rooms and Motions); Home has no tab, and clicking the title "IDL 6.0 Round 1" returns to it from anywhere. Tabs and Home buttons run Schedule, **Motions**, Find me, All rooms (Motions is always second; with the Schedule list off it is Find me, Motions, All rooms). Side badges read **Prop (for)** and **Opp (Against)** on both sites. On phones (screens up to 700 px wide) the Schedule list shows one compact card per student (name, ID, state, school, then R1, R2, R3 stacked) instead of a wide table. Schedule has a **Clear all** button for its filters, and "Back to search" on a student card returns to the empty search box. The page checks a tiny version endpoint every 45 s and downloads new data after a manual or automatic refresh. It shows "Checked at hh:mm:ss" and a warning if the server cannot be reached for 2 minutes. Times use the server's clock, so a phone with the wrong time still shows the right "now".
 
 **Adjudicators.** Open `/links/<ADMIN_KEY>`, copy each person's link (or download the CSV) and send it to them. A link is `/?adj=<name>&t=<code>`; the code is derived from the name and `ADJ_SECRET`. Renaming someone in `Adj_Grid` changes their link; changing `ADJ_SECRET` changes everyone's. Without a valid link the person sees only the room allocation table (names and rooms, no students, no ballot links).
 
@@ -108,14 +108,14 @@ Measured on a single-CPU test machine with a full-size synthetic event (2,500 st
 | Memory | about 115 MB idle, about 155 MB after thousands of downloads |
 | Size of the download | about 50 KB per visitor (660 KB uncompressed, compressed once and reused) |
 
-After the first load each phone only checks a tiny version endpoint every 45 seconds, and downloads the schedule again only when you refresh, change a switch, or a Junior side opens. The Render **Starter** plan (0.5 CPU, 512 MB) has plenty of room for this. A bigger plan (1 CPU, 2 GB) is cheap insurance for the event days if you want it, but it is not needed to avoid a crash. Keep **one instance** (data is held in memory). Real phones on slow networks will take longer to download the 50 KB than this local test shows, but that only affects the individual phone, not the server.
+After the first load each phone only checks a tiny version endpoint every 45 seconds, and downloads the schedule again only after a manual or automatic refresh, a switch change, or a Junior side opens. The Render **Starter** plan (0.5 CPU, 512 MB) has plenty of room for this. A bigger plan (1 CPU, 2 GB) is cheap insurance for the event days if you want it, but it is not needed to avoid a crash. Keep **one instance** (data is held in memory). Real phones on slow networks will take longer to download the 50 KB than this local test shows, but that only affects the individual phone, not the server.
 
 ## 6. What could go wrong on the day
 
 | Problem | What happens | What to do |
 |---|---|---|
 | Google is slow or down when you press Refresh | The refresh reports the error; the public page keeps the last good data | Press again. The page footer shows when data is from |
-| You forget to press Refresh after pairing | Students still see "announced at check-in" | Set `AUTO_REFRESH_SECONDS=60` if you would rather not rely on the button |
+| You forget to press Refresh after pairing | The server publishes within 5 minutes; students pick it up within another minute | Press Refresh to publish immediately; `AUTO_REFRESH_SECONDS` changes the interval |
 | A pairing is dissolved or changed | Students see the old pairing until the next refresh; unstarted pairings are labelled as changeable | Refresh after any change |
 | Sides revealed on the call but not in the sheet | The page keeps hiding them (Middle/Senior) | Reveal in the sheet, then Refresh |
 | Juniors ask why they cannot see their side yet | Sides open 3 days before each student's round day | Tick the round's checkbox on the host page to show it to everyone now |

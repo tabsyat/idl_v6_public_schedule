@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   var base = location.pathname.replace(/\/$/, '');
+  var lastRefreshErrorAt = null;
   function $(id) { return document.getElementById(id); }
   function api(path, body) {
     return fetch(base + path, { method: body === undefined ? 'GET' : 'POST', headers: { 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body) })
@@ -27,16 +28,21 @@
   function show(s) {
     $('swSlots').checked = s.slots; $('swPairings').checked = s.pairings; $('swRoster').checked = !!s.roster; $('swSchool').checked = !!s.school; $('swBatchOnly').checked = !!s.batchOnly; $('swMAuto').checked = s.motionsAuto !== false;
     showSides(s);
+    showRefresh(s);
+  }
+  function showRefresh(s) {
     var f = $('facts'); f.textContent = '';
     function row(k, v) { var a = document.createElement('dt'), b = document.createElement('dd'); a.textContent = k; b.textContent = v; f.appendChild(a); f.appendChild(b); }
     row('Last refreshed', s.builtAt ? clock(s.builtAt) : 'never');
+    row('Automatic refresh', s.autoRefreshSeconds > 0 ? 'Every ' + (s.autoRefreshSeconds % 60 === 0 ? plural(s.autoRefreshSeconds / 60, 'minute') : plural(s.autoRefreshSeconds, 'second')) : 'Off');
     if (s.stats) { row('Students', s.stats.students); row('Debates published', s.stats.debates); row('Walkovers', s.stats.walkovers); row('Middle/Senior debates, sides hidden', s.stats.hiddenSides); }
     row('Data source', s.source + ' (slot tab: ' + s.slotTab + ')');
     var w = $('warnings'); w.textContent = '';
     var items = (s.warnings || []);
     if (!items.length) { var ok = document.createElement('li'); ok.className = 'ok'; ok.textContent = s.builtAt ? 'Nothing to flag.' : 'Refresh to run the checks.'; w.appendChild(ok); }
     items.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; w.appendChild(li); });
-    if (s.lastError) { $('rmsg').className = 'status err'; $('rmsg').textContent = 'Last refresh failed at ' + clock(s.lastError.at) + ': ' + s.lastError.message + '. The public page still shows the previous data.'; }
+    if (s.lastError) { lastRefreshErrorAt = s.lastError.at; $('rmsg').className = 'status err'; $('rmsg').textContent = 'Last refresh failed at ' + clock(s.lastError.at) + ': ' + s.lastError.message + '. The public page still shows the previous data.'; }
+    else if (lastRefreshErrorAt !== null && s.builtAt > lastRefreshErrorAt) { lastRefreshErrorAt = null; $('rmsg').className = 'status'; $('rmsg').textContent = 'Published at ' + clock(s.builtAt) + '. Students see it within a minute.'; }
   }
   $('refresh').addEventListener('click', function () {
     var b = this; b.disabled = true; b.textContent = 'Refreshing…'; $('rmsg').className = 'status'; $('rmsg').textContent = '';
@@ -170,5 +176,8 @@
       .then(function () { inp.value = ''; });
   });
   loadMotions();
-  api('/status').then(show);
+  api('/status').then(show).catch(function () { $('rmsg').className = 'status err'; $('rmsg').textContent = 'Could not reach the server.'; });
+  setInterval(function () {
+    api('/status').then(function (s) { if (s.httpOk) showRefresh(s); }).catch(function () {});
+  }, 30000);
 })();
