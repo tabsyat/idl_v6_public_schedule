@@ -43,7 +43,7 @@
       active[d.d + '|' + d.b] = 1;
       var k = d.d + '|' + d.b + '|' + d.s;
       (bySlot[k] = bySlot[k] || []).push(d);
-      d.m.forEach(function (id) { (rounds[id] = rounds[id] || [[], [], []])[d.n - 1].push(d); });
+      if (d.n >= 1 && d.n <= 3) d.m.forEach(function (id) { (rounds[id] = rounds[id] || [[], [], []])[d.n - 1].push(d); });
     });
     var slots = [];
     Object.keys(active).forEach(function (k) {
