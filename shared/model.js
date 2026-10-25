@@ -32,8 +32,8 @@ function parseDebates(rows, opt) {
     var status = String(r.status || '').toUpperCase();
     if (status !== 'ACTIVE' && status !== 'WALKOVER') { dropped++; return; }
     var date = T.parseDate(r.date, opt.year), block = T.parseBlock(r.block);
-    var section = Number(r.section), room = Number(r.room), round = Number(String(r.round).replace(/\D/g, ''));
-    if (!date || !block || !(section >= 1) || !(room >= 1) || !(round >= 1 && round <= 3) || (!r.prop_id && !r.opp_id)) { bad++; warnings.push('Debates row ' + (i + 2) + ' skipped (unreadable date/block/section/room/round/ids)'); return; }
+    var section = Number(r.section), room = Number(r.room), round = Number(String(r.round == null ? '' : r.round).replace(/\D/g, ''));      // round is optional now: 0 = not given
+    if (!date || !block || !(section >= 1) || !(room >= 1) || (!r.prop_id && !r.opp_id)) { bad++; warnings.push('Debates row ' + (i + 2) + ' skipped (unreadable date/block/section/room/round/ids)'); return; }
     var d = {
       row: i + 2, date: date, block: block, section: section, room: room, round: round,
       walkover: status === 'WALKOVER', sidesVisible: truthy(r.sides_visible),
